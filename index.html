@@ -1,577 +1,915 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>أفنان فهد الجهني | مهندسة ذكاء اصطناعي وعلوم بيانات</title>
-<meta name="description" content="بورتفوليو أفنان فهد الجهني - مهندسة ذكاء اصطناعي وعلوم بيانات ومصممة إبداعية | Afnan Aljohani - AI Engineer, Data Science & Creative Design" />
-<meta property="og:title" content="AFNAN — AI Engineer | Data Science | Creative Technology" />
+<meta name="description" content="بورتفوليو أفنان فهد الجهني - مهندسة ذكاء اصطناعي وعلوم بيانات | Afnan Aljohani - AI Engineer & Data Scientist" />
+<meta property="og:title" content="Afnan Aljohani — AI Engineer · Data Scientist" />
 <meta property="og:description" content="Engineering Intelligence. Designing Possibilities." />
 <meta property="og:image" content="https://afnanaljohani.github.io/assets/signature.png" />
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2314101f'/%3E%3Cpath d='M16 48 29 15h7l13 33h-8l-3-8H26l-3 8h-7Zm13-15h7l-3.5-10L29 33Z' fill='%23b66cff'/%3E%3C/svg%3E" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<meta name="theme-color" content="#030814" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23030814'/%3E%3Cpath d='M14 46 27 16h7l13 30h-7l-3-7H24l-3 7h-7Zm12-13h9l-4.5-11L26 33Z' fill='%234da3ff'/%3E%3Crect x='44' y='42' width='8' height='4' fill='%233ddc97'/%3E%3C/svg%3E" />
+<script>
+/* saved theme, else dark (the brand's home theme) */
+(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}
+document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');
+var l=new URLSearchParams(location.search).get('lang');try{l=l||localStorage.getItem('lang')}catch(e){}
+if(l==='en'){document.documentElement.lang='en';document.documentElement.dir='ltr'}})();
+</script>
+<link rel="preload" href="fonts/thmanyah-sans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="fonts/oxanium-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
 <style>
-:root{
-  --bg:#05040a;--bg2:#0b0913;--card:#0d0b16;--line:#1f1b2e;--line2:#2c2642;
-  --text:#ece9f5;--muted:#9a94ad;--dim:#6d6782;
-  --violet:#8b5cf6;--violet2:#b66cff;--coral:#e0708a;--amber:#f08a3c;
-  --grad:linear-gradient(90deg,var(--violet2),var(--coral) 55%,var(--amber));
-  --ar:"IBM Plex Sans Arabic",system-ui,sans-serif;--en:"Space Grotesk",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
+/* ============ Fonts: Thmanyah Sans (Arabic, self-hosted) + Oxanium (Latin, technical) ============ */
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyah-sans-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyah-sans-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyah-sans-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url("fonts/thmanyah-sans-Black.woff2") format("woff2");font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:"Oxanium";src:url("fonts/oxanium-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Oxanium";src:url("fonts/oxanium-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Oxanium";src:url("fonts/oxanium-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Oxanium";src:url("fonts/oxanium-latin-700-normal.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"JetBrains Mono";src:url("fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"JetBrains Mono";src:url("fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"JetBrains Mono";src:url("fonts/jetbrains-mono-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"JetBrains Mono";src:url("fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* ============ Tokens (mirror of the Afnan design system) ============ */
+:root,[data-theme="dark"]{
+  --surface-page:#030814;--surface-deep:#01040b;--surface-card:rgba(10,20,38,.76);--surface-sunk:rgba(3,8,20,.62);--surface-code:rgba(6,13,28,.9);
+  --ink:#e6edf7;--ink-muted:#9fb0c8;--ink-subtle:#7f91ab;
+  --line:rgba(96,165,250,.13);--line-strong:rgba(96,165,250,.24);--line-control:#4f6a8f;--grid:rgba(96,165,250,.045);
+  --brand:#4da3ff;--brand-hover:#7cbcff;--brand-tint:rgba(77,163,255,.14);--on-brand:#020617;
+  --data:#5ee8f5;--award:#fbbf5a;--award-tint:rgba(251,191,90,.12);--signal:#3ddc97;
+  --nav-bg:rgba(3,8,20,.72);
+  --trace:37,120,255;--pulse:94,232,245;--bits:251,191,90;--glow:rgba(30,120,255,.30);--trace-k:1;
+  color-scheme:dark;
 }
+[data-theme="light"]{
+  --surface-page:#eef3fb;--surface-deep:#e2eaf7;--surface-card:rgba(255,255,255,.86);--surface-sunk:rgba(228,236,248,.75);--surface-code:rgba(255,255,255,.94);
+  --ink:#0b1220;--ink-muted:#44526a;--ink-subtle:#56647c;
+  --line:rgba(11,95,214,.12);--line-strong:rgba(11,95,214,.22);--line-control:#7a879b;--grid:rgba(11,95,214,.05);
+  --brand:#0b5fd6;--brand-hover:#084bb0;--brand-tint:rgba(11,95,214,.09);--on-brand:#ffffff;
+  --data:#0b6e85;--award:#9a5506;--award-tint:rgba(154,85,6,.09);--signal:#16794a;
+  --nav-bg:rgba(238,243,251,.82);
+  --trace:11,95,214;--pulse:0,140,210;--bits:154,85,6;--glow:rgba(11,95,214,.13);--trace-k:.7;
+  color-scheme:light;
+}
+:root{
+  --font-arabic:"Oxanium","Thmanyah Sans",system-ui,sans-serif;
+  --font-latin:"Oxanium","Thmanyah Sans",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,monospace;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;
+  --radius-sm:4px;--radius-md:6px;--radius-lg:10px;--radius-pill:999px;
+  --container:1180px;
+}
+
+/* ============ Base ============ */
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
-body{background:var(--bg);color:var(--text);font-family:var(--ar);line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{background:var(--surface-page);color:var(--ink);font-family:var(--font-arabic);font-size:16.5px;line-height:1.85;-webkit-font-smoothing:antialiased}
+/* blueprint grid */
+/* ============ Technical background: circuit board + data pulses ============ */
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse 55% 45% at 70% 40%,var(--glow),transparent 70%),radial-gradient(ellipse 40% 30% at 15% 85%,var(--glow),transparent 70%),linear-gradient(180deg,var(--surface-page),var(--surface-deep))}
+.bg canvas{position:absolute;inset:0;width:100%;height:100%}
+.bg .fade{position:absolute;inset:0;background:radial-gradient(ellipse 75% 65% at 50% 45%,transparent 35%,var(--surface-deep) 100%);opacity:.7}
+/* ===== English / LTR adjustments ===== */
+html[lang="en"] body{font-size:16px}
+.lang-btn{width:auto;min-width:36px;padding:0 10px;font:600 12.5px var(--font-mono);letter-spacing:.04em}
+.lang-btn[lang="ar"]{font:700 15px "Thmanyah Sans",system-ui,sans-serif;letter-spacing:0}
+[dir="ltr"] .hero .role,[dir="ltr"] .hero .label,[dir="ltr"] .card h3,[dir="ltr"] .readout b,[dir="ltr"] .about-item .label{text-align:left}
+[dir="ltr"] .chips{justify-content:flex-start}
+[dir="ltr"] .chips.ar{direction:ltr}
+[dir="ltr"] .hero h1{letter-spacing:-.025em}
+/* ===== Circuit lettering (Latin display name) ===== */
+.circuit-name{display:block;color:var(--brand);margin:var(--space-3) 0 var(--space-2);line-height:0}
+.circuit-name svg{display:block;height:30px;width:auto;max-width:100%;overflow:visible;margin-inline-start:0}
+.circuit-name .tr{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(var(--pulse),.45))}
+.circuit-name .pad{fill:rgb(var(--pulse));filter:drop-shadow(0 0 3px rgba(var(--pulse),.9))}
+.circuit-name.draw .tr{stroke-dasharray:1;stroke-dashoffset:1;animation:trace-draw 1.4s cubic-bezier(.6,0,.3,1) forwards}
+.circuit-name.draw .pad{opacity:0;animation:pad-on .35s ease forwards}
+@keyframes trace-draw{to{stroke-dashoffset:0}}
+@keyframes pad-on{to{opacity:1}}
+html[lang="en"] .hero h1{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html[lang="en"] .circuit-name svg{height:auto;width:min(100%,560px)}
+html[lang="en"] .circuit-name{margin:var(--space-4) 0 var(--space-4)}
+@media (prefers-reduced-motion:reduce){.circuit-name.draw .tr,.circuit-name.draw .pad{animation:none;stroke-dashoffset:0;opacity:1}}
+/* keep text on the open background crisp over the traces */
+.hero h1,.hero .role,.hero .lead,.hero .label,.sec-head,.contact>div:first-child{text-shadow:0 0 14px var(--surface-page),0 0 4px var(--surface-page)}
+.btn,.code,.code *{text-shadow:none}
+/* frosted panels so the circuit shows through softly */
+.card,.readouts,.about,.skill,.award,.table-wrap,.code,.tabs,.status,.role-tag,.studio,.nav{backdrop-filter:blur(10px) saturate(1.2);-webkit-backdrop-filter:blur(10px) saturate(1.2)}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
-.en{font-family:var(--en)}.mono{font-family:var(--mono)}
-.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+img{display:block;max-width:100%}
+::selection{background:var(--brand);color:var(--on-brand)}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 var(--space-5)}
+.mono{font-family:var(--font-mono)}
+.ltr{direction:ltr;unicode-bidi:isolate}
+.skip{position:absolute;inset-inline-start:-999px;top:8px;background:var(--brand);color:var(--on-brand);padding:8px 14px;border-radius:var(--radius-sm);z-index:100}
+.skip:focus{inset-inline-start:8px}
 
-/* background */
-.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(600px 400px at 20% 35%,rgba(139,92,246,.14),transparent 70%),
-             radial-gradient(500px 400px at 30% 70%,rgba(240,138,60,.07),transparent 70%),var(--bg)}
-.bg::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%)}
+/* ============ Nav ============ */
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:var(--space-5);height:64px}
+.brand{display:flex;align-items:center;gap:10px;font:600 15px var(--font-mono);direction:ltr}
+.brand .mark{width:30px;height:30px;border:1px solid var(--line-strong);border-radius:var(--radius-md);display:grid;place-items:center;color:var(--brand);font-weight:700}
+.brand .cursor{display:inline-block;width:8px;height:15px;background:var(--signal);margin-inline-start:2px;vertical-align:-2px;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.links{display:flex;gap:2px;font:500 13.5px var(--font-mono)}
+.links a{padding:6px 10px;border-radius:var(--radius-sm);color:var(--ink-muted);direction:ltr}
+.links a span{color:var(--brand)}
+.links a:hover{color:var(--ink);background:var(--surface-sunk)}
+.nav-actions{display:flex;align-items:center;gap:var(--space-2)}
+.icon-btn{width:36px;height:36px;display:grid;place-items:center;border-radius:var(--radius-md);border:1px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer}
+.icon-btn:hover{border-color:var(--line-control);background:var(--surface-sunk)}
+.icon-btn svg{width:17px;height:17px}
+.theme-toggle .sun{display:none}
+[data-theme="light"] .theme-toggle .sun{display:block}
+[data-theme="light"] .theme-toggle .moon{display:none}
+.burger{display:none}
 
-/* nav */
-nav{position:fixed;top:0;inset-inline:0;z-index:50;backdrop-filter:blur(14px);background:rgba(5,4,10,.7);border-bottom:1px solid transparent;transition:border-color .3s}
-nav.scrolled{border-color:var(--line)}
-.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
-.brand{display:flex;align-items:center}
-.brand img{height:34px;width:auto}
-.logo{width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;font:600 12px var(--en);color:var(--coral)}
-.links{display:flex;gap:26px;font-size:14px;color:var(--muted)}
-.links a:hover{color:var(--text)}
-.burger{display:none;background:none;border:1px solid var(--line2);color:var(--text);border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer}
+/* ============ Parts ============ */
+.btn{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 20px;border-radius:var(--radius-md);font:600 15.5px var(--font-arabic);border:1px solid var(--line-control);color:var(--ink);background:transparent;cursor:pointer;transition:background .15s,border-color .15s}
+.btn:hover{background:var(--surface-sunk)}
+.btn svg{width:17px;height:17px}
+.btn-primary{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn-primary:hover{background:var(--brand-hover);border-color:var(--brand-hover)}
+.label{font:500 12px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-subtle);direction:ltr;unicode-bidi:isolate}
+.status{display:inline-flex;align-items:center;gap:10px;font:500 13px var(--font-mono);color:var(--signal);border:1px solid var(--line-strong);background:var(--surface-card);padding:5px 12px;border-radius:var(--radius-sm)}
+.status i{width:7px;height:7px;background:var(--signal);border-radius:50%;animation:pulse 1.8s infinite}
+.status b{font-family:var(--font-arabic);font-weight:500;color:var(--ink-muted)}
+@keyframes pulse{50%{opacity:.35}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;direction:ltr;justify-content:flex-end}
+.chip{font:500 12.5px var(--font-mono);padding:3px 9px;border-radius:var(--radius-sm);background:var(--surface-sunk);color:var(--ink-muted);border:1px solid var(--line)}
+.chip.ar{font-family:var(--font-arabic);font-size:13px}
+.chips.ar{direction:rtl;justify-content:flex-start}
+/* bracket frame: corner ticks */
+.frame{position:relative}
+.frame::before,.frame::after{content:"";position:absolute;width:12px;height:12px;border:0 solid var(--brand);pointer-events:none;z-index:1}
+.frame::before{top:-1px;left:-1px;border-top-width:2px;border-left-width:2px;border-top-left-radius:var(--radius-lg)}
+.frame::after{bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px;border-bottom-right-radius:var(--radius-lg)}
 
-/* hero */
-.wrap.hero{min-height:100vh;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:48px;padding-top:100px;padding-bottom:60px}
-.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);border-radius:99px;padding:6px 14px;font-size:13px;color:var(--muted)}
-.pill i{width:8px;height:8px;border-radius:50%;background:var(--violet);box-shadow:0 0 10px var(--violet);animation:pulse 2s infinite}
-@keyframes pulse{50%{opacity:.4}}
-.hero h1{font-size:clamp(64px,11vw,128px);line-height:1.1;font-weight:700;margin:22px 0 4px;filter:drop-shadow(0 0 30px rgba(224,112,138,.25))}
-.hero h2{font-size:clamp(26px,3.6vw,40px);font-weight:600}
-.tag{font:500 clamp(11px,1.4vw,17px) var(--mono);letter-spacing:.2em;color:var(--muted);margin:10px 0 22px;direction:ltr;text-align:right}
-.lead{font-size:19px;color:#c6c0d6}
-.motto{font:14px var(--mono);color:var(--violet2);margin-top:8px;direction:ltr;text-align:right}
-.ctas{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:12px;font-weight:600;font-size:16px;border:1px solid var(--line2);transition:transform .2s,box-shadow .2s}
-.btn:hover{transform:translateY(-2px)}
-.btn.primary{background:var(--violet);border-color:var(--violet);color:#fff;box-shadow:0 8px 30px rgba(139,92,246,.35)}
-.socials{display:flex;gap:12px;margin-top:30px}
-.socials a{width:44px;height:44px;border-radius:12px;border:1px solid var(--line2);display:grid;place-items:center;color:var(--muted);transition:.2s}
-.socials a:hover{color:var(--text);border-color:var(--violet)}
-.socials svg{width:20px;height:20px}
-.idcard{position:relative;border:1px solid var(--line);border-radius:28px;padding:36px;background:linear-gradient(160deg,rgba(255,255,255,.03),transparent)}
-.idcard .face{aspect-ratio:1;overflow:hidden;border-radius:20px;border:1px solid var(--line);display:grid;place-items:center;background:radial-gradient(circle at 70% 80%,rgba(240,138,60,.12),transparent 60%),radial-gradient(circle at 30% 20%,rgba(139,92,246,.18),transparent 60%),#0a0812}
-.idcard .face img{display:block;width:100%;height:100%;object-fit:cover}
-.idcard .face span{font:italic 700 clamp(44px,6vw,68px) var(--en);transform:rotate(-6deg)}
-.idcard .meta{display:flex;justify-content:space-between;align-items:center;margin-top:18px}
-.idcard .meta b{display:block;font-weight:500}
-.idcard .meta small{font:12px var(--mono);color:var(--dim)}
-.badge{position:absolute;bottom:-18px;inset-inline-end:-14px;border:1px solid var(--line2);background:var(--bg2);border-radius:12px;padding:8px 16px;font:13px var(--mono)}
+/* ============ Hero ============ */
+.hero{padding:var(--space-9) 0 var(--space-7)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--space-8);align-items:center}
+.hero .label{display:block;margin:var(--space-5) 0 var(--space-3);text-align:right}
+.hero h1{font-size:clamp(42px,6vw,72px);line-height:1.15;font-weight:700;letter-spacing:-.01em}
+.hero .role{font:600 clamp(14px,1.6vw,18px)/1.6 var(--font-mono);color:var(--brand);margin-top:var(--space-3);direction:ltr;text-align:right}
+.hero .role .sep{color:var(--ink-subtle);font-weight:400}
+.hero .lead{max-width:540px;margin-top:var(--space-4);color:var(--ink-muted);font-size:18px}
+.ctas{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-6)}
+.socials{display:flex;gap:var(--space-2);margin-top:var(--space-5)}
 
-/* sections */
-section{padding:110px 0}
-.eyebrow{display:flex;align-items:center;gap:14px;font:13px var(--mono);color:var(--muted);margin-bottom:14px}
-.eyebrow::before{content:"";width:56px;height:1px;background:var(--grad)}
-.h{font-size:clamp(36px,5.5vw,58px);font-weight:700;line-height:1.25}
-.sub{color:var(--muted);font-size:17px;margin-top:10px}
+/* code card */
+.code{background:var(--surface-code);border:1px solid var(--line-strong);border-radius:var(--radius-lg);direction:ltr;text-align:left;box-shadow:0 24px 60px -24px rgba(0,0,0,.45);min-width:0}
+.code-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--line);font:500 12.5px var(--font-mono);color:var(--ink-subtle);background:var(--surface-card);border-radius:var(--radius-lg) var(--radius-lg) 0 0}
+.code-bar .file{display:flex;align-items:center;gap:8px;color:var(--ink)}
+.code-bar .file svg{width:14px;height:14px;color:var(--data)}
+.code pre{margin:0;padding:var(--space-5) var(--space-5) var(--space-5) 0;font:400 13.5px/1.9 var(--font-mono);overflow-x:auto;counter-reset:ln}
+.code pre .l{display:block;padding-left:52px;position:relative;white-space:pre}
+.code pre .l::before{counter-increment:ln;content:counter(ln);position:absolute;left:0;width:36px;text-align:right;color:var(--ink-subtle);opacity:.6}
+.k{color:var(--brand)}.s{color:var(--data)}.c{color:var(--ink-subtle);font-style:italic}.n{color:var(--award)}.f{color:var(--ink)}.p{color:var(--ink-muted)}
+.code-foot{display:flex;justify-content:space-between;gap:var(--space-3);padding:8px 16px;border-top:1px solid var(--line);font:500 12px var(--font-mono);color:var(--ink-subtle)}
+.code-foot .ok{color:var(--signal)}
 
-/* work */
-.rooms{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:54px}
-.room{position:relative;text-align:start;font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:38px;cursor:pointer;overflow:hidden;transition:border-color .3s,transform .3s}
-.room:hover,.room[aria-expanded=true]{border-color:var(--violet);transform:translateY(-3px)}
-.room .num{position:absolute;top:-10px;inset-inline-end:16px;font:700 110px var(--en);color:rgba(255,255,255,.035);line-height:1}
-.ic{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35);color:var(--violet2);margin-bottom:24px}
-.ic svg{width:26px;height:26px}
-.room small{font:13px var(--mono);color:var(--dim)}
-.room h3{font-size:28px;margin:4px 0 0}
-.room .en-t{font:14px var(--mono);color:var(--violet)}
-.room p{color:var(--muted);margin-top:12px}
-.room .go{border-top:1px solid var(--line);margin-top:22px;padding-top:16px;font-size:14px;color:var(--muted)}
-.gallery{display:none;margin-top:28px;border:1px solid var(--line);border-radius:24px;padding:40px;background:var(--bg2);animation:fade .4s}
-.gallery.open{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}}
-.gallery>header h3{font-size:34px}.gallery>header p{color:var(--muted)}
-.proj{border:1px solid var(--line);border-radius:18px;padding:30px;margin-top:26px;background:var(--card)}
-.proj .kicker{font:12px var(--mono);color:var(--coral)}
-.proj h4{font:600 26px var(--en);margin:4px 0 8px}
-.proj>p{color:#c6c0d6}
-.pipe{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
-.pipe div{flex:1 1 140px;border:1px solid var(--line2);border-radius:12px;padding:12px 14px}
-.pipe small{display:block;font-size:12px;color:var(--dim)}
-.pipe b{font:500 14px var(--en);unicode-bidi:isolate;direction:ltr;display:inline-block}
-.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:18px 0}
-.cols h5{font-size:14px;color:var(--violet2);margin-bottom:4px}
-.cols p{color:var(--muted);font-size:15px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.chips span{font:13px var(--en);border:1px solid var(--line2);border-radius:99px;padding:4px 12px;color:#cfc9de;background:rgba(255,255,255,.02)}
-.results{margin-top:18px;list-style:none}
-.results li{position:relative;padding-inline-start:22px;color:#c6c0d6;font-size:15px}
-.results li::before{content:"✦";position:absolute;inset-inline-start:0;color:var(--amber);font-size:12px;top:5px}
-.note{font-size:13px;color:var(--dim);margin-top:10px}
-.folders{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:26px}
-.folder{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--card)}
-.folder small{font:12px var(--mono);color:var(--dim)}
-.folder b{display:block;font-size:18px;margin:4px 0}
-.folder p{font-size:14px;color:var(--muted)}
+/* readouts */
+.readouts{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface-card);margin-top:var(--space-8)}
+.readout{padding:var(--space-5);border-inline-start:1px solid var(--line)}
+.readout:first-child{border-inline-start:0}
+.readout b{display:block;font:600 40px/1.15 var(--font-mono);letter-spacing:-.03em;direction:ltr;text-align:right;margin:6px 0 2px}
+.readout b sup{font-size:.5em;color:var(--brand);vertical-align:.7em;margin-left:2px}
+.readout span:last-child{color:var(--ink-muted);font-size:14.5px}
+
+/* ============ Sections ============ */
+section{padding:var(--space-9) 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--space-6);flex-wrap:wrap;margin-bottom:var(--space-7)}
+.path{font:500 13px var(--font-mono);color:var(--ink-subtle);direction:ltr;unicode-bidi:isolate;display:inline-block}
+.path em{font-style:normal;color:var(--brand)}
+.sec-head h2{font-size:clamp(30px,4vw,44px);line-height:1.3;font-weight:700;margin-top:var(--space-2)}
+.sec-head p{color:var(--ink-muted);max-width:460px}
 
 /* about */
-.about-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:48px}
-.about-grid div{border:1px solid var(--line);border-radius:18px;padding:28px;background:var(--card)}
-.about-grid h3{font-size:20px;margin-bottom:8px}
-.about-grid p{color:var(--muted)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:22px}
-.stat{border:1px solid var(--line);border-radius:18px;padding:26px;text-align:center}
-.stat b{display:block;font:700 42px var(--en)}
-.stat span{color:var(--muted);font-size:14px}
-.roles{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:20px;margin-top:40px}
-.role{border:1px solid var(--line2);border-radius:16px;padding:18px 26px;text-align:center}
-.role small{display:block;font:12px var(--mono);color:var(--dim)}
-.core{font:700 36px var(--en);letter-spacing:.15em}
+.about{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface-card)}
+.about-item{padding:var(--space-5);border-inline-start:1px solid var(--line)}
+.about-item:first-child{border-inline-start:0}
+.about-item .label{display:block;margin-bottom:var(--space-3);text-align:right;color:var(--brand);text-transform:none;letter-spacing:0}
+.about-item h3{font-size:18px;font-weight:600;margin-bottom:6px;line-height:1.5}
+.about-item p{color:var(--ink-muted);font-size:15px}
+.roles{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-5)}
+.role-tag{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:var(--radius-sm);border:1px solid var(--line-strong);font-size:15px}
+.role-tag small{font:500 12px var(--font-mono);color:var(--ink-subtle)}
 
-/* journey */
-.timeline{position:relative;margin-top:54px;padding-inline-start:34px}
-.timeline::before{content:"";position:absolute;inset-inline-start:7px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--violet),var(--coral),transparent)}
-.ev{position:relative;border:1px solid var(--line);border-radius:18px;padding:26px 28px;background:var(--card);margin-bottom:20px}
-.ev::before{content:"";position:absolute;inset-inline-start:-33px;top:30px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:2px solid var(--violet2)}
-.ev .top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font:13px var(--mono);color:var(--dim)}
-.ev .kind{border:1px solid var(--line2);border-radius:99px;padding:1px 10px;color:var(--coral);font-family:var(--ar)}
-.ev h3{font-size:21px;margin-top:8px}
-.ev .org{color:var(--violet2);font-size:15px}
-.ev p{color:var(--muted);margin-top:8px;font-size:15px}
-.ev .key{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line2);font-size:15px;color:#c6c0d6}
-.ev .key b{color:var(--amber);font-weight:500}
+/* tabs */
+.tabs{display:flex;border:1px solid var(--line-strong);border-radius:var(--radius-md);padding:3px;width:max-content;max-width:100%;margin-bottom:var(--space-6);background:var(--surface-card);overflow-x:auto;scrollbar-width:none}
+.tab{background:none;border:0;border-radius:var(--radius-sm);font:500 15px var(--font-arabic);color:var(--ink-muted);padding:7px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.tab .count{font:500 11.5px var(--font-mono);color:var(--ink-subtle)}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--brand-tint);color:var(--ink);font-weight:600}
+.tab[aria-selected="true"] .count{color:var(--brand)}
+.panel{display:grid;gap:var(--space-5)}
+.panel[hidden]{display:none}
+.panel-intro{color:var(--ink-muted)}
 
-/* stack */
-.stack{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:48px}
-.stack>div{border:1px solid var(--line);border-radius:18px;padding:28px;background:var(--card)}
-.stack h3{font-size:19px}.stack h3 small{font:13px var(--mono);color:var(--dim);margin-inline-start:8px}
+/* project card */
+.card{background:var(--surface-card);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);flex-wrap:wrap;padding:10px var(--space-5);border-bottom:1px solid var(--line);background:var(--surface-sunk)}
+.card-head .id{font:500 12.5px var(--font-mono);color:var(--ink-subtle);direction:ltr}
+.card-head .id b{color:var(--brand);font-weight:600}
+.card-head .meta{font-size:13.5px;color:var(--ink-subtle)}
+.card-body{padding:var(--space-6) var(--space-5)}
+.tag{display:inline-block;direction:ltr;unicode-bidi:isolate;font:600 11.5px var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--brand);background:var(--brand-tint);padding:2px 8px;border-radius:var(--radius-sm)}
+.tag-award{color:var(--award);background:var(--award-tint)}
+.card h3{font:600 clamp(22px,2.6vw,30px)/1.25 var(--font-latin);letter-spacing:-.01em;margin:var(--space-3) 0 var(--space-2);direction:ltr;text-align:right}
+.card-body>p{color:var(--ink-muted);max-width:760px}
+.csr{display:grid;grid-template-columns:repeat(3,1fr);margin:var(--space-5) 0;border:1px solid var(--line);border-radius:var(--radius-md)}
+.csr.two{grid-template-columns:repeat(2,1fr)}
+.csr>div{padding:var(--space-4);border-inline-start:1px solid var(--line)}
+.csr>div:first-child{border-inline-start:0}
+.csr h4{font:600 13.5px var(--font-arabic);color:var(--brand);margin-bottom:4px;display:flex;gap:8px;align-items:baseline}
+.csr h4 small{font:500 11px var(--font-mono);color:var(--ink-subtle);letter-spacing:.06em}
+.csr p{font-size:15px}
+.outcomes{list-style:none;display:grid;gap:4px;margin-bottom:var(--space-5)}
+.outcomes li{position:relative;padding-inline-start:24px;font-size:15px}
+.outcomes li::before{content:"✓";position:absolute;inset-inline-start:2px;top:0;font:700 13px/1.85 var(--font-mono);color:var(--signal)}
+
+/* pipeline diagram */
+.pipeline{display:grid;grid-template-columns:repeat(5,1fr);margin:var(--space-5) 0;direction:ltr;list-style:none;counter-reset:step}
+.node{position:relative;border:1px solid var(--line-strong);background:var(--surface-sunk);border-radius:var(--radius-md);padding:12px 12px 10px;margin-right:22px;text-align:left}
+.node:last-child{margin-right:0}
+.node::after{content:"";position:absolute;right:-23px;top:50%;width:18px;height:1px;background:var(--line-control)}
+.node::before{content:"";position:absolute;right:-23px;top:calc(50% - 4px);border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;border-left:6px solid var(--line-control)}
+.node:last-child::after,.node:last-child::before{display:none}
+.node small{display:block;font:500 10.5px var(--font-mono);color:var(--ink-subtle);letter-spacing:.06em;text-transform:uppercase}
+.node small::before{counter-increment:step;content:"0" counter(step) " · "}
+.node b{display:block;font:600 13px/1.45 var(--font-mono);color:var(--ink);margin-top:2px}
+.node.hl{border-color:var(--brand);background:var(--brand-tint)}
+.node.hl b{color:var(--brand)}
+.models{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);margin-bottom:var(--space-5)}
+.model{border:1px dashed var(--line-strong);border-radius:var(--radius-md);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:var(--space-2)}
+.model b{font:600 14px var(--font-mono);direction:ltr}
+.model span{font-size:13.5px;color:var(--ink-muted)}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-5)}
+
+/* studio */
+.studio{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
+.studio>div{background:var(--surface-code);padding:var(--space-5)}
+.studio .label{color:var(--brand);text-transform:none;letter-spacing:0}
+.studio b{display:block;font-size:17px;font-weight:600;margin:8px 0 2px}
+.studio p{color:var(--ink-muted);font-size:14.5px}
+
+/* experience — log style */
+.log{list-style:none;position:relative}
+.log::before{content:"";position:absolute;inset-inline-start:160px;top:8px;bottom:8px;width:1px;background:var(--line-strong)}
+.entry{display:grid;grid-template-columns:160px 1fr;padding-bottom:var(--space-6)}
+.entry:last-child{padding-bottom:0}
+.entry .when{font:500 13px/1.6 var(--font-mono);color:var(--ink-subtle);padding-inline-end:var(--space-5);padding-top:3px}
+.entry .when .d{direction:ltr;unicode-bidi:isolate;display:inline-block}
+.entry .when .type{display:inline-block;margin-top:6px;font-family:var(--font-arabic);font-size:12.5px;color:var(--brand);border:1px solid var(--line-strong);padding:0 8px;border-radius:var(--radius-sm)}
+.entry .body{position:relative;padding-inline-start:var(--space-6)}
+.entry .body::before{content:"";position:absolute;inset-inline-start:-5px;top:9px;width:9px;height:9px;background:var(--surface-page);border:2px solid var(--brand);border-radius:2px}
+.entry h3{font-size:19px;font-weight:600;line-height:1.5}
+.entry .org{font:500 14.5px var(--font-latin);color:var(--brand)}
+.entry p{color:var(--ink-muted);margin-top:6px;font-size:15.5px}
+.entry .key{margin-top:var(--space-3);font-size:15px;padding:10px 14px;border:1px solid var(--line);border-inline-start:2px solid var(--signal);background:var(--surface-card);border-radius:var(--radius-sm)}
+.entry .key b{font-weight:600}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4)}
+.skill{border:1px solid var(--line);background:var(--surface-card);border-radius:var(--radius-lg);padding:var(--space-5)}
+.skill h3{font-size:16.5px;font-weight:600;display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-2);margin-bottom:var(--space-4)}
 
 /* credentials */
-.cred-group{margin-top:44px}
-.cred-group h3{font-size:20px;margin-bottom:16px;color:var(--violet2)}
-.creds{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
-.cred{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:var(--card);transition:border-color .2s}
-.cred:hover{border-color:var(--line2)}
-.cred b{display:block;font:500 16px var(--en)}
-.cred span{display:block;color:var(--muted);font-size:14px}
-.cred small{font:12px var(--mono);color:var(--dim)}
-.cred.award{border-color:rgba(240,138,60,.35);background:linear-gradient(160deg,rgba(240,138,60,.07),var(--card))}
+.awards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);margin-bottom:var(--space-6)}
+.award{display:flex;gap:var(--space-4);align-items:flex-start;background:var(--surface-card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--space-5)}
+.award .medal{flex:none;width:40px;height:40px;border-radius:var(--radius-md);display:grid;place-items:center;background:var(--award-tint);color:var(--award)}
+.award .medal svg{width:20px;height:20px}
+.award b{display:block;font-size:16.5px;font-weight:600;line-height:1.5}
+.award span{display:block;font:14px var(--font-latin);color:var(--ink-muted)}
+.award small{font:500 12.5px var(--font-mono);color:var(--award)}
+.table-wrap{border:1px solid var(--line);border-radius:var(--radius-lg);overflow-x:auto;background:var(--surface-card)}
+.table{width:100%;border-collapse:collapse;font-size:14.5px}
+.table th{font:500 11.5px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-subtle);text-align:start;padding:10px var(--space-4);background:var(--surface-sunk);border-bottom:1px solid var(--line)}
+.table th:not(.idx){font-family:var(--font-arabic);letter-spacing:0;font-size:12.5px}
+.table td{padding:11px var(--space-4);border-bottom:1px solid var(--line);vertical-align:middle}
+.table tr:last-child td{border-bottom:0}
+.table tbody tr:hover td{background:var(--surface-sunk)}
+.table .idx{font:500 12.5px var(--font-mono);color:var(--ink-subtle);width:56px}
+.table .name{font:500 14.5px var(--font-latin)}
+.table .name span,.table .iss span{direction:ltr;unicode-bidi:isolate}
+.table .iss{color:var(--ink-muted);font-family:var(--font-latin)}
+.table .yr{font:500 13px var(--font-mono);color:var(--ink-muted);white-space:nowrap;width:110px}
 
-/* contact */
-.contact{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;margin-top:48px}
-.cbox{border:1px solid var(--line);border-radius:20px;padding:30px;background:var(--card)}
-.crow{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
-.crow:last-child{border:0}
-.crow span{color:var(--muted)}
-.crow a,.crow b{font-weight:500;direction:ltr}
-.wa{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;padding:15px;border-radius:14px;background:#1faa59;color:#fff;font-weight:600}
-.wa:hover{background:#25c264}
+/* contact — terminal */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-7);align-items:center}
+.contact h2{font-size:clamp(34px,4.6vw,54px);line-height:1.25;font-weight:700;margin:var(--space-3) 0}
+.contact h2 em{font-style:normal;color:var(--brand)}
+.contact .lead{color:var(--ink-muted);font-size:17.5px;max-width:440px}
+.term pre{padding:var(--space-5);font:400 13.5px/2 var(--font-mono);white-space:pre-wrap;word-break:break-word;margin:0}
+.term .pr{color:var(--signal)}
+.term a{color:var(--data);text-decoration:underline;text-decoration-color:var(--line-control);text-underline-offset:3px}
+.term a:hover{text-decoration-color:var(--data)}
 
-footer{border-top:1px solid var(--line);padding:40px 0;text-align:center;color:var(--dim);font-size:14px}
-footer b{display:block;color:var(--text);font-size:18px}
+footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px var(--font-mono);color:var(--ink-subtle)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap;direction:ltr}
+.foot img{height:26px;width:auto;opacity:.85}
+[data-theme="light"] .foot img{filter:brightness(0) saturate(100%) invert(6%) sepia(10%) saturate(1500%) hue-rotate(185deg)}
 
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+/* motion */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
 .reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}.brand .cursor,.status i{animation:none}}
 
-@media (max-width:900px){
-  .links{display:none;position:absolute;top:68px;inset-inline:0;flex-direction:column;gap:0;background:rgba(5,4,10,.97);border-bottom:1px solid var(--line);padding:8px 24px}
-  .links.open{display:flex}.links a{padding:12px 0;border-bottom:1px solid var(--line)}
-  .burger{display:block}
-  .wrap.hero{grid-template-columns:1fr;text-align:start;min-height:auto;align-items:start;padding-top:110px}
-  .idcard{max-width:420px}
-  .rooms,.about-grid,.stack,.contact{grid-template-columns:1fr}
-  .stats{grid-template-columns:repeat(2,1fr)}
+/* ============ Responsive ============ */
+@media (max-width:1040px){
+  .links{display:none;position:absolute;top:64px;inset-inline:0;flex-direction:column;gap:0;background:var(--surface-page);border-bottom:1px solid var(--line);padding:var(--space-2) var(--space-5) var(--space-4)}
+  .links.open{display:flex}
+  .links a{padding:12px 4px;border-radius:0;border-bottom:1px solid var(--line);text-align:left}
+  .burger{display:grid}
+  .hero-grid,.contact{grid-template-columns:1fr}
+  .about{grid-template-columns:repeat(2,1fr)}
+  .about-item:nth-child(3){border-inline-start:0}
+  .about-item:nth-child(n+3){border-top:1px solid var(--line)}
+  .readouts{grid-template-columns:repeat(2,1fr)}
+  .readout:nth-child(3){border-inline-start:0}
+  .readout:nth-child(n+3){border-top:1px solid var(--line)}
+  .skills,.studio{grid-template-columns:repeat(2,1fr)}
+  .pipeline{grid-template-columns:1fr;gap:18px}
+  .node{margin-right:0}
+  .node::after{right:auto;left:22px;top:auto;bottom:-19px;width:1px;height:14px}
+  .node::before{right:auto;left:18px;top:auto;bottom:-19px;border-left:4.5px solid transparent;border-right:4.5px solid transparent;border-top:6px solid var(--line-control);border-bottom:0}
 }
-@media (max-width:560px){
-  .wrap{padding:0 16px}
-  section{padding:80px 0}
-  .room,.gallery,.proj{padding:24px}
-  .stat b{font-size:32px}
-  .crow{flex-direction:column;gap:2px}
+@media (max-width:680px){
+  body{font-size:16px}
+  .wrap{padding:0 var(--space-4)}
+  section{padding:var(--space-8) 0}
+  .hero{padding:var(--space-7) 0 var(--space-6)}
+  .about,.grid-2,.awards,.skills,.studio,.csr,.csr.two,.models{grid-template-columns:1fr}
+  .about-item{border-inline-start:0!important;border-top:1px solid var(--line)}
+  .about-item:first-child{border-top:0}
+  .csr>div{border-inline-start:0;border-top:1px solid var(--line)}
+  .csr>div:first-child{border-top:0}
+  .card-body{padding:var(--space-5) var(--space-4)}
+  .log::before{inset-inline-start:4px}
+  .entry{grid-template-columns:1fr}
+  .entry .when{padding-inline-start:var(--space-6);padding-bottom:4px}
+  .entry .when br{display:none}
+  .entry .when .type{margin:0 8px}
+  .entry .body::before{top:-26px;inset-inline-start:0}
+  .readout b{font-size:30px}
+  .readout{padding:var(--space-4)}
+  .code pre{font-size:11px}
+  .code pre .l{padding-left:40px}
+  .code pre .l::before{width:26px}
+  .table .idx,.table .yr-h{display:none}
+  .btn{flex:1 1 auto;justify-content:center}
 }
 </style>
 </head>
 <body>
-<div class="bg"></div>
+<div class="bg" aria-hidden="true"><canvas id="circuit"></canvas><div class="fade"></div></div>
+<a data-en="Skip to content" class="skip" href="#main">تخطَّ إلى المحتوى</a>
 
-<nav id="nav">
+<header class="nav" id="nav">
   <div class="wrap nav-in">
-    <a href="#hero" class="brand" aria-label="Afnan Aljohani"><img src="assets/signature-white.png" alt="Afnan Aljohani" width="755" height="202" /></a>
-    <div class="links" id="links">
-      <a href="#hero">الرئيسية</a>
-      <a href="#about">عني</a>
-      <a href="#work" data-open="ai">الذكاء الاصطناعي</a>
-      <a href="#work" data-open="data">البيانات</a>
-      <a href="#work" data-open="design">التصميم</a>
-      <a href="#journey">المسيرة</a>
-      <a href="#credentials">الاعتمادات</a>
-      <a href="#contact">تواصل</a>
+    <a data-en-aria="Afnan Aljohani — home" href="#top" class="brand" aria-label="أفنان الجهني — الرئيسية"><span class="mark">A</span>afnan.aljohani<span class="cursor" aria-hidden="true"></span></a>
+    <nav data-en-aria="Main navigation" class="links" id="links" aria-label="التنقل الرئيسي">
+      <a href="#about"><span>01.</span>about</a>
+      <a href="#work"><span>02.</span>projects</a>
+      <a href="#journey"><span>03.</span>experience</a>
+      <a href="#stack"><span>04.</span>stack</a>
+      <a href="#credentials"><span>05.</span>certs</a>
+      <a href="#contact"><span>06.</span>contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn lang-btn" id="langToggle" type="button" aria-label="Switch to English" lang="en">EN</button>
+      <button data-en-aria="Toggle light and dark mode" class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="تبديل الوضع الفاتح والداكن">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <button data-en-aria="Menu" class="icon-btn burger" id="burger" type="button" aria-label="القائمة" aria-expanded="false" aria-controls="links">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
-    <button class="burger" id="burger" aria-label="القائمة" aria-expanded="false">☰</button>
   </div>
-</nav>
+</header>
 
-<main>
-<!-- HERO -->
-<div class="wrap hero" id="hero">
-  <div>
-    <span class="pill"><i></i>متاحة للفرص المهنية</span>
-    <h1 class="grad">أفنان</h1>
-    <h2>مهندسة ذكاء اصطناعي</h2>
-    <div class="tag">AI ENGINEER | DATA SCIENCE | CREATIVE TECHNOLOGY</div>
-    <p class="lead">أبني حلولًا ذكية حيث تلتقي التقنية بالإبداع.</p>
-    <p class="motto">Engineering Intelligence. Designing Possibilities.</p>
-    <div class="ctas">
-      <a href="#work" class="btn primary">استكشف أعمالي ↓</a>
-      <a href="#about" class="btn">عني</a>
+<main id="main">
+<!-- ============ HERO ============ -->
+<div class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="status"><i></i>open_to_work <b data-en="· open to opportunities">· متاحة للفرص المهنية</b></span>
+        <span class="label">// AI Engineer · Data Scientist</span>
+        <span class="circuit-name" id="circuitName" aria-hidden="true"></span>
+        <h1 data-en="Afnan Fahad Aljohani">أفنان فهد الجهني</h1>
+        <p class="role">Computer Vision <span class="sep">/</span> Deep Learning <span class="sep">/</span> Data Analytics</p>
+        <p data-en="I build intelligent solutions where technology meets creativity — from computer-vision pipelines and deep-learning models to data workflows and executive dashboards." class="lead">أبني حلولًا ذكية حيث تلتقي التقنية بالإبداع — من خطوط الرؤية الحاسوبية ونماذج التعلم العميق، إلى تدفقات البيانات ولوحات المؤشرات التنفيذية.</p>
+        <div class="ctas">
+          <a data-en="Explore projects
+            &lt;svg fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; viewbox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 5v14M19 12l-7 7-7-7&quot;&gt;&lt;/path&gt;&lt;/svg&gt;" href="#work" class="btn btn-primary">استكشف المشاريع
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></a>
+          <a data-en="Contact me" href="#contact" class="btn">تواصل معي</a>
+        </div>
+        <div class="socials">
+          <a class="icon-btn" href="https://github.com/i2fna" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
+          <a class="icon-btn" href="https://www.linkedin.com/in/afnan-fahad-aljohani-0b5a70315/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a data-en-aria="Email" class="icon-btn" href="mailto:a.almass3dii@gmail.com" aria-label="البريد الإلكتروني"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+        </div>
+      </div>
+
+      <div data-en-aria="Profile written as code: Afnan, AI engineer, University of Jeddah, computer vision, deep learning and analytics" class="code frame" role="img" aria-label="ملف تعريفي بصيغة كود: أفنان، مهندسة ذكاء اصطناعي، جامعة جدة، الرؤية الحاسوبية والتعلم العميق والتحليلات">
+        <div class="code-bar"><span class="file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>profile.py</span><span>Python 3</span></div>
+<pre><span class="l"><span class="k">class</span> <span class="n">Afnan</span><span class="p">(</span><span class="f">AIEngineer</span><span class="p">):</span></span><span class="l">    name     <span class="p">=</span> <span class="s">"Afnan Fahad Aljohani"</span></span><span class="l">    degree   <span class="p">=</span> <span class="s">"BSc Computer Science"</span></span><span class="l">    track    <span class="p">=</span> <span class="s">"Data Science"</span>  <span class="c"># honors</span></span><span class="l">    school   <span class="p">=</span> <span class="s">"University of Jeddah"</span></span><span class="l">    focus    <span class="p">=</span> <span class="p">[</span><span class="s">"Computer Vision"</span>, <span class="s">"Deep Learning"</span>,</span><span class="l">                <span class="s">"Data Analytics"</span><span class="p">]</span></span><span class="l">    stack    <span class="p">=</span> <span class="p">[</span><span class="s">"Python"</span>, <span class="s">"PyTorch"</span>, <span class="s">"TensorFlow"</span>,</span><span class="l">                <span class="s">"SQL"</span>, <span class="s">"Power BI"</span><span class="p">]</span></span><span class="l">    location <span class="p">=</span> <span class="s">"Riyadh, KSA"</span></span><span class="l"> </span><span class="l">    <span class="k">def</span> <span class="n">mission</span><span class="p">(</span>self<span class="p">):</span></span><span class="l">        <span class="k">return</span> <span class="s">"Engineering Intelligence."</span></span></pre>
+        <div class="code-foot"><span class="ok">● status: open_to_work</span><span>UTF-8 · LF</span></div>
+      </div>
     </div>
-    <div class="socials">
-      <a href="https://github.com/i2fna" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
-      <a href="https://www.linkedin.com/in/afnan-fahad-aljohani-0b5a70315/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
-      <a href="mailto:a.almass3dii@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+
+    <div class="readouts reveal">
+      <div class="readout"><span class="label">dataset.images</span><b>24K<sup>+</sup></b><span data-en="medical images in my graduation project">صورة طبية في مشروع التخرج</span></div>
+      <div class="readout"><span class="label">models.compared</span><b>3</b><span data-en="deep-learning models benchmarked">نماذج تعلم عميق تمت مقارنتها</span></div>
+      <div class="readout"><span class="label">certifications</span><b>15<sup>+</sup></b><span data-en="professional certifications">شهادة واعتمادًا احترافيًا</span></div>
+      <div class="readout"><span class="label">experience</span><b>4</b><span data-en="internships &amp; professional roles">خبرات تدريبية ومهنية</span></div>
     </div>
-  </div>
-  <div class="idcard">
-    <div class="face"><img src="assets/signature.png" alt="Afnan Aljohani — توقيع" width="800" height="800" /></div>
-    <div class="meta"><div><b>أفنان فهد الجهني</b><small>Riyadh, KSA</small></div><span class="grad" style="font-size:22px">✦</span></div>
   </div>
 </div>
 
-<!-- ABOUT -->
+<!-- ============ ABOUT ============ -->
 <section id="about">
   <div class="wrap">
-    <div class="eyebrow">01 — من أنا</div>
-    <h2 class="h">عني</h2>
-    <div class="about-grid reveal">
-      <div><h3>من أنا</h3><p>خريجة علوم حاسب بمرتبة الشرف من جامعة جدة، مسار علوم البيانات، مع إعداد تقني متقدم من مدرسة هولبرتون وأكاديمية طويق.</p></div>
-      <div><h3>ماذا أبني</h3><p>أطوّر خطوط معالجة للرؤية الحاسوبية، وأحسّن بنى تعلم الآلة، وأبني تدفقات بيانات عملية ولوحات مؤشرات تنفيذية تفاعلية.</p></div>
-      <div><h3>ما يهمني</h3><p>تحويل البيانات المعقدة إلى رؤى واضحة قابلة لاتخاذ القرار، وبناء حلول تقنية منظمة قابلة للتوسع.</p></div>
-      <div><h3>حيث تلتقي التقنية بالإبداع</h3><p>لا أستخدم التقنية لبناء النماذج فحسب، بل لصناعة تجارب وحلول وأفكار بصرية — من نماذج التعلم العميق إلى تصميم الواجهات والهويات البصرية.</p></div>
+    <div class="sec-head">
+      <div><span class="path">~/afnan/<em>01_about</em></span><h2 data-en="About">عني</h2></div>
+      <p data-en="Computer Science graduate with honors from the University of Jeddah (Data Science track), with advanced technical training from Holberton School and Tuwaiq Academy.">خريجة علوم حاسب بمرتبة الشرف من جامعة جدة، مسار علوم البيانات، مع إعداد تقني متقدم من مدرسة هولبرتون وأكاديمية طويق.</p>
     </div>
-    <div class="stats reveal">
-      <div class="stat"><b class="grad" dir="ltr">24K+</b><span>صورة طبية في مشروع التخرج</span></div>
-      <div class="stat"><b class="grad">3</b><span>نماذج تعلم عميق تمت مقارنتها</span></div>
-      <div class="stat"><b class="grad" dir="ltr">15+</b><span>شهادة واعتمادًا احترافيًا</span></div>
-      <div class="stat"><b class="grad">4</b><span>خبرات تدريبية ومهنية</span></div>
+    <div class="about reveal">
+      <div class="about-item"><span class="label">build()</span><h3 data-en="What I build">ماذا أبني</h3><p data-en="I develop computer-vision pipelines, optimize machine-learning architectures, and build practical data workflows and interactive executive dashboards.">أطوّر خطوط معالجة للرؤية الحاسوبية، وأحسّن بنى تعلم الآلة، وأبني تدفقات بيانات عملية ولوحات مؤشرات تنفيذية تفاعلية.</p></div>
+      <div class="about-item"><span class="label">optimize()</span><h3 data-en="What I care about">ما يهمني</h3><p data-en="Turning complex data into clear, decision-ready insight — and building organized, scalable technical solutions.">تحويل البيانات المعقدة إلى رؤى واضحة قابلة لاتخاذ القرار، وبناء حلول تقنية منظمة قابلة للتوسع.</p></div>
+      <div class="about-item"><span class="label">create()</span><h3 data-en="Where tech meets creativity">حيث تلتقي التقنية بالإبداع</h3><p data-en="From deep-learning models to interface and brand design — for me, technology is a tool for crafting experiences and solutions.">من نماذج التعلم العميق إلى تصميم الواجهات والهويات البصرية — التقنية عندي أداة لصناعة تجارب وحلول.</p></div>
+      <div class="about-item"><span class="label">collaborate()</span><h3 data-en="How I work">كيف أعمل</h3><p data-en="Peer learning and active code reviews, clear technical documentation, and a project-based approach to real-world problems.">تعلم نظير ومراجعات كود نشطة، وتوثيق تقني واضح، ومنهجية قائمة على المشاريع لحل مشكلات واقعية.</p></div>
     </div>
     <div class="roles reveal">
-      <div class="role">مهندسة ذكاء اصطناعي<small>AI Engineer</small></div>
-      <div class="role">عالمة بيانات<small>Data Scientist</small></div>
-      <div class="core grad">AFNAN</div>
-      <div class="role">مصممة إبداعية<small>Creative Designer</small></div>
+      <div data-en="AI Engineer&lt;small&gt;مهندسة ذكاء اصطناعي&lt;/small&gt;" class="role-tag">مهندسة ذكاء اصطناعي<small>AI Engineer</small></div>
+      <div data-en="Data Scientist&lt;small&gt;عالمة بيانات&lt;/small&gt;" class="role-tag">عالمة بيانات<small>Data Scientist</small></div>
+      <div data-en="Creative Designer&lt;small&gt;مصممة إبداعية&lt;/small&gt;" class="role-tag">مصممة إبداعية<small>Creative Designer</small></div>
     </div>
   </div>
 </section>
 
-<!-- WORK -->
+<!-- ============ WORK ============ -->
 <section id="work">
   <div class="wrap">
-    <div class="eyebrow">02 — معرض الأعمال</div>
-    <h2 class="h grad">استكشف أعمالي</h2>
-    <p class="sub">كل مجال هو قاعة عرض مستقلة — اضغط على المجال لاستكشافه</p>
-
-    <div class="rooms reveal">
-      <button class="room" data-room="ai" aria-expanded="false">
-        <span class="num">01</span>
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg></div>
-        <small>01 / مشروعان</small>
-        <h3>الذكاء الاصطناعي</h3>
-        <div class="en-t">Artificial Intelligence</div>
-        <p>تعلم عميق، رؤية حاسوبية، ونماذج تعلم آلة</p>
-        <div class="go">ادخل المعرض ←</div>
-      </button>
-      <button class="room" data-room="data" aria-expanded="false">
-        <span class="num">02</span>
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
-        <small>02 / ٣ أعمال</small>
-        <h3>تحليل البيانات</h3>
-        <div class="en-t">Data Analytics</div>
-        <p>لوحات مؤشرات، ذكاء أعمال، وسرد البيانات</p>
-        <div class="go">ادخل المعرض ←</div>
-      </button>
-      <button class="room" data-room="design" aria-expanded="false">
-        <span class="num">03</span>
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
-        <small>03 / ٦ مجالات</small>
-        <h3>التصميم الإبداعي</h3>
-        <div class="en-t">Creative Design</div>
-        <p>استوديو التصميم: واجهات، جرافيك، وهوية بصرية</p>
-        <div class="go">ادخل المعرض ←</div>
-      </button>
-      <button class="room" data-room="software" aria-expanded="false">
-        <span class="num">04</span>
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg></div>
-        <small>04 / مسار هندسي</small>
-        <h3>البرمجيات والتقنية</h3>
-        <div class="en-t">Software &amp; Technology</div>
-        <p>هياكل بيانات، خوارزميات، وهندسة أنظمة</p>
-        <div class="go">ادخل المعرض ←</div>
-      </button>
+    <div class="sec-head">
+      <div><span class="path">~/afnan/<em>02_projects</em></span><h2 data-en="Projects">المشاريع</h2></div>
+      <p data-en="Each project is documented as a case study — the problem, the approach, and my role — with the tools used.">كل مشروع موثّق كدراسة حالة: التحدي، الحل، ودوري فيه — مع الأدوات المستخدمة.</p>
     </div>
 
-    <!-- AI gallery -->
-    <div class="gallery" id="g-ai">
-      <header><div class="eyebrow">01 — EXHIBITION ROOM</div><h3>معرض نماذج التعلم العميق ورؤية الحاسب</h3><p>مشاريع التعلم العميق ورؤية الحاسب الآلي وتعلم الآلة — من بيانات خام إلى نماذج تنبؤية دقيقة.</p></header>
-      <article class="proj">
-        <div class="kicker">المشروع المميز · مشروع تخرج بحثي · 2024–2025</div>
-        <h4>DermaVision</h4>
-        <p>خط معالجة متكامل للتعلم العميق لتصنيف الصور الطبية الجلدية — مشروع التخرج البحثي بجامعة جدة، على أكثر من 24,000 صورة طبية.</p>
-        <div class="pipe">
-          <div><small>الصورة</small><b>24,000+</b></div>
-          <div><small>المعالجة المسبقة</small><b>Augmentation</b></div>
-          <div><small>التعلم العميق</small><b>EffNet · DenseNet · ViT</b></div>
-          <div><small>التنبؤ</small><b>Classification</b></div>
-          <div><small>النتيجة</small><b>F1 · Precision · Recall</b></div>
+    <div data-en-aria="Project areas" class="tabs" role="tablist" aria-label="مجالات المشاريع">
+      <button data-en="Artificial Intelligence &lt;span class=&quot;count&quot;&gt;[2]&lt;/span&gt;" class="tab" role="tab" id="t-ai" aria-controls="p-ai" aria-selected="true">الذكاء الاصطناعي <span class="count">[2]</span></button>
+      <button data-en="Data Analytics &lt;span class=&quot;count&quot;&gt;[3]&lt;/span&gt;" class="tab" role="tab" id="t-data" aria-controls="p-data" aria-selected="false" tabindex="-1">تحليل البيانات <span class="count">[3]</span></button>
+      <button data-en="Software &lt;span class=&quot;count&quot;&gt;[1]&lt;/span&gt;" class="tab" role="tab" id="t-software" aria-controls="p-software" aria-selected="false" tabindex="-1">البرمجيات <span class="count">[1]</span></button>
+      <button data-en="Design &lt;span class=&quot;count&quot;&gt;[6]&lt;/span&gt;" class="tab" role="tab" id="t-design" aria-controls="p-design" aria-selected="false" tabindex="-1">التصميم <span class="count">[6]</span></button>
+    </div>
+
+    <!-- AI -->
+    <div class="panel" id="p-ai" role="tabpanel" aria-labelledby="t-ai">
+      <article class="card">
+        <div class="card-head"><span class="id"><b>#01</b> research / computer-vision</span><span data-en="Research graduation project · 2024–2025" class="meta">مشروع تخرج بحثي · 2024–2025</span></div>
+        <div class="card-body">
+          <span class="tag">Featured</span>
+          <h3>DermaVision</h3>
+          <p data-en="An end-to-end deep-learning pipeline for classifying dermatological images — my research graduation project at the University of Jeddah, trained on 24,000+ medical images.">خط معالجة متكامل للتعلم العميق لتصنيف الصور الطبية الجلدية — مشروع التخرج البحثي بجامعة جدة، على أكثر من 24,000 صورة طبية.</p>
+          <ol data-en-aria="Processing pipeline" class="pipeline" aria-label="خط المعالجة">
+            <li class="node"><small>input</small><b>24,000+ images</b></li>
+            <li class="node"><small>preprocess</small><b>Augmentation</b></li>
+            <li class="node hl"><small>model</small><b>EffNet · DenseNet · ViT</b></li>
+            <li class="node"><small>predict</small><b>Classification</b></li>
+            <li class="node"><small>evaluate</small><b>F1 · P · R</b></li>
+          </ol>
+          <div class="models">
+            <div class="model"><b>EfficientNet</b><span data-en="Computational efficiency">كفاءة المعالجة</span></div>
+            <div class="model"><b>DenseNet</b><span data-en="Dense connectivity">اتصالات كثيفة</span></div>
+            <div class="model"><b>ViT</b><span data-en="Attention mechanisms">آليات الانتباه</span></div>
+          </div>
+          <div class="csr two">
+            <div><h4 data-en="Problem &lt;small&gt;التحدي&lt;/small&gt;">التحدي <small>PROBLEM</small></h4><p data-en="Classifying skin-lesion images with high accuracy despite severe class imbalance in the data.">تصنيف الصور الطبية الجلدية بدقة عالية رغم عدم توازن الفئات الشديد في البيانات.</p></div>
+            <div><h4 data-en="Approach &lt;small&gt;الحل&lt;/small&gt;">الحل <small>APPROACH</small></h4><p data-en="An end-to-end image-processing and classification pipeline with advanced data augmentation, custom preprocessing to mitigate class imbalance, and benchmarking of state-of-the-art models.">خط معالجة صور وتصنيف متكامل، مع زيادة بيانات ومعالجة مسبقة مخصصة لعدم توازن الفئات، ومقارنة معيارية لنماذج حديثة.</p></div>
+          </div>
+          <ul class="outcomes">
+            <li data-en="Benchmarked EfficientNet, DenseNet and Vision Transformers (ViT)">مقارنة معيارية بين EfficientNet و DenseNet و Vision Transformers (ViT)</li>
+            <li data-en="Achieved strong validation metrics: F1-Score, Precision and Recall">تحقيق مقاييس تحقق عالية: F1-Score و Precision و Recall</li>
+            <li data-en="Hosted a live model demo as a web application">استضافة عرض حي للنموذج عبر تطبيق ويب</li>
+          </ul>
+          <div class="chips"><span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">EfficientNet</span><span class="chip">DenseNet</span><span class="chip">ViT</span><span class="chip">Data Augmentation</span></div>
         </div>
-        <div class="cols">
-          <div><h5>التحدي</h5><p>تصنيف الصور الطبية الجلدية بدقة عالية رغم عدم توازن الفئات الشديد في البيانات.</p></div>
-          <div><h5>الحل</h5><p>تصميم ونشر خط معالجة صور وتصنيف متكامل بالتعلم العميق، مع تقنيات متقدمة لزيادة البيانات ومعالجة مسبقة مخصصة للتخفيف من عدم توازن الفئات، ومقارنة معيارية لنماذج حديثة.</p></div>
-        </div>
-        <div class="cols">
-          <div><h5>EfficientNet</h5><p>كفاءة المعالجة</p></div>
-          <div><h5>DenseNet</h5><p>اتصالات كثيفة</p></div>
-          <div><h5>Vision Transformer</h5><p>آليات الانتباه</p></div>
-        </div>
-        <ul class="results">
-          <li>مقارنة معيارية بين EfficientNet و DenseNet و Vision Transformers (ViT)</li>
-          <li>تحقيق مقاييس تحقق عالية: F1-Score و Precision و Recall</li>
-          <li>استضافة عرض حي للنموذج عبر تطبيق ويب</li>
-        </ul>
-        <div class="chips"><span>Python</span><span>PyTorch</span><span>EfficientNet</span><span>DenseNet</span><span>Vision Transformers (ViT)</span><span>Data Augmentation</span></div>
       </article>
-      <article class="proj">
-        <div class="kicker">هاكاثون</div>
-        <h4>Kanz AI Hackathon — Generative Analytics</h4>
-        <p>مشروع الفوز بالشهادة الذهبية+ في هاكاثون Kanz AI 2026: تعزيز تحليلات البيانات بالذكاء الاصطناعي التوليدي.</p>
-        <div class="cols">
-          <div><h5>التحدي</h5><p>تسريع دورة التحليلات ورفع جودة الرؤى المستخرجة من البيانات.</p></div>
-          <div><h5>الحل</h5><p>توظيف تقنيات الذكاء الاصطناعي التوليدي لتعزيز تحليل البيانات واستخراج رؤى أعمق بكفاءة أعلى.</p></div>
-          <div><h5>دوري</h5><p>عضوة فريق التحليل — الحائز على الشهادة الذهبية+.</p></div>
+
+      <article class="card">
+        <div class="card-head"><span class="id"><b>#02</b> hackathon / gen-ai</span><span data-en="Hackathon · July 2026" class="meta">هاكاثون · يوليو 2026</span></div>
+        <div class="card-body">
+          <span class="tag tag-award">Gold+ award</span>
+          <h3>Kanz AI Hackathon — Generative Analytics</h3>
+          <p data-en="Gold+ certificate winner at the Kanz AI Hackathon 2026: supercharging data analytics with generative AI.">مشروع الفوز بالشهادة الذهبية+ في هاكاثون Kanz AI 2026: تعزيز تحليلات البيانات بالذكاء الاصطناعي التوليدي.</p>
+          <div class="csr">
+            <div><h4 data-en="Problem &lt;small&gt;التحدي&lt;/small&gt;">التحدي <small>PROBLEM</small></h4><p data-en="Speeding up the analytics cycle and raising the quality of insights drawn from data.">تسريع دورة التحليلات ورفع جودة الرؤى المستخرجة من البيانات.</p></div>
+            <div><h4 data-en="Approach &lt;small&gt;الحل&lt;/small&gt;">الحل <small>APPROACH</small></h4><p data-en="Applying generative AI to enhance analysis and extract deeper insights more efficiently.">توظيف الذكاء الاصطناعي التوليدي لتعزيز التحليل واستخراج رؤى أعمق بكفاءة أعلى.</p></div>
+            <div><h4 data-en="Role &lt;small&gt;دوري&lt;/small&gt;">دوري <small>ROLE</small></h4><p data-en="Analytics team member — Gold+ certificate winning team.">عضوة فريق التحليل — الحائز على الشهادة الذهبية+.</p></div>
+          </div>
+          <div class="chips"><span class="chip">Generative AI</span><span class="chip">Data Analytics</span><span class="chip">Python</span></div>
         </div>
-        <ul class="results"><li>الشهادة الذهبية+ — يوليو 2026</li></ul>
-        <div class="chips"><span>Generative AI</span><span>Data Analytics</span><span>Python</span></div>
       </article>
     </div>
 
-    <!-- Data gallery -->
-    <div class="gallery" id="g-data">
-      <header><div class="eyebrow">02 — EXHIBITION ROOM</div><h3>من البيانات إلى القرار</h3><p>لوحات مؤشرات تفاعلية وتحليلات تحوّل البيانات إلى رؤى قابلة لاتخاذ القرار.</p></header>
-      <article class="proj">
-        <div class="kicker">تجربة عمل افتراضية · مارس 2026</div>
-        <h4>STC User Behavior Prediction</h4>
-        <p>نموذج تصنيف تنبؤي باستخدام تعلم الآلة لتحليل وتقسيم سلوك مستخدمي الاتصالات — تجربة عمل افتراضية مع Misk.</p>
-        <div class="cols">
-          <div><h5>التحدي</h5><p>فهم سلوك مستخدمي الاتصالات وتقسيمهم لدعم قرارات الأعمال.</p></div>
-          <div><h5>الحل</h5><p>تطوير نموذج تصنيف تنبؤي مع تقنيات سرد بيانات لعرض رؤى النموذج وأهمية الخصائص بوضوح لجمهور تقني وغير تقني.</p></div>
-          <div><h5>دوري</h5><p>محللة بيانات — بناء النموذج وعرض الرؤى.</p></div>
+    <!-- DATA -->
+    <div class="panel" id="p-data" role="tabpanel" aria-labelledby="t-data" hidden>
+      <article class="card">
+        <div class="card-head"><span class="id"><b>#03</b> ml / classification</span><span data-en="Virtual work experience · March 2026" class="meta">تجربة عمل افتراضية · مارس 2026</span></div>
+        <div class="card-body">
+          <span class="tag">STC × Misk</span>
+          <h3>User Behavior Prediction</h3>
+          <p data-en="A predictive machine-learning classification model to analyze and segment telecom user behavior.">نموذج تصنيف تنبؤي باستخدام تعلم الآلة لتحليل وتقسيم سلوك مستخدمي الاتصالات.</p>
+          <div class="csr">
+            <div><h4 data-en="Problem &lt;small&gt;التحدي&lt;/small&gt;">التحدي <small>PROBLEM</small></h4><p data-en="Understanding and segmenting telecom users to support business decisions.">فهم سلوك مستخدمي الاتصالات وتقسيمهم لدعم قرارات الأعمال.</p></div>
+            <div><h4 data-en="Approach &lt;small&gt;الحل&lt;/small&gt;">الحل <small>APPROACH</small></h4><p data-en="A predictive classification model with data storytelling that presents model insights and feature importance to technical and non-technical audiences.">نموذج تصنيف تنبؤي مع سرد بيانات يعرض رؤى النموذج وأهمية الخصائص لجمهور تقني وغير تقني.</p></div>
+            <div><h4 data-en="Role &lt;small&gt;دوري&lt;/small&gt;">دوري <small>ROLE</small></h4><p data-en="Data analyst — built the model and presented the insights.">محللة بيانات — بناء النموذج وعرض الرؤى.</p></div>
+          </div>
+          <div class="chips"><span class="chip">Machine Learning</span><span class="chip">Classification</span><span class="chip">Python</span><span class="chip">Data Storytelling</span><span class="chip">Feature Importance</span></div>
         </div>
-        <ul class="results"><li>عرض رؤى النموذج وأهمية الخصائص بوضوح لجمهور تقني وتجاري</li></ul>
-        <div class="chips"><span>Machine Learning</span><span>Classification</span><span>Python</span><span>Data Storytelling</span><span>Feature Importance</span></div>
       </article>
-      <article class="proj">
-        <div class="kicker">تدريب تعاوني</div>
-        <h4>GACA Executive Dashboards</h4>
-        <p>لوحات مؤشرات تفاعلية شاملة في Power BI و Tableau لمراقبة مؤشرات الأداء المؤسسية ودعم القرار التنفيذي في الهيئة العامة للطيران المدني.</p>
-        <div class="cols">
-          <div><h5>التحدي</h5><p>الحاجة لمراقبة مؤشرات الأداء المؤسسية ودعم اتخاذ القرار التنفيذي المبني على البيانات.</p></div>
-          <div><h5>الحل</h5><p>معالجة مجموعات بيانات طيران واسعة النطاق مع تحليل استكشافي شامل وتنظيف البيانات بـ Python، وبناء لوحات تفاعلية وفق معايير حوكمة البيانات المؤسسية.</p></div>
-          <div><h5>دوري</h5><p>متدربة ذكاء اصطناعي وبيانات — تدريب تعاوني.</p></div>
-        </div>
-        <ul class="results"><li>لوحات تفاعلية تدعم القرار التنفيذي</li><li>التزام كامل بمعايير حوكمة البيانات والخصوصية</li></ul>
-        <div class="chips"><span>Power BI</span><span>Tableau</span><span>Python</span><span>EDA</span><span>Data Governance</span></div>
-      </article>
-      <article class="proj">
-        <div class="kicker">تدريب · 2022</div>
-        <h4>SDAIA Data Preparation Pipelines</h4>
-        <p>إدارة خطوط إعداد بيانات من البداية إلى النهاية وتحليل البيانات التاريخية لكشف الاتجاهات — الهيئة السعودية للبيانات والذكاء الاصطناعي.</p>
-        <div class="cols">
-          <div><h5>التحدي</h5><p>قيم مفقودة وتعارضات هيكلية عبر مجموعات بيانات متعددة المصادر.</p></div>
-          <div><h5>الحل</h5><p>معالجة القيم المفقودة وتوحيد الهياكل، ثم تحليل البيانات التاريخية لتحديد الاتجاهات الكامنة وتقديم تقارير أداء واضحة لأصحاب المصلحة.</p></div>
-          <div><h5>دوري</h5><p>متدربة تحليل بيانات.</p></div>
-        </div>
-        <ul class="results"><li>تقارير أداء واضحة لأصحاب المصلحة الرئيسيين</li></ul>
-        <div class="chips"><span>Data Preparation</span><span>Data Analysis</span><span>Reporting</span><span>Python</span></div>
-      </article>
-    </div>
-
-    <!-- Design gallery -->
-    <div class="gallery" id="g-design">
-      <header><div class="eyebrow">03 — EXHIBITION ROOM</div><h3>استوديو التصميم الخاص بي</h3><p>معرض أعمالي التصميمية — واجهات، جرافيك، هوية بصرية، وتصاميم مدعومة بالذكاء الاصطناعي.</p></header>
-      <div class="folders">
-        <div class="folder"><small>01</small><b>تصميم واجهات المستخدم</b><p>واجهات تطبيقات ومنصات رقمية</p></div>
-        <div class="folder"><small>02</small><b>تصميم الجرافيك</b><p>بوسترات وهويات بصرية</p></div>
-        <div class="folder"><small>03</small><b>تصاميم مدعومة بالذكاء الاصطناعي</b><p>ابتكارات بصرية مدعومة بالذكاء الاصطناعي</p></div>
-        <div class="folder"><small>04</small><b>تصميم العروض التقديمية</b><p>عروض تنفيذية مهنية</p></div>
-        <div class="folder"><small>05</small><b>تصميمات العقارات</b><p>تصاميم بصرية للقطاع العقاري</p></div>
-        <div class="folder"><small>06</small><b>التصميم الداخلي</b><p>أعمال ومخططات إبداعية في التصميم الداخلي</p></div>
+      <div class="grid-2">
+        <article class="card">
+          <div class="card-head"><span class="id"><b>#04</b> bi / dashboards</span><span data-en="Co-op training · 2026" class="meta">تدريب تعاوني · 2026</span></div>
+          <div class="card-body">
+            <span class="tag">GACA</span>
+            <h3>Executive Dashboards</h3>
+            <p data-en="Interactive Power BI and Tableau dashboards to monitor organizational KPIs and support executive decision-making at the General Authority of Civil Aviation.">لوحات مؤشرات تفاعلية في Power BI و Tableau لمراقبة مؤشرات الأداء المؤسسية ودعم القرار التنفيذي في الهيئة العامة للطيران المدني.</p>
+            <ul class="outcomes" style="margin-top:var(--space-4)">
+              <li data-en="Processed large-scale aviation datasets with exploratory analysis in Python">معالجة بيانات طيران واسعة النطاق وتحليل استكشافي بـ Python</li>
+              <li data-en="Full compliance with data-governance and privacy standards">التزام كامل بمعايير حوكمة البيانات والخصوصية</li>
+            </ul>
+            <div class="chips"><span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">Python</span><span class="chip">EDA</span><span class="chip">Data Governance</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-head"><span class="id"><b>#05</b> data / pipelines</span><span data-en="Internship · 2022" class="meta">تدريب · 2022</span></div>
+          <div class="card-body">
+            <span class="tag">SDAIA</span>
+            <h3>Data Preparation Pipelines</h3>
+            <p data-en="Managed end-to-end data-preparation pipelines and analyzed historical data to uncover trends — Saudi Data &amp; AI Authority.">إدارة خطوط إعداد بيانات من البداية إلى النهاية وتحليل البيانات التاريخية لكشف الاتجاهات — الهيئة السعودية للبيانات والذكاء الاصطناعي.</p>
+            <ul class="outcomes" style="margin-top:var(--space-4)">
+              <li data-en="Handled missing values and standardized structures across multiple sources">معالجة القيم المفقودة وتوحيد الهياكل عبر مصادر متعددة</li>
+              <li data-en="Clear performance reports for key stakeholders">تقارير أداء واضحة لأصحاب المصلحة الرئيسيين</li>
+            </ul>
+            <div class="chips"><span class="chip">Data Preparation</span><span class="chip">Data Analysis</span><span class="chip">Reporting</span><span class="chip">Python</span></div>
+          </div>
+        </article>
       </div>
     </div>
 
-    <!-- Software gallery -->
-    <div class="gallery" id="g-software">
-      <header><div class="eyebrow">04 — EXHIBITION ROOM</div><h3>هندسة البرمجيات — Holberton × Tuwaiq</h3><p>مسار هندسة البرمجيات المتقدم: هياكل بيانات، خوارزميات، وتصميم أنظمة لتحديات هندسية واقعية.</p></header>
-      <article class="proj">
-        <div class="kicker">برنامج هندسي مكثف · فبراير – أغسطس 2026</div>
-        <h4>Advanced Software Engineering — Holberton × Tuwaiq</h4>
-        <p>مسار هندسة برمجيات متقدم وصارم بمنهج هجين: تعاون ميداني مكثف وهندسة مشاريع مستمرة عن بُعد.</p>
-        <div class="cols">
-          <div><h5>التحدي</h5><p>تحديات هندسية واقعية تتطلب حلولًا برمجية منظمة وقابلة للتوسع.</p></div>
-          <div><h5>الحل</h5><p>تنفيذ حلول تصميم برمجية مبتكرة قائمة على المشاريع، مع التركيز على هياكل البيانات المعقدة والخوارزميات وأساسات علوم الحاسب وتطبيقات هندسة البيانات.</p></div>
-          <div><h5>دوري</h5><p>متدربة هندسة برمجيات متقدمة — تعلم نظير ومراجعات كود نشطة تحت إشراف خبراء الصناعة.</p></div>
+    <!-- SOFTWARE -->
+    <div class="panel" id="p-software" role="tabpanel" aria-labelledby="t-software" hidden>
+      <article class="card">
+        <div class="card-head"><span class="id"><b>#06</b> swe / algorithms</span><span data-en="Intensive engineering program · Feb – Aug 2026" class="meta">برنامج هندسي مكثف · فبراير – أغسطس 2026</span></div>
+        <div class="card-body">
+          <span class="tag">Holberton × Tuwaiq</span>
+          <h3>Advanced Software Engineering</h3>
+          <p data-en="A rigorous advanced software-engineering track with a hybrid model: intensive on-site collaboration and continuous remote project engineering.">مسار هندسة برمجيات متقدم وصارم بمنهج هجين: تعاون ميداني مكثف وهندسة مشاريع مستمرة عن بُعد.</p>
+          <div class="csr">
+            <div><h4 data-en="Problem &lt;small&gt;التحدي&lt;/small&gt;">التحدي <small>PROBLEM</small></h4><p data-en="Real-world engineering challenges that demand organized, scalable software solutions.">تحديات هندسية واقعية تتطلب حلولًا برمجية منظمة وقابلة للتوسع.</p></div>
+            <div><h4 data-en="Approach &lt;small&gt;الحل&lt;/small&gt;">الحل <small>APPROACH</small></h4><p data-en="Project-based software design focused on data structures, algorithms and data engineering.">حلول تصميم برمجية قائمة على المشاريع، تركّز على هياكل البيانات والخوارزميات وهندسة البيانات.</p></div>
+            <div><h4 data-en="Role &lt;small&gt;دوري&lt;/small&gt;">دوري <small>ROLE</small></h4><p data-en="Advanced software-engineering trainee — peer learning and code reviews under industry experts.">متدربة هندسة برمجيات متقدمة — تعلم نظير ومراجعات كود تحت إشراف خبراء الصناعة.</p></div>
+          </div>
+          <div class="chips"><span class="chip">Data Structures</span><span class="chip">Algorithms</span><span class="chip">Software Design</span><span class="chip">Git</span><span class="chip">Linux</span><span class="chip">System Analysis</span></div>
         </div>
-        <ul class="results"><li>إتقان أساسات علوم الحاسب وهندسة البيانات عبر مشاريع واقعية</li></ul>
-        <div class="chips"><span>Data Structures</span><span>Algorithms</span><span>Software Design</span><span>Git</span><span>Linux</span><span>System Analysis</span></div>
       </article>
+    </div>
+
+    <!-- DESIGN -->
+    <div class="panel" id="p-design" role="tabpanel" aria-labelledby="t-design" hidden>
+      <p data-en="The creative side — interfaces, graphics, visual identity and AI-assisted design." class="panel-intro">الجانب الإبداعي — واجهات، جرافيك، هوية بصرية، وتصاميم مدعومة بالذكاء الاصطناعي.</p>
+      <div class="studio">
+        <div><span class="label">ui_ux/</span><b data-en="UI / UX Design">تصميم واجهات المستخدم</b><p data-en="Interfaces for apps and digital platforms">واجهات تطبيقات ومنصات رقمية</p></div>
+        <div><span class="label">graphic/</span><b data-en="Graphic Design">تصميم الجرافيك</b><p data-en="Posters and visual identities">بوسترات وهويات بصرية</p></div>
+        <div><span class="label">ai_generated/</span><b data-en="AI-Assisted Design">تصاميم بالذكاء الاصطناعي</b><p data-en="Visual work powered by AI">ابتكارات بصرية مدعومة بالذكاء الاصطناعي</p></div>
+        <div><span class="label">presentations/</span><b data-en="Presentations">العروض التقديمية</b><p data-en="Professional executive decks">عروض تنفيذية مهنية</p></div>
+        <div><span class="label">real_estate/</span><b data-en="Real-Estate Design">تصميمات العقارات</b><p data-en="Visual design for the real-estate sector">تصاميم بصرية للقطاع العقاري</p></div>
+        <div><span class="label">interior/</span><b data-en="Interior Design">التصميم الداخلي</b><p data-en="Creative interior-design work and layouts">أعمال ومخططات إبداعية في التصميم الداخلي</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- JOURNEY -->
+<!-- ============ JOURNEY ============ -->
 <section id="journey">
   <div class="wrap">
-    <div class="eyebrow">03 — المسيرة المهنية</div>
-    <h2 class="h">رحلتي</h2>
-    <p class="sub">التعليم والخبرات والتدريب بترتيب زمني</p>
-    <div class="timeline">
-      <div class="ev reveal">
-        <div class="top"><span>يناير 2026 — مايو 2026</span><span class="kind">خبرة</span></div>
-        <h3>متدربة ذكاء اصطناعي وبيانات</h3><div class="org en">Outstanding Knowledge Consultancy</div>
-        <p>بناء نماذج تنبؤية وأتمتة إجراءات إعداد البيانات باستخدام Python و SQL لدعم مشاريع استشارية تقنية موجهة للعملاء.</p>
-        <div class="key"><b>المساهمة الجوهرية:</b> تحويل منطق الأعمال التشغيلي إلى تدفقات بيانات منظمة وقابلة للتوسع بالتعاون مع فرق هندسية متعددة التخصصات.</div>
-      </div>
-      <div class="ev reveal">
-        <div class="top"><span>فبراير 2026 — أغسطس 2026</span><span class="kind">خبرة</span></div>
-        <h3>متدربة هندسة برمجيات متقدمة</h3><div class="org">Holberton School — أكاديمية طويق</div>
-        <p>منهج هجين صارم يجمع بين التعاون الميداني المكثف وهندسة المشاريع عن بُعد، مع حلول تصميم برمجية لتحديات هندسية واقعية وهياكل بيانات وخوارزميات معقدة.</p>
-        <div class="key"><b>المساهمة الجوهرية:</b> التعلم النظير المتقدم ومراجعات الكود النشطة تحت إشراف خبراء الصناعة، مع إتقان أساسات علوم الحاسب وتطبيقات هندسة البيانات.</div>
-      </div>
-      <div class="ev reveal">
-        <div class="top"><span>فبراير 2026 — أبريل 2026</span><span class="kind">خبرة</span></div>
-        <h3>تدريب تعاوني — ذكاء اصطناعي وبيانات</h3><div class="org">الهيئة العامة للطيران المدني (GACA)</div>
-        <p>إنشاء لوحات مؤشرات تفاعلية شاملة في Power BI و Tableau لمراقبة مؤشرات الأداء المؤسسية ودعم اتخاذ القرار التنفيذي، ومعالجة مجموعات بيانات طيران واسعة النطاق.</p>
-        <div class="key"><b>المساهمة الجوهرية:</b> تطبيق معايير حوكمة البيانات المؤسسية لضمان المعالجة الآمنة وحماية الخصوصية عبر الأصول البيانية الداخلية.</div>
-      </div>
-      <div class="ev reveal">
-        <div class="top"><span>2026</span><span class="kind">تعليم</span></div>
-        <h3>بكالوريوس علوم الحاسب — مسار علوم البيانات</h3><div class="org">جامعة جدة</div>
-        <p>خريجة بمرتبة الشرف، مع شهادة إتمام المسار المالي من كلية الأعمال بجامعة جدة.</p>
-        <div class="key"><b>المساهمة الجوهرية:</b> مشروع تخرج بحثي: خط تعلم عميق لتصنيف الصور الطبية (DermaVision).</div>
-      </div>
-      <div class="ev reveal">
-        <div class="top"><span>يوليو 2022 — أكتوبر 2022</span><span class="kind">خبرة</span></div>
-        <h3>متدربة تحليل بيانات</h3><div class="org">الهيئة السعودية للبيانات والذكاء الاصطناعي (SDAIA)</div>
-        <p>إدارة خطوط إعداد البيانات من البداية إلى النهاية: معالجة القيم المفقودة وتوحيد التعارضات الهيكلية عبر مجموعات بيانات متعددة المصادر.</p>
-        <div class="key"><b>المساهمة الجوهرية:</b> تحليل البيانات التاريخية لكشف الاتجاهات وتقديم تقارير أداء واضحة لأصحاب المصلحة الرئيسيين.</div>
-      </div>
+    <div class="sec-head">
+      <div><span class="path">~/afnan/<em>03_experience</em></span><h2 data-en="Experience &amp; Education">الخبرات والتعليم</h2></div>
+      <p data-en="A timeline of my experience, training and education.">سجل زمني للخبرات والتدريب والتعليم.</p>
     </div>
+    <ol class="log">
+      <li class="entry reveal">
+        <div class="when"><span class="d">2026.01 → 2026.05</span><br><span data-en="Experience" class="type">خبرة</span></div>
+        <div class="body"><h3 data-en="AI &amp; Data Trainee">متدربة ذكاء اصطناعي وبيانات</h3><div class="org">Outstanding Knowledge Consultancy</div>
+          <p data-en="Built predictive models and automated data-preparation workflows with Python and SQL to support client-facing technical consulting projects.">بناء نماذج تنبؤية وأتمتة إجراءات إعداد البيانات باستخدام Python و SQL لدعم مشاريع استشارية تقنية موجهة للعملاء.</p>
+          <div data-en="&lt;b&gt;Key contribution:&lt;/b&gt; Turned operational business logic into structured, scalable data workflows, working with cross-functional engineering teams." class="key"><b>المساهمة الجوهرية:</b> تحويل منطق الأعمال التشغيلي إلى تدفقات بيانات منظمة وقابلة للتوسع بالتعاون مع فرق هندسية متعددة التخصصات.</div></div>
+      </li>
+      <li class="entry reveal">
+        <div class="when"><span class="d">2026.02 → 2026.08</span><br><span data-en="Experience" class="type">خبرة</span></div>
+        <div class="body"><h3 data-en="Advanced Software Engineering Trainee">متدربة هندسة برمجيات متقدمة</h3><div class="org">Holberton School × Tuwaiq Academy</div>
+          <p data-en="A rigorous hybrid curriculum combining intensive on-site collaboration and remote project engineering, with complex data structures and algorithms.">منهج هجين صارم يجمع بين التعاون الميداني المكثف وهندسة المشاريع عن بُعد، مع هياكل بيانات وخوارزميات معقدة.</p>
+          <div data-en="&lt;b&gt;Key contribution:&lt;/b&gt; Advanced peer learning and active code reviews under the supervision of industry experts." class="key"><b>المساهمة الجوهرية:</b> التعلم النظير المتقدم ومراجعات الكود النشطة تحت إشراف خبراء الصناعة.</div></div>
+      </li>
+      <li class="entry reveal">
+        <div class="when"><span class="d">2026.02 → 2026.04</span><br><span data-en="Experience" class="type">خبرة</span></div>
+        <div class="body"><h3 data-en="Co-op Training — AI &amp; Data">تدريب تعاوني — ذكاء اصطناعي وبيانات</h3><div data-en="GACA — General Authority of Civil Aviation" class="org">GACA — الهيئة العامة للطيران المدني</div>
+          <p data-en="Interactive Power BI and Tableau dashboards to monitor organizational KPIs and support executive decisions, processing large-scale aviation datasets.">لوحات مؤشرات تفاعلية في Power BI و Tableau لمراقبة مؤشرات الأداء المؤسسية ودعم القرار التنفيذي، ومعالجة بيانات طيران واسعة النطاق.</p>
+          <div data-en="&lt;b&gt;Key contribution:&lt;/b&gt; Applied enterprise data-governance standards to ensure secure processing and privacy protection." class="key"><b>المساهمة الجوهرية:</b> تطبيق معايير حوكمة البيانات المؤسسية لضمان المعالجة الآمنة وحماية الخصوصية.</div></div>
+      </li>
+      <li class="entry reveal">
+        <div class="when"><span class="d">2026</span><br><span data-en="Education" class="type">تعليم</span></div>
+        <div class="body"><h3 data-en="BSc Computer Science — Data Science Track">بكالوريوس علوم الحاسب — مسار علوم البيانات</h3><div data-en="University of Jeddah" class="org">University of Jeddah — جامعة جدة</div>
+          <p data-en="Graduated with honors, plus a Finance track completion certificate from the University of Jeddah College of Business.">خريجة بمرتبة الشرف، مع شهادة إتمام المسار المالي من كلية الأعمال بجامعة جدة.</p>
+          <div data-en="&lt;b&gt;Graduation project:&lt;/b&gt; A deep-learning pipeline for medical image classification (DermaVision)." class="key"><b>مشروع التخرج:</b> خط تعلم عميق لتصنيف الصور الطبية (DermaVision).</div></div>
+      </li>
+      <li class="entry reveal">
+        <div class="when"><span class="d">2022.07 → 2022.10</span><br><span data-en="Experience" class="type">خبرة</span></div>
+        <div class="body"><h3 data-en="Data Analysis Intern">متدربة تحليل بيانات</h3><div data-en="SDAIA — Saudi Data &amp; AI Authority" class="org">SDAIA — الهيئة السعودية للبيانات والذكاء الاصطناعي</div>
+          <p data-en="Managed end-to-end data-preparation pipelines: handling missing values and resolving structural inconsistencies across multi-source datasets.">إدارة خطوط إعداد البيانات من البداية إلى النهاية: معالجة القيم المفقودة وتوحيد التعارضات الهيكلية عبر مصادر متعددة.</p>
+          <div data-en="&lt;b&gt;Key contribution:&lt;/b&gt; Analyzed historical data to uncover trends and delivered clear performance reports to stakeholders." class="key"><b>المساهمة الجوهرية:</b> تحليل البيانات التاريخية لكشف الاتجاهات وتقديم تقارير أداء واضحة لأصحاب المصلحة.</div></div>
+      </li>
+    </ol>
   </div>
 </section>
 
-<!-- STACK -->
+<!-- ============ STACK ============ -->
 <section id="stack">
   <div class="wrap">
-    <div class="eyebrow">04 — الترسانة التقنية</div>
-    <h2 class="h en">Tech Stack</h2>
-    <div class="stack reveal">
-      <div><h3>الذكاء الاصطناعي وتعلم الآلة<small>AI &amp; Machine Learning</small></h3><div class="chips"><span>Python</span><span>PyTorch</span><span>TensorFlow</span><span>Keras</span><span>Scikit-learn</span><span>Deep Learning</span><span>Computer Vision</span><span>CNNs</span><span>Vision Transformers</span><span>Feature Engineering</span><span>ML Pipelines</span></div></div>
-      <div><h3>البيانات<small>Data</small></h3><div class="chips"><span>SQL</span><span>MySQL</span><span>PostgreSQL</span><span>Data Analysis</span><span>EDA</span><span>Power BI</span><span>Tableau</span><span>Data Storytelling</span></div></div>
-      <div><h3>التطوير<small>Development</small></h3><div class="chips"><span>Git</span><span>GitHub</span><span>Linux (Red Hat)</span><span>System Analysis</span><span>Technical Documentation</span></div></div>
-      <div><h3>الإبداع<small>Creative</small></h3><div class="chips"><span>Figma</span><span>Canva</span><span>UI/UX Design</span><span>Graphic Design</span><span>Presentation Design</span><span>Interior Design</span></div></div>
-      <div><h3>اللغات</h3><div class="chips"><span>العربية — لغة أم</span><span>الإنجليزية — متقدمة</span></div></div>
-      <div><h3>سمات مهنية</h3><div class="chips"><span>التعاون النظير</span><span>حل المشكلات القائم على المشاريع</span><span>تحليل الأنظمة</span><span>التوثيق التقني</span></div></div>
+    <div class="sec-head">
+      <div><span class="path">~/afnan/<em>04_stack</em></span><h2 data-en="Skills &amp; Tools">المهارات والأدوات</h2></div>
+      <p data-en="The tools I use across AI, data, development and design.">الأدوات التي أعمل بها في الذكاء الاصطناعي والبيانات والتطوير والتصميم.</p>
+    </div>
+    <div class="skills reveal">
+      <div class="skill"><h3 data-en="AI &amp; Machine Learning&lt;span class=&quot;label&quot;&gt;ai_ml&lt;/span&gt;">الذكاء الاصطناعي وتعلم الآلة<span class="label">ai_ml</span></h3><div class="chips"><span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">TensorFlow</span><span class="chip">Keras</span><span class="chip">Scikit-learn</span><span class="chip">Deep Learning</span><span class="chip">Computer Vision</span><span class="chip">CNNs</span><span class="chip">Vision Transformers</span><span class="chip">Feature Engineering</span><span class="chip">ML Pipelines</span></div></div>
+      <div class="skill"><h3 data-en="Data&lt;span class=&quot;label&quot;&gt;data&lt;/span&gt;">البيانات<span class="label">data</span></h3><div class="chips"><span class="chip">SQL</span><span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">Data Analysis</span><span class="chip">EDA</span><span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">Data Storytelling</span></div></div>
+      <div class="skill"><h3 data-en="Development&lt;span class=&quot;label&quot;&gt;dev&lt;/span&gt;">التطوير<span class="label">dev</span></h3><div class="chips"><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Linux (Red Hat)</span><span class="chip">System Analysis</span><span class="chip">Technical Documentation</span></div></div>
+      <div class="skill"><h3 data-en="Creative&lt;span class=&quot;label&quot;&gt;creative&lt;/span&gt;">الإبداع<span class="label">creative</span></h3><div class="chips"><span class="chip">Figma</span><span class="chip">Canva</span><span class="chip">UI/UX Design</span><span class="chip">Graphic Design</span><span class="chip">Presentation Design</span><span class="chip">Interior Design</span></div></div>
+      <div class="skill"><h3 data-en="Languages&lt;span class=&quot;label&quot;&gt;lang&lt;/span&gt;">اللغات<span class="label">lang</span></h3><div class="chips ar"><span data-en="Arabic — native" class="chip ar">العربية — لغة أم</span><span data-en="English — advanced" class="chip ar">الإنجليزية — متقدمة</span></div></div>
+      <div class="skill"><h3 data-en="Professional traits&lt;span class=&quot;label&quot;&gt;traits&lt;/span&gt;">سمات مهنية<span class="label">traits</span></h3><div class="chips ar"><span data-en="Peer collaboration" class="chip ar">التعاون النظير</span><span data-en="Project-based problem solving" class="chip ar">حل المشكلات القائم على المشاريع</span><span data-en="Systems analysis" class="chip ar">تحليل الأنظمة</span><span data-en="Technical documentation" class="chip ar">التوثيق التقني</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- CREDENTIALS -->
+<!-- ============ CREDENTIALS ============ -->
 <section id="credentials">
   <div class="wrap">
-    <div class="eyebrow">05 — قبو الاعتمادات</div>
-    <h2 class="h">الشهادات والإنجازات</h2>
-    <div class="cred-group reveal">
-      <h3>الجوائز والهاكاثونات</h3>
-      <div class="creds">
-        <div class="cred award"><b>الشهادة الذهبية+ — Kanz AI Hackathon 2026</b><span>Supercharge Your Data Analytics with Generative AI</span><small>يوليو 2026</small></div>
-        <div class="cred award"><b>المركز الثاني — Snap AR Lens Challenge</b><span>Saudi Digital Academy × Snapchat</span><small>2026</small></div>
-      </div>
+    <div class="sec-head">
+      <div><span class="path">~/afnan/<em>05_certs</em></span><h2 data-en="Awards &amp; Certifications">الجوائز والشهادات</h2></div>
+      <p data-en="Hackathon awards and professional certifications from Huawei, IBM, SDAIA and Red Hat.">جوائز في هاكاثونات، وشهادات احترافية من Huawei و IBM و SDAIA و Red Hat.</p>
     </div>
-    <div class="cred-group reveal">
-      <h3>الشهادات الاحترافية</h3>
-      <div class="creds">
-        <div class="cred"><b>HCIA-AI 4.0</b><span>Huawei Cloud Middle East</span><small>2026</small></div>
-        <div class="cred"><b>HCIA-IoT V3.0</b><span>Huawei Cloud Middle East</span><small>2026</small></div>
-        <div class="cred"><b>HCIA OpenEuler V1</b><span>Huawei Cloud Middle East</span><small>2026</small></div>
-        <div class="cred"><b>Student Ambassador Program</b><span>IBM SkillsBuild</span><small>مايو 2026</small></div>
-        <div class="cred"><b>AI Accelerator Program</b><span>King Saud University — Industrial Engineering Club</span><small>2026</small></div>
-        <div class="cred"><b>Increase Productivity &amp; Improve Efficiency</b><span>SDAIA</span><small>أغسطس 2026</small></div>
-        <div class="cred"><b>Data Analysis Virtual Work Experience</b><span>STC × Misk Foundation</span><small>مارس 2026</small></div>
-        <div class="cred"><b>Fundamentals of Artificial Intelligence</b><span>SDAIA</span><small>2025</small></div>
-        <div class="cred"><b>Data Engineering Foundation</b><span>SDAIA</span><small>2023</small></div>
-        <div class="cred"><b>RH124 — Red Hat System Administration I</b><span>Red Hat</span><small>2023</small></div>
-        <div class="cred"><b>Database and SQL for Data Science with Python</b><span>IBM</span><small>2022</small></div>
-        <div class="cred"><b>Python Project for Data Engineering</b><span>IBM</span><small>2022</small></div>
-        <div class="cred"><b>Introduction to Relational Databases (RDBMS)</b><span>Coursera</span><small>2022</small></div>
-      </div>
+    <div class="awards reveal">
+      <div class="award"><div class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"/></svg></div>
+        <div><b data-en="Gold+ Certificate — Kanz AI Hackathon 2026">الشهادة الذهبية+ — Kanz AI Hackathon 2026</b><span>Supercharge Your Data Analytics with Generative AI</span><small>2026.07</small></div></div>
+      <div class="award"><div class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></div>
+        <div><b data-en="2nd Place — Snap AR Lens Challenge">المركز الثاني — Snap AR Lens Challenge</b><span>Saudi Digital Academy × Snapchat</span><small>2026</small></div></div>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="table">
+        <thead><tr><th class="idx">#</th><th data-en="Certification">الشهادة</th><th data-en="Issuer">الجهة</th><th data-en="Date">التاريخ</th></tr></thead>
+        <tbody>
+          <tr><td class="idx">01</td><td class="name"><span>HCIA-AI 4.0</span></td><td class="iss"><span>Huawei Cloud Middle East</span></td><td class="yr">2026</td></tr>
+          <tr><td class="idx">02</td><td class="name"><span>HCIA-IoT V3.0</span></td><td class="iss"><span>Huawei Cloud Middle East</span></td><td class="yr">2026</td></tr>
+          <tr><td class="idx">03</td><td class="name"><span>HCIA OpenEuler V1</span></td><td class="iss"><span>Huawei Cloud Middle East</span></td><td class="yr">2026</td></tr>
+          <tr><td class="idx">04</td><td class="name"><span>Student Ambassador Program</span></td><td class="iss"><span>IBM SkillsBuild</span></td><td class="yr">2026.05</td></tr>
+          <tr><td class="idx">05</td><td class="name"><span>AI Accelerator Program</span></td><td class="iss"><span>KSU — Industrial Engineering Club</span></td><td class="yr">2026</td></tr>
+          <tr><td class="idx">06</td><td class="name"><span>Increase Productivity &amp; Improve Efficiency</span></td><td class="iss"><span>SDAIA</span></td><td class="yr">2026.08</td></tr>
+          <tr><td class="idx">07</td><td class="name"><span>Data Analysis Virtual Work Experience</span></td><td class="iss"><span>STC × Misk Foundation</span></td><td class="yr">2026.03</td></tr>
+          <tr><td class="idx">08</td><td class="name"><span>Fundamentals of Artificial Intelligence</span></td><td class="iss"><span>SDAIA</span></td><td class="yr">2025</td></tr>
+          <tr><td class="idx">09</td><td class="name"><span>Data Engineering Foundation</span></td><td class="iss"><span>SDAIA</span></td><td class="yr">2023</td></tr>
+          <tr><td class="idx">10</td><td class="name"><span>RH124 — Red Hat System Administration I</span></td><td class="iss"><span>Red Hat</span></td><td class="yr">2023</td></tr>
+          <tr><td class="idx">11</td><td class="name"><span>Database and SQL for Data Science with Python</span></td><td class="iss"><span>IBM</span></td><td class="yr">2022</td></tr>
+          <tr><td class="idx">12</td><td class="name"><span>Python Project for Data Engineering</span></td><td class="iss"><span>IBM</span></td><td class="yr">2022</td></tr>
+          <tr><td class="idx">13</td><td class="name"><span>Introduction to Relational Databases (RDBMS)</span></td><td class="iss"><span>Coursera</span></td><td class="yr">2022</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- ============ CONTACT ============ -->
 <section id="contact">
-  <div class="wrap">
-    <div class="eyebrow">06 — تواصل</div>
-    <h2 class="h grad">لنبنِ شيئًا ذكيًا معًا</h2>
-    <p class="sub">هل لديك مشروع أو فرصة؟ يسعدني التواصل.</p>
-    <div class="contact reveal">
-      <div class="cbox">
-        <div class="crow"><span>البريد الإلكتروني</span><a href="mailto:a.almass3dii@gmail.com">a.almass3dii@gmail.com</a></div>
-        <div class="crow"><span>الجوال</span><a href="tel:+966545379819">+966 54 537 9819</a></div>
-        <div class="crow"><span>الموقع</span><b style="direction:rtl">الرياض، المملكة العربية السعودية</b></div>
-        <div class="crow"><span>LinkedIn</span><a href="https://www.linkedin.com/in/afnan-fahad-aljohani-0b5a70315/" target="_blank" rel="noopener">linkedin.com/in/afnan-fahad-aljohani</a></div>
-        <div class="crow"><span>GitHub</span><a href="https://github.com/i2fna" target="_blank" rel="noopener">github.com/i2fna</a></div>
+  <div class="wrap contact">
+    <div>
+      <span class="path">~/afnan/<em>06_contact</em></span>
+      <h2 data-en="Let&#x27;s build something &lt;em&gt;intelligent&lt;/em&gt; together">لنبنِ شيئًا <em>ذكيًا</em> معًا</h2>
+      <p data-en="Have a project or an opportunity? I&#x27;d love to hear from you — WhatsApp is the fastest way to reach me during working hours." class="lead">هل لديك مشروع أو فرصة؟ يسعدني التواصل — واتساب أسرع طريقة للرد خلال ساعات العمل.</p>
+      <div class="ctas">
+        <a data-en="Email me" class="btn btn-primary" href="mailto:a.almass3dii@gmail.com">راسليني بالبريد</a>
+        <a data-en="WhatsApp" class="btn" href="https://wa.me/966545379819" target="_blank" rel="noopener">واتساب</a>
       </div>
-      <div class="cbox">
-        <h3 style="font-size:20px">واتساب — رد سريع خلال ساعات العمل</h3>
-        <p style="color:var(--muted);margin-top:8px">أسهل وأسرع طريقة للتواصل معي — اضغط الزر وسيفتح واتساب مباشرة على رقمي.</p>
-        <a class="wa" href="https://wa.me/966545379819" target="_blank" rel="noopener">تواصل عبر واتساب <span dir="ltr">+966 54 537 9819</span></a>
-      </div>
+    </div>
+    <div class="code term frame reveal">
+      <div class="code-bar"><span class="file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>terminal</span><span>zsh</span></div>
+<pre><span class="pr">afnan@riyadh ~ $</span> contact --list
+email    → <a href="mailto:a.almass3dii@gmail.com">a.almass3dii@gmail.com</a>
+phone    → <a href="tel:+966545379819">+966 54 537 9819</a>
+whatsapp → <a href="https://wa.me/966545379819" target="_blank" rel="noopener">wa.me/966545379819</a>
+linkedin → <a href="https://www.linkedin.com/in/afnan-fahad-aljohani-0b5a70315/" target="_blank" rel="noopener">in/afnan-fahad-aljohani</a>
+github   → <a href="https://github.com/i2fna" target="_blank" rel="noopener">github.com/i2fna</a>
+location → Riyadh, Saudi Arabia
+<span class="pr">afnan@riyadh ~ $</span> <span class="c"># reply within working hours</span></pre>
     </div>
   </div>
 </section>
 </main>
 
 <footer>
-  <div class="wrap">
-    <img src="assets/signature-white.png" alt="Afnan Aljohani" width="755" height="202" style="height:40px;width:auto;margin:0 auto 10px;opacity:.9" />
-    <b>أفنان فهد الجهني</b>
-    <div class="mono" style="margin:6px 0">Engineering Intelligence. Designing Possibilities.</div>
-    صُنع بشغف — أفنان فهد الجهني © 2026
+  <div class="wrap foot">
+    <img src="assets/signature-white.png" alt="Afnan Aljohani" width="755" height="202" />
+    <span>Engineering Intelligence. Designing Possibilities.</span>
+    <span>© 2026 Afnan Aljohani</span>
   </div>
 </footer>
 
 <script>
-const nav=document.getElementById('nav'),links=document.getElementById('links'),burger=document.getElementById('burger');
-addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+const root=document.documentElement,links=document.getElementById('links'),burger=document.getElementById('burger');
 burger.addEventListener('click',()=>{const o=links.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
-links.addEventListener('click',e=>{if(e.target.tagName==='A'){links.classList.remove('open');burger.setAttribute('aria-expanded',false)}});
+links.addEventListener('click',e=>{if(e.target.closest('a')){links.classList.remove('open');burger.setAttribute('aria-expanded',false)}});
 
-function openRoom(key,toggle){
-  const g=document.getElementById('g-'+key),btn=document.querySelector('.room[data-room="'+key+'"]'),wasOpen=g.classList.contains('open');
-  document.querySelectorAll('.gallery').forEach(x=>x.classList.remove('open'));
-  document.querySelectorAll('.room').forEach(x=>x.setAttribute('aria-expanded',false));
-  if(toggle&&wasOpen)return;
-  g.classList.add('open');btn.setAttribute('aria-expanded',true);g.scrollIntoView({behavior:'smooth',block:'start'});
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const t=root.getAttribute('data-theme')==='dark'?'light':'dark';
+  root.setAttribute('data-theme',t);try{localStorage.setItem('theme',t)}catch(e){}
+});
+
+const tabs=[...document.querySelectorAll('[role=tab]')];
+function select(tab,focus){
+  tabs.forEach(t=>{const on=t===tab;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!on});
+  if(focus)tab.focus();
 }
-document.querySelectorAll('.room').forEach(btn=>btn.addEventListener('click',()=>openRoom(btn.dataset.room,true)));
-document.querySelectorAll('[data-open]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openRoom(a.dataset.open,false)}));
+tabs.forEach((t,i)=>{
+  t.addEventListener('click',()=>select(t));
+  t.addEventListener('keydown',e=>{
+    const r=document.documentElement.dir==='rtl',d=e.key===(r?'ArrowLeft':'ArrowRight')?1:e.key===(r?'ArrowRight':'ArrowLeft')?-1:0;
+    if(d){e.preventDefault();select(tabs[(i+d+tabs.length)%tabs.length],true)}
+  });
+});
 
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===== Circuit-board background with travelling data pulses ===== */
+(function(){
+  const cv=document.getElementById('circuit'),ctx=cv.getContext('2d');
+  const stat=document.createElement('canvas'),sx=stat.getContext('2d');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const G=22;                       /* grid cell, px */
+  let W,H,dpr,traces=[],pulses=[],streaks=[],C={},raf=null,last=0;
+  const rnd=(a,b)=>a+Math.random()*(b-a), pick=a=>a[Math.floor(Math.random()*a.length)];
+  function readColors(){const s=getComputedStyle(document.documentElement);['trace','pulse','bits'].forEach(k=>C[k]=s.getPropertyValue('--'+k).trim());C.k=parseFloat(s.getPropertyValue('--trace-k'))||1}
+  /* one PCB trace: orthogonal runs joined by 45-degree bends */
+  function makeTrace(){
+    const horiz=Math.random()<.62;
+    let x=Math.round(rnd(0,W/G))*G,y=Math.round(rnd(0,H/G))*G;
+    let dx=horiz?pick([-1,1]):0,dy=horiz?0:pick([-1,1]);
+    const pts=[[x,y]],segs=Math.floor(rnd(2,6));
+    for(let i=0;i<segs;i++){
+      const run=Math.floor(rnd(2,horiz?12:8))*G;x+=dx*run;y+=dy*run;pts.push([x,y]);
+      if(i<segs-1){const b=Math.floor(rnd(1,3))*G;
+        if(dx){const sy=pick([-1,1]);x+=dx*b;y+=sy*b}else{const sx2=pick([-1,1]);x+=sx2*b;y+=dy*b}
+        pts.push([x,y]);}
+    }
+    let len=0;const cum=[0];for(let i=1;i<pts.length;i++){len+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);cum.push(len)}
+    return {pts,cum,len,w:Math.random()<.2?1.6:1,a:rnd(.10,.26)};
+  }
+  function at(t,s){let i=1;while(i<t.cum.length-1&&t.cum[i]<s)i++;const a=t.pts[i-1],b=t.pts[i],seg=t.cum[i]-t.cum[i-1]||1,u=(s-t.cum[i-1])/seg;return[a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u]}
+  function chip(x,y,w,h){
+    sx.strokeStyle=`rgba(${C.trace},${.32*C.k})`;sx.lineWidth=1;sx.strokeRect(x+.5,y+.5,w,h);
+    sx.fillStyle=`rgba(${C.trace},${.05*C.k})`;sx.fillRect(x,y,w,h);
+    sx.strokeStyle=`rgba(${C.trace},${.22*C.k})`;
+    for(let px=x+8;px<x+w-4;px+=8){sx.beginPath();sx.moveTo(px+.5,y);sx.lineTo(px+.5,y-7);sx.moveTo(px+.5,y+h);sx.lineTo(px+.5,y+h+7);sx.stroke()}
+    for(let py=y+8;py<y+h-4;py+=8){sx.beginPath();sx.moveTo(x,py+.5);sx.lineTo(x-7,py+.5);sx.moveTo(x+w,py+.5);sx.lineTo(x+w+7,py+.5);sx.stroke()}
+    sx.strokeStyle=`rgba(${C.trace},${.14*C.k})`;sx.strokeRect(x+6.5,y+6.5,w-12,h-12);
+  }
+  function bits(x,y){ /* dot-matrix data block */
+    sx.fillStyle=`rgba(${C.bits},${.28*C.k})`;const cols=Math.floor(rnd(8,22)),rows=Math.floor(rnd(1,3));
+    for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)if(Math.random()<.7)sx.fillRect(x+c*5,y+r*5,2.5,2.5);
+  }
+  function drawStatic(){
+    stat.width=W*dpr;stat.height=H*dpr;sx.setTransform(dpr,0,0,dpr,0,0);sx.clearRect(0,0,W,H);
+    /* fine grid */
+    sx.strokeStyle=`rgba(${C.trace},${.05*C.k})`;sx.lineWidth=1;sx.beginPath();
+    for(let x=0;x<W;x+=G*2){sx.moveTo(x+.5,0);sx.lineTo(x+.5,H)}for(let y=0;y<H;y+=G*2){sx.moveTo(0,y+.5);sx.lineTo(W,y+.5)}sx.stroke();
+    /* traces + pads */
+    for(const t of traces){
+      sx.strokeStyle=`rgba(${C.trace},${t.a*C.k})`;sx.lineWidth=t.w;sx.lineJoin='round';sx.beginPath();
+      t.pts.forEach((p,i)=>i?sx.lineTo(p[0],p[1]):sx.moveTo(p[0],p[1]));sx.stroke();
+      [t.pts[0],t.pts[t.pts.length-1]].forEach((p,i)=>{sx.beginPath();sx.arc(p[0],p[1],i?2.6:2,0,7);
+        if(i){sx.strokeStyle=`rgba(${C.trace},${(t.a+.15)*C.k})`;sx.stroke()}else{sx.fillStyle=`rgba(${C.trace},${(t.a+.1)*C.k})`;sx.fill()}});
+    }
+    /* chips */
+    const nChips=Math.max(2,Math.round(W*H/260000));
+    for(let i=0;i<nChips;i++){const w=Math.round(rnd(3,6))*G,h=Math.round(rnd(2,4))*G;chip(Math.round(rnd(0,W-w)/G)*G,Math.round(rnd(0,H-h)/G)*G,w,h)}
+    /* bits */
+    const nBits=Math.round(W*H/90000);for(let i=0;i<nBits;i++)bits(rnd(0,W-110),rnd(0,H));
+  }
+  function build(){
+    dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    const n=Math.round(Math.min(150,Math.max(40,W*H/7500)));traces=Array.from({length:n},makeTrace).filter(t=>t.len>G*4);
+    pulses=Array.from({length:Math.round(Math.min(26,Math.max(10,W/60)))},()=>newPulse(true));
+    streaks=Array.from({length:7},()=>newStreak(true));
+    readColors();drawStatic();
+  }
+  function newPulse(seed){const t=pick(traces);return{t,s:seed?rnd(0,t.len):0,v:rnd(.9,2.2),tail:rnd(36,80)}}
+  function newStreak(seed){return{y:Math.round(rnd(0,H/G))*G+.5,x:seed?rnd(-W,W):W+rnd(0,W),len:rnd(80,260),v:rnd(1.5,4)}}
+  function frame(ts){
+    const dt=Math.min(3,(ts-last)/16.7||1);last=ts;
+    ctx.clearRect(0,0,W,H);ctx.drawImage(stat,0,0,W,H);
+    /* horizontal light streaks (data flow) */
+    for(const st of streaks){
+      if(!reduce)st.x-=st.v*dt; if(st.x+st.len<0)Object.assign(st,newStreak(false));
+      const g=ctx.createLinearGradient(st.x,0,st.x+st.len,0);g.addColorStop(0,`rgba(${C.pulse},${.55*C.k})`);g.addColorStop(1,`rgba(${C.pulse},0)`);
+      ctx.strokeStyle=g;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(st.x,st.y);ctx.lineTo(st.x+st.len,st.y);ctx.stroke();
+    }
+    /* pulses travelling along traces */
+    ctx.lineCap='round';
+    for(const p of pulses){
+      if(!reduce)p.s+=p.v*dt; if(p.s>p.t.len+p.tail){Object.assign(p,newPulse(false));continue}
+      const head=Math.min(p.s,p.t.len),steps=8;
+      for(let k=0;k<steps;k++){const s0=head-p.tail*k/steps,s1=head-p.tail*(k+1)/steps;if(s1<0)break;
+        const a=at(p.t,Math.max(0,s0)),b=at(p.t,Math.max(0,s1));
+        ctx.strokeStyle=`rgba(${C.pulse},${(1-k/steps)*.9*C.k})`;ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke()}
+      if(p.s<=p.t.len){const h=at(p.t,head);ctx.save();ctx.shadowColor=`rgba(${C.pulse},1)`;ctx.shadowBlur=12;ctx.fillStyle=`rgba(${C.pulse},${C.k})`;ctx.beginPath();ctx.arc(h[0],h[1],2.2,0,7);ctx.fill();ctx.restore()}
+    }
+    if(!reduce)raf=requestAnimationFrame(frame);
+  }
+  function start(){cancelAnimationFrame(raf);raf=requestAnimationFrame(frame)}
+  build();start();
+  let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{build();start()},150)});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else start()});
+  new MutationObserver(()=>{readColors();drawStatic();start()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+})();
+
+/* ===== Arabic / English switch ===== */
+(function(){
+  const root=document.documentElement,btn=document.getElementById('langToggle');
+  const META={ar:{title:document.title,desc:document.querySelector('meta[name=description]').content},
+    en:{title:'Afnan Fahad Aljohani | AI Engineer & Data Scientist',desc:'Portfolio of Afnan Fahad Aljohani — AI engineer, data scientist and creative technologist.'}};
+  function apply(l){
+    root.lang=l;root.dir=l==='en'?'ltr':'rtl';
+    document.querySelectorAll('[data-en]').forEach(el=>{if(el.dataset.ar===undefined)el.dataset.ar=el.innerHTML;el.innerHTML=l==='en'?el.dataset.en:el.dataset.ar});
+    document.querySelectorAll('[data-en-aria]').forEach(el=>{if(el.dataset.arAria===undefined)el.dataset.arAria=el.getAttribute('aria-label');el.setAttribute('aria-label',l==='en'?el.dataset.enAria:el.dataset.arAria)});
+    document.title=META[l].title;document.querySelector('meta[name=description]').content=META[l].desc;
+    btn.textContent=l==='en'?'ع':'EN';btn.lang=l==='en'?'ar':'en';
+    btn.setAttribute('aria-label',l==='en'?'التبديل إلى العربية':'Switch to English');
+    try{localStorage.setItem('lang',l)}catch(e){}
+  }
+  btn.addEventListener('click',()=>apply(root.lang==='en'?'ar':'en'));
+  if(root.lang==='en')apply('en');
+})();
+
+/* ===== Circuit lettering: original single-stroke glyphs on a 4x6 grid, pads at open ends ===== */
+(function(){
+  const G={
+    A:[[[0,6],[0,1.5],[1.5,0],[2.5,0],[4,1.5],[4,6]],[[0,3.6],[4,3.6]],[[2,3.6],[2,5.2]]],
+    F:[[[0,6],[0,0],[4,0]],[[0,2.8],[3,2.8]],[[1.5,0],[1.5,1.4]]],
+    N:[[[0,6],[0,0],[0.6,0],[3.4,6],[4,6],[4,0]]],
+    L:[[[0,0],[0,6],[4,6]],[[1.4,6],[1.4,4.4]]],
+    J:[[[2.2,0],[4,0],[4,4.5],[2.5,6],[1.3,6],[0,4.7]]],
+    O:[[[1.5,0],[2.5,0],[4,1.5],[4,4.5],[2.5,6],[1.5,6],[0,4.5],[0,1.5],[1.5,0]],[[4,3],[2.5,3]]],
+    H:[[[0,0],[0,6]],[[4,0],[4,6]],[[0,3],[4,3]],[[2,3],[2,1.5]]],
+    I:[[[0.8,0],[3.2,0]],[[2,0],[2,6]],[[0.8,6],[3.2,6]]]
+  };
+  const ADV=5.6,SPACE=3,LINE=8.2,PAD=.9;
+  function build(lines){
+    const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
+    let maxW=0,k=0;const paths=[],pads=[];
+    lines.forEach((txt,li)=>{
+      let x=0;const y0=li*LINE;
+      for(const ch of txt){
+        if(ch===' '){x+=SPACE;continue}
+        const g=G[ch];if(!g){x+=ADV;continue}
+        const ends=new Map(),segs=[];
+        g.forEach(pl=>{
+          const pts=pl.map(([a,b])=>[x+a,y0+b]);
+          paths.push({d:'M'+pts.map(p=>p.join(' ')).join(' L'),i:k});
+          const closed=pl[0][0]===pl[pl.length-1][0]&&pl[0][1]===pl[pl.length-1][1];
+          if(!closed)[pts[0],pts[pts.length-1]].forEach(p=>ends.set(p.join(','),p));
+          segs.push(...pts.slice(1).map((q,i)=>[pts[i],q]));
+        });
+        ends.forEach(p=>{const onOther=segs.some(([a,b])=>{if((a[0]===p[0]&&a[1]===p[1])||(b[0]===p[0]&&b[1]===p[1]))return false;const cr=(b[0]-a[0])*(p[1]-a[1])-(b[1]-a[1])*(p[0]-a[0]);return Math.abs(cr)<1e-6&&p[0]>=Math.min(a[0],b[0])-1e-6&&p[0]<=Math.max(a[0],b[0])+1e-6&&p[1]>=Math.min(a[1],b[1])-1e-6&&p[1]<=Math.max(a[1],b[1])+1e-6});if(!onOther)pads.push({p,i:k})});
+        x+=ADV;k++;
+      }
+      maxW=Math.max(maxW,x-(ADV-4));
+    });
+    const H=(lines.length-1)*LINE+6;
+    svg.setAttribute('viewBox',`${-PAD} ${-PAD} ${maxW+PAD*2} ${H+PAD*2}`);
+    paths.forEach(o=>{const p=document.createElementNS(ns,'path');p.setAttribute('d',o.d);p.setAttribute('class','tr');p.setAttribute('pathLength','1');p.setAttribute('stroke-width','.38');p.style.animationDelay=(o.i*.07)+'s';svg.appendChild(p)});
+    pads.forEach(o=>{const c=document.createElementNS(ns,'circle');c.setAttribute('cx',o.p[0]);c.setAttribute('cy',o.p[1]);c.setAttribute('r','.4');c.setAttribute('class','pad');c.style.animationDelay=(.9+o.i*.07)+'s';svg.appendChild(c)});
+    return svg;
+  }
+  const host=document.getElementById('circuitName');
+  function render(){host.classList.remove('draw');host.replaceChildren(build(document.documentElement.lang==='en'?['AFNAN','ALJOHANI']:['AFNAN ALJOHANI']));void host.offsetWidth;host.classList.add('draw')}
+  render();
+  new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+})();
 </script>
 </body>
 </html>
