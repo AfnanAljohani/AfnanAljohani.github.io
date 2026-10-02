@@ -252,6 +252,15 @@ section{padding:var(--space-9) 0;border-top:1px solid var(--line)}
 
 /* studio */
 .studio{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
+.shots{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);margin-bottom:var(--space-5)}
+.shot{display:block;border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;background:var(--surface-sunk);transition:border-color .15s}
+.shot:hover{border-color:var(--brand)}
+.shot.wide{grid-column:1/-1}
+.shot img{display:block;width:100%;height:100%;aspect-ratio:16/9;object-fit:cover}
+.shot.wide img{aspect-ratio:2/1}
+.shot.doc{background:#fff}.shot.doc img{object-fit:contain}
+.proj-links{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-5)}
+@media (max-width:720px){.shots{grid-template-columns:repeat(2,1fr)}}
 .studio>div{background:var(--surface-code);padding:var(--space-5)}
 .studio .label{color:var(--brand);text-transform:none;letter-spacing:0}
 .studio b{display:block;font-size:17px;font-weight:600;margin:8px 0 2px}
@@ -464,7 +473,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
     </div>
 
     <div data-en-aria="Project areas" class="tabs" role="tablist" aria-label="مجالات المشاريع">
-      <button data-en="Artificial Intelligence &lt;span class=&quot;count&quot;&gt;[2]&lt;/span&gt;" class="tab" role="tab" id="t-ai" aria-controls="p-ai" aria-selected="true">الذكاء الاصطناعي <span class="count">[2]</span></button>
+      <button data-en="Artificial Intelligence &lt;span class=&quot;count&quot;&gt;[3]&lt;/span&gt;" class="tab" role="tab" id="t-ai" aria-controls="p-ai" aria-selected="true">الذكاء الاصطناعي <span class="count">[3]</span></button>
       <button data-en="Data Analytics &lt;span class=&quot;count&quot;&gt;[3]&lt;/span&gt;" class="tab" role="tab" id="t-data" aria-controls="p-data" aria-selected="false" tabindex="-1">تحليل البيانات <span class="count">[3]</span></button>
       <button data-en="Software &lt;span class=&quot;count&quot;&gt;[1]&lt;/span&gt;" class="tab" role="tab" id="t-software" aria-controls="p-software" aria-selected="false" tabindex="-1">البرمجيات <span class="count">[1]</span></button>
       <button data-en="Design &lt;span class=&quot;count&quot;&gt;[6]&lt;/span&gt;" class="tab" role="tab" id="t-design" aria-controls="p-design" aria-selected="false" tabindex="-1">التصميم <span class="count">[6]</span></button>
@@ -517,12 +526,47 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
           <div class="chips"><span class="chip">Generative AI</span><span class="chip">Data Analytics</span><span class="chip">Python</span></div>
         </div>
       </article>
+
+      <article class="card">
+        <div class="card-head"><span class="id"><b>#03</b> hackathon / augmented-reality</span><span data-en="Snap AR Lens Challenge Hackathon · LEAP 2026" class="meta">هاكاثون Snap AR Lens Challenge · LEAP 2026</span></div>
+        <div class="card-body">
+          <span class="tag tag-award">2nd prize</span>
+          <h3>LEAP AR Lens — Human × Robot</h3>
+          <p data-en="An augmented-reality lens that bridges understanding between humans and robots — second prize at the Snap AR Lens Challenge Hackathon Saudi Arabia, with Snap Inc. and the Saudi Digital Academy, presented at LEAP 2026.">عدسة واقع معزز تبني جسر فهم متبادل بين الإنسان والروبوت — الفوز بالمركز الثاني في هاكاثون Snap AR Lens Challenge السعودية بالشراكة مع Snap Inc. والأكاديمية السعودية الرقمية، وعُرضت في مؤتمر LEAP 2026.</p>
+          <ol data-en-aria="How the lens works" class="pipeline" aria-label="كيف تعمل العدسة">
+            <li class="node"><small>robot</small><b>Code · AI · Motion data</b></li>
+            <li class="node hl"><small>ar_lens</small><b>Translation bridge</b></li>
+            <li class="node"><small>human</small><b>Visual aura</b></li>
+          </ol>
+          <div class="csr">
+            <div><h4 data-en="Problem &lt;small&gt;التحدي&lt;/small&gt;">التحدي <small>PROBLEM</small></h4><p data-en="Robots speak in code, algorithms and motion data, while people read emotion, intuition and culture — the two sides do not understand each other.">الروبوت يتكلم بالشيفرات والخوارزميات والبيانات الحركية، والإنسان يقرأ بالإدراك العاطفي والحدس والجذور الثقافية — والطرفان لا يفهمان بعضهما.</p></div>
+            <div><h4 data-en="Approach &lt;small&gt;الحل&lt;/small&gt;">الحل <small>APPROACH</small></h4><p data-en="An AR lens that uses AI to translate the machine's language into a readable visual “aura” around the robot.">عدسة AR تترجم لغة الآلة إلى «هالة» بصرية مقروءة حول الروبوت باستخدام تقنيات الذكاء الاصطناعي.</p></div>
+            <div><h4 data-en="Identity &lt;small&gt;الهوية&lt;/small&gt;">الهوية <small>IDENTITY</small></h4><p data-en="A digital cultural palette: Saudi Green for the robot’s state, technical stability and a safe connection; Lavender for Saudi hospitality and human warmth.">هوية لونية ثقافية رقمية: الأخضر السعودي لحالة الروبوت والاستقرار التقني والاتصال الآمن، والخزامى لكرم الضيافة السعودية والدفء البشري.</p></div>
+          </div>
+          <ul class="outcomes">
+            <li data-en="Second prize — Snap AR Lens Challenge Hackathon Saudi Arabia">المركز الثاني — هاكاثون Snap AR Lens Challenge السعودية</li>
+            <li data-en="A live lens anyone can try on Snapchat">عدسة حية يقدر أي شخص يجربها على سناب شات</li>
+          </ul>
+          <div data-en-aria="Project slides" class="shots" role="list" aria-label="شرائح المشروع">
+            <a role="listitem" class="shot wide" href="assets/leap-ar/lens-bridge.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/lens-bridge.webp" width="1280" height="638" loading="lazy" alt="Engineering mutual understanding: robot and human linked by the AR lens"></a>
+            <a role="listitem" class="shot" href="assets/leap-ar/colors.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/colors.webp" width="1273" height="669" loading="lazy" alt="Color identity: Saudi Green and Lavender"></a>
+            <a role="listitem" class="shot" href="assets/leap-ar/innovation.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/innovation.webp" width="1194" height="615" loading="lazy" alt="The innovation engine slide"></a>
+            <a role="listitem" class="shot" href="assets/leap-ar/vision-2017.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/vision-2017.webp" width="1280" height="675" loading="lazy" alt="2017: Saudi Arabia leading the future"></a>
+            <a role="listitem" class="shot doc" href="assets/leap-ar/certificate.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/certificate.webp" width="1180" height="949" loading="lazy" alt="Certificate: Snap AR Lens Challenge Hackathon Saudi Arabia, second prize"></a>
+          </div>
+          <div class="proj-links">
+            <a class="btn btn-primary" href="https://leap-ar-lens-ungxfdkc.manus.space/" target="_blank" rel="noopener"><span data-en="Project website">موقع المشروع</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+            <a class="btn" href="https://www.snapchat.com/lens/b834de54baf74d48bde5cbf904314224" target="_blank" rel="noopener"><span data-en="Try the AR lens">جرّب العدسة</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></a>
+          </div>
+          <div class="chips"><span class="chip">Augmented Reality</span><span class="chip">Snapchat</span><span class="chip">AI</span><span class="chip">Human–Robot Interaction</span></div>
+        </div>
+      </article>
     </div>
 
     <!-- DATA -->
     <div class="panel" id="p-data" role="tabpanel" aria-labelledby="t-data" hidden>
       <article class="card">
-        <div class="card-head"><span class="id"><b>#03</b> ml / classification</span><span data-en="Virtual work experience · March 2026" class="meta">تجربة عمل افتراضية · مارس 2026</span></div>
+        <div class="card-head"><span class="id"><b>#04</b> ml / classification</span><span data-en="Virtual work experience · March 2026" class="meta">تجربة عمل افتراضية · مارس 2026</span></div>
         <div class="card-body">
           <span class="tag">STC × Misk</span>
           <h3>User Behavior Prediction</h3>
@@ -537,7 +581,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
       </article>
       <div class="grid-2">
         <article class="card">
-          <div class="card-head"><span class="id"><b>#04</b> bi / dashboards</span><span data-en="Co-op training · 2026" class="meta">تدريب تعاوني · 2026</span></div>
+          <div class="card-head"><span class="id"><b>#05</b> bi / dashboards</span><span data-en="Co-op training · 2026" class="meta">تدريب تعاوني · 2026</span></div>
           <div class="card-body">
             <span class="tag">GACA</span>
             <h3>Executive Dashboards</h3>
@@ -550,7 +594,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
           </div>
         </article>
         <article class="card">
-          <div class="card-head"><span class="id"><b>#05</b> data / pipelines</span><span data-en="Internship · 2022" class="meta">تدريب · 2022</span></div>
+          <div class="card-head"><span class="id"><b>#06</b> data / pipelines</span><span data-en="Internship · 2022" class="meta">تدريب · 2022</span></div>
           <div class="card-body">
             <span class="tag">SDAIA</span>
             <h3>Data Preparation Pipelines</h3>
@@ -568,7 +612,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
     <!-- SOFTWARE -->
     <div class="panel" id="p-software" role="tabpanel" aria-labelledby="t-software" hidden>
       <article class="card">
-        <div class="card-head"><span class="id"><b>#06</b> swe / algorithms</span><span data-en="Intensive engineering program · Feb – Aug 2026" class="meta">برنامج هندسي مكثف · فبراير – أغسطس 2026</span></div>
+        <div class="card-head"><span class="id"><b>#07</b> swe / algorithms</span><span data-en="Intensive engineering program · Feb – Aug 2026" class="meta">برنامج هندسي مكثف · فبراير – أغسطس 2026</span></div>
         <div class="card-body">
           <span class="tag">Holberton × Tuwaiq</span>
           <h3>Advanced Software Engineering</h3>
