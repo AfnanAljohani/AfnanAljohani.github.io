@@ -259,8 +259,8 @@ h3.sub small{font:500 11.5px var(--f-mono);color:var(--dim);letter-spacing:.12em
 .freq-row p{margin:0;color:var(--muted);font-size:14.5px}
 @media (max-width:760px){.freq-row{grid-template-columns:minmax(0,1fr);gap:4px}}
 .crit{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-.crit span{padding:9px 16px;border:1px solid var(--line-2);border-radius:8px;background:var(--surface-2);font-size:14.5px;display:flex;gap:8px;align-items:center}
-.crit span::before{content:"";width:7px;height:7px;background:var(--orange);border-radius:2px;transform:rotate(45deg)}
+.crit>span{padding:9px 16px;border:1px solid var(--line-2);border-radius:8px;background:var(--surface-2);font-size:14.5px;display:flex;gap:8px;align-items:center}
+.crit>span::before{content:"";width:7px;height:7px;background:var(--orange);border-radius:2px;transform:rotate(45deg)}
 .flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;position:relative}
 .flow .st{padding:20px;position:relative;border:1px solid var(--line);background:var(--surface-2);margin-inline-end:-1px}
 .flow .st:first-child{border-radius:0 var(--r) var(--r) 0}
@@ -459,7 +459,7 @@ details.more .tbl-wrap{border:0;border-top:1px solid var(--line);border-radius:0
 .split .y{background:var(--accent)}
 .split .n{background:var(--line-2);color:var(--fg)}
 .legend{display:flex;gap:16px;font-size:13.5px;color:var(--muted);margin-top:12px;flex-wrap:wrap}
-.legend span{display:flex;align-items:center;gap:6px}
+.legend>span{display:flex;align-items:center;gap:6px}
 .legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
 .cols{display:flex;align-items:flex-end;gap:18px;height:170px;padding-top:24px;border-bottom:1px solid var(--line-2)}
 .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;gap:6px}
@@ -797,6 +797,51 @@ a.dept:hover{transform:translateY(-2px);border-color:var(--accent)}
 @media (max-width:760px){.sp-actions{justify-content:center}}
 .sp-actions .btn svg{width:18px;height:18px}
 
+/* ---------- honor board ---------- */
+.hb-months{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.hb-status{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:14px 18px;margin-bottom:22px;font-size:14.5px;color:var(--muted)}
+.hb-status b{color:var(--fg);font:700 16px var(--f-display)}
+.hb-dot{width:9px;height:9px;border-radius:50%;background:var(--warn);box-shadow:0 0 0 4px color-mix(in srgb,var(--warn) 20%,transparent)}
+.hb-dot.on{background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 20%,transparent)}
+.podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:end;max-width:880px;margin:0 auto 18px}
+.pod{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:26px 14px 0;border:1px solid var(--line);border-radius:16px 16px 10px 10px;background:linear-gradient(180deg,color-mix(in srgb,var(--m) 14%,var(--surface)),var(--surface) 70%);overflow:hidden;--m:var(--accent)}
+.pod-1{--m:#F2C14E;padding-top:34px;border-color:color-mix(in srgb,#F2C14E 50%,transparent);box-shadow:0 24px 50px -28px color-mix(in srgb,#F2C14E 60%,transparent)}
+.pod-2{--m:#B8C4D6}
+.pod-3{--m:#D08A55}
+.pod-medal{position:absolute;top:10px;inset-inline-start:12px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:700 13px var(--f-mono);color:#0A1528;background:var(--m);box-shadow:0 0 14px color-mix(in srgb,var(--m) 60%,transparent)}
+.pod .av{width:64px;height:64px;border-radius:50%;font-size:24px;grid-row:auto;border:2px solid var(--m);color:var(--fg);background:color-mix(in srgb,var(--m) 16%,var(--surface-2))}
+.pod-1 .av{width:78px;height:78px;font-size:28px}
+.pod b{font:700 16px/1.45 var(--f-display);overflow-wrap:anywhere}
+.pod-rank{font-size:13px;color:var(--muted)}
+.pod-note{font-size:12.5px;color:var(--dim)}
+.pod-base{display:block;width:calc(100% + 28px);margin-top:14px;padding:14px 0;font-size:22px;font-weight:700;color:var(--m);border-top:1px solid var(--line);background:color-mix(in srgb,var(--m) 8%,var(--bg-2))}
+.pod-1 .pod-base{padding:26px 0}
+.pod-2 .pod-base{padding:18px 0}
+.pod.empty .av{border-style:dashed;color:var(--dim)}
+.pod.empty b{color:var(--muted);font-weight:500}
+@media (prefers-reduced-motion: no-preference){.pod.empty .av{animation:hbPulse 2.4s ease-in-out infinite}}
+@keyframes hbPulse{50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--m) 18%,transparent)}}
+@media (max-width:560px){.podium{gap:8px}.pod{padding-inline:6px}.pod .av{width:48px;height:48px;font-size:18px}.pod-1 .av{width:58px;height:58px}.pod b{font-size:13.5px}.pod-rank{font-size:11.5px}.pod-base{width:calc(100% + 12px);font-size:17px}}
+.hb-list{list-style:none;margin:0 auto;padding:0;max-width:880px;display:grid;gap:8px}
+.hb-row{display:flex;align-items:center;gap:14px;padding:10px 16px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--surface) 92%,transparent)}
+.hb-n{font-size:15px;font-weight:700;color:var(--accent);width:28px}
+.hb-row .av{width:36px;height:36px;font-size:15px;grid-row:auto}
+.hb-name{font-weight:600;flex:1;min-width:0;overflow-wrap:anywhere}
+.hb-note{font-size:13px;color:var(--muted)}
+.hb-row.empty .hb-name{color:var(--muted);font-weight:400}
+.hb-row.empty .av{border-style:dashed;color:var(--dim)}
+.hb-crit{justify-content:center;margin-top:20px}
+.home-honor{display:flex;align-items:center;gap:16px;padding:16px 22px;margin-bottom:16px;text-decoration:none;color:inherit;border-color:color-mix(in srgb,#F2C14E 40%,transparent);transition:transform .2s,border-color .2s}
+.home-honor:hover{transform:translateY(-2px);border-color:#F2C14E}
+.hh-ic{width:46px;height:46px;flex-shrink:0;border-radius:12px;display:grid;place-items:center;color:#F2C14E;background:color-mix(in srgb,#F2C14E 14%,var(--surface-2));border:1px solid color-mix(in srgb,#F2C14E 40%,transparent)}
+.hh-ic svg{width:24px;height:24px}
+.hh-txt{display:flex;flex-direction:column;flex:1;min-width:0}
+.hh-txt .mono{font-size:11px;letter-spacing:.14em;color:#C9A23A}
+.hh-txt b{font:700 17px/1.5 var(--f-display)}
+.hh-txt span:last-child{color:var(--muted);font-size:14px}
+.hh-go{font-size:14px;font-weight:600;color:var(--accent);white-space:nowrap}
+@media (max-width:520px){.home-honor{flex-wrap:wrap}.hh-go{width:100%;text-align:center}}
+
 /* ---------- standalone page + phone/laptop tuning ---------- */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{margin:0}
@@ -967,6 +1012,7 @@ img{max-width:100%}
       <div class="hn-txt"><b id="hnWhat"></b><span id="hnWhen"></span></div>
       <a class="btn" href="#/plan"><span class="l-ar">الخطة كاملة</span><span class="l-en">Full plan</span></a>
     </div>
+    <a class="home-honor panel spot rv" href="#/admin/honor"><span class="hh-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8M9 18h6"/></svg></span><span class="hh-txt"><span class="mono">HONOR_BOARD</span><b id="hhTitle"><span class="l-ar">لوحة شرف أكتوبر 2026</span><span class="l-en">October 2026 honor board</span></b><span id="hhSub"><span class="l-ar">قائمة أفضل 10 أعضاء في النادي</span><span class="l-en">The club's top 10 members</span></span></span><span class="hh-go"><span class="l-ar">عرض اللوحة</span><span class="l-en">View board</span></span></a>
     <div class="panel spot idea rv">
       <div class="orb"><img src="img/cover-swirl.webp" alt=""></div>
       <div>
@@ -1288,7 +1334,7 @@ img{max-width:100%}
 
 <div class="view" data-view="admin" hidden>
 <div class="page-head"><div class="wrap"><div class="crumb mono ltr">~/ewa-ai-club/<b>admin</b><span class="cursor" aria-hidden="true"></span></div><h1 class="ph-title"><span class="l-ar">إدارة النادي</span><span class="l-en">Club admin</span></h1><p class="ph-lead"><span class="l-ar">كل ما يخص إدارة النادي في مكان واحد: القادة، والأعضاء، وملفات الخطط، والمقترحات، والاستمارة، والهوية البصرية.</span><span class="l-en">Everything about running the club in one place: leaders, members, planning files, suggestions, the join form and the visual identity.</span></p></div></div>
-<div class="adm-tabs-wrap"><div class="wrap"><div class="adm-tabs" role="tablist"><a class="adm-tab" role="tab" href="#/admin/leaders" data-sub="leaders" aria-selected="false"><span class="mono">01</span><span class="l-ar">قادة النادي</span><span class="l-en">Leaders</span></a><a class="adm-tab" role="tab" href="#/admin/members" data-sub="members" aria-selected="false"><span class="mono">02</span><span class="l-ar">الأعضاء</span><span class="l-en">Members</span></a><a class="adm-tab" role="tab" href="#/admin/files" data-sub="files" aria-selected="false"><span class="mono">03</span><span class="l-ar">ملفات الخطط</span><span class="l-en">Planning files</span></a><a class="adm-tab" role="tab" href="#/admin/ideas" data-sub="ideas" aria-selected="false"><span class="mono">04</span><span class="l-ar">المقترحات</span><span class="l-en">Suggestions</span></a><a class="adm-tab" role="tab" href="#/admin/survey" data-sub="survey" aria-selected="false"><span class="mono">05</span><span class="l-ar">استمارة الانضمام</span><span class="l-en">Join form</span></a><a class="adm-tab" role="tab" href="#/admin/identity" data-sub="identity" aria-selected="false"><span class="mono">06</span><span class="l-ar">الهوية البصرية</span><span class="l-en">Identity</span></a></div></div></div>
+<div class="adm-tabs-wrap"><div class="wrap"><div class="adm-tabs" role="tablist"><a class="adm-tab" role="tab" href="#/admin/leaders" data-sub="leaders" aria-selected="false"><span class="mono">01</span><span class="l-ar">قادة النادي</span><span class="l-en">Leaders</span></a><a class="adm-tab" role="tab" href="#/admin/members" data-sub="members" aria-selected="false"><span class="mono">02</span><span class="l-ar">الأعضاء</span><span class="l-en">Members</span></a><a class="adm-tab" role="tab" href="#/admin/honor" data-sub="honor" aria-selected="false"><span class="mono">03</span><span class="l-ar">لوحة الشرف</span><span class="l-en">Honor board</span></a><a class="adm-tab" role="tab" href="#/admin/files" data-sub="files" aria-selected="false"><span class="mono">04</span><span class="l-ar">ملفات الخطط</span><span class="l-en">Planning files</span></a><a class="adm-tab" role="tab" href="#/admin/ideas" data-sub="ideas" aria-selected="false"><span class="mono">05</span><span class="l-ar">المقترحات</span><span class="l-en">Suggestions</span></a><a class="adm-tab" role="tab" href="#/admin/survey" data-sub="survey" aria-selected="false"><span class="mono">06</span><span class="l-ar">استمارة الانضمام</span><span class="l-en">Join form</span></a><a class="adm-tab" role="tab" href="#/admin/identity" data-sub="identity" aria-selected="false"><span class="mono">07</span><span class="l-ar">الهوية البصرية</span><span class="l-en">Identity</span></a></div></div></div>
 <div class="adm-panel" data-sub="leaders">
 <section class="sec" id="leaders">
   <div class="wrap">
@@ -1339,6 +1385,22 @@ img{max-width:100%}
     </div>
     <div class="mem-count mono" id="memCount"></div>
     <div class="members" id="membersGrid"></div>
+  </div>
+</section>
+</div>
+<div class="adm-panel" data-sub="honor" hidden>
+<section class="sec" id="honor">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-idx"><span>// HONOR_BOARD</span></div>
+      <h2><span class="l-ar">لوحة الشرف: أفضل 10 أعضاء</span><span class="l-en">Honor board: top 10 members</span></h2>
+      <p class="sec-lead"><span class="l-ar">تكريم شهري لأفضل 10 أعضاء حسب الحضور والمشاركة ونتائج التحديات ونقل المعرفة والعمل الجماعي. الهدف تحفيز الاستمرارية، لا المنافسة فقط.</span><span class="l-en">A monthly tribute to the top 10 members by attendance, participation, challenge results, knowledge sharing and teamwork. The goal is to reward consistency, not just competition.</span></p>
+    </div>
+    <div class="hb-months" id="hbMonths" role="tablist"></div>
+    <div class="hb-status panel rv" id="hbStatus"></div>
+    <div class="podium" id="hbPodium"></div>
+    <ol class="hb-list" id="hbList"></ol>
+    <div class="crit hb-crit"><span><span class="l-ar">الحضور والالتزام</span><span class="l-en">Attendance</span></span><span><span class="l-ar">المشاركة الفعالة</span><span class="l-en">Active participation</span></span><span><span class="l-ar">نتائج التحديات</span><span class="l-en">Challenge results</span></span><span><span class="l-ar">تقديم ونقل المعرفة</span><span class="l-en">Sharing knowledge</span></span><span><span class="l-ar">العمل الجماعي</span><span class="l-en">Teamwork</span></span></div>
   </div>
 </section>
 </div>
@@ -1754,6 +1816,32 @@ function renderChecks(){$('#checks').innerHTML=STEPS.map(([t,o,w],i)=>`<label cl
 function ckUpd(){const n=$$('#checks input:checked').length;$('#ckTxt').textContent=n+'/'+STEPS.length+' DONE';$('#ckFill').style.width=(n/STEPS.length*100)+'%'}
 $('#checks').addEventListener('change',e=>{ck[e.target.dataset.i]=e.target.checked;store.set('ewa-steps',JSON.stringify(ck));ckUpd()});
 
+
+/* ---------- honor board (top 10 per month) ----------
+   To publish a month: put up to 10 names in "top", best first, e.g.
+   top:[{name:'...'},{name:'...',note:{ar:'...',en:'...'}}]                */
+const HONOR=[
+ {id:'2026-10',t:{ar:'أكتوبر 2026',en:'October 2026'},announce:'2026-10-31',top:[]}
+];
+let hbNow=HONOR[0].id;
+const RANK=[['المركز الأول','1st place'],['المركز الثاني','2nd place'],['المركز الثالث','3rd place']];
+function renderHonor(){
+  const m=HONOR.find(x=>x.id===hbNow)||HONOR[0];
+  $('#hbMonths').innerHTML=HONOR.map(x=>`<button class="chip" type="button" role="tab" data-m="${x.id}" aria-pressed="${x.id===m.id}">${tx(x.t)}</button>`).join('');
+  const filled=m.top.length>0;
+  const days=Math.round((D(m.announce)-today)/864e5);
+  const status=filled?T(`أفضل 10 أعضاء في ${tx(m.t)}. مبروك للجميع!`,`The top 10 members for ${tx(m.t)}. Congratulations!`)
+    :days>0?T(`تُعلن القائمة نهاية الشهر · بعد ${days} ${days===2?'يومين':daysWord(days)}`,`Announced at the end of the month · in ${days} ${daysWord(days)}`)
+    :T('تُعلن القائمة قريبًا','Coming soon');
+  $('#hbStatus').innerHTML=`<span class="hb-dot ${filled?'on':''}"></span><b>${tx(m.t)}</b><span>${status}</span>`;
+  const slot=i=>{const e=m.top[i];return e?{name:e.name,note:e.note?tx(e.note):'',ini:initial(e.name)}:{name:T('يُعلن قريبًا','To be announced'),note:'',ini:'?',empty:true}};
+  $('#hbPodium').innerHTML=[1,0,2].map(i=>{const e=slot(i);return `<div class="pod pod-${i+1} ${e.empty?'empty':''}"><span class="pod-medal">${i+1}</span><span class="av">${esc(e.ini)}</span><b>${esc(e.name)}</b><span class="pod-rank">${T(RANK[i][0],RANK[i][1])}</span>${e.note?`<span class="pod-note">${esc(e.note)}</span>`:''}<span class="pod-base mono">#0${i+1}</span></div>`}).join('');
+  $('#hbList').innerHTML=[3,4,5,6,7,8,9].map(i=>{const e=slot(i);return `<li class="hb-row ${e.empty?'empty':''}"><span class="hb-n mono">${String(i+1).padStart(2,'0')}</span><span class="av">${esc(e.ini)}</span><span class="hb-name">${esc(e.name)}</span>${e.note?`<span class="hb-note">${esc(e.note)}</span>`:''}</li>`}).join('');
+  const hs=$('#hhSub');if(hs)hs.textContent=filled?T('شوف أفضل 10 أعضاء هذا الشهر','See this month\'s top 10 members'):status;
+  const ht=$('#hhTitle');if(ht)ht.textContent=T('لوحة شرف ','Honor board · ')+tx(m.t);
+}
+$('#hbMonths').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;hbNow=b.dataset.m;renderHonor()});
+
 /* lightbox */
 const lb=$('#lbDlg');
 document.addEventListener('click',e=>{const z=e.target.closest('[data-zoom]');if(!z)return;$('#lbImg').src=z.dataset.zoom;$('#lbImg').alt=z.dataset.cap||'';$('#lbCap').textContent=z.dataset.cap||'';lb.dir=LANG==='en'?'ltr':'rtl';lb.showModal()});
@@ -1762,7 +1850,7 @@ lb.addEventListener('click',e=>{if(e.target===lb||e.target.closest('[data-close]
 
 /* ---------- pages (hash router) ---------- */
 const VIEWS=['home','about','departments','plan','admin'];
-const SUBS=['leaders','members','files','ideas','survey','identity'];
+const SUBS=['leaders','members','honor','files','ideas','survey','identity'];
 const VT={home:['الرئيسية','Home'],about:['عن النادي','About'],departments:['الأقسام','Departments'],plan:['الخطة والفعاليات','Plan & events'],admin:['إدارة النادي','Club admin']};
 let curView=null,curSub=null;
 function setTitle(){const v=VT[curView||'home'];document.title=(curView&&curView!=='home'?T(v[0],v[1])+' · ':'')+T('نادي الذكاء الاصطناعي · EWA AI Club','EWA AI Club')}
@@ -1847,7 +1935,7 @@ function applyLang(l){
   const pg=$('#page');pg.dir=root.dir;pg.lang=l;
   $$('[data-ph-ar]').forEach(i=>i.placeholder=i.dataset['ph'+(l==='en'?'En':'Ar')]);
   $('#langBtn').setAttribute('aria-label',l==='en'?'التبديل إلى العربية':'Switch to English');
-  renderFilters();renderMembers();renderFiles();renderPhases();renderEvFilters();renderSched();renderSeason();renderCharts();renderLogos();renderCmp();renderChecks();
+  renderFilters();renderMembers();renderFiles();renderPhases();renderEvFilters();renderSched();renderSeason();renderCharts();renderLogos();renderCmp();renderChecks();renderHonor();
   setTitle();reveal(document);
   if(window.__splashLang)window.__splashLang();
 }
