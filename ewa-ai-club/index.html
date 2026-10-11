@@ -916,6 +916,42 @@ a.dept:hover{transform:translateY(-2px);border-color:var(--accent)}
 @media (prefers-reduced-motion: no-preference){.made svg{animation:beat 1.4s ease-in-out infinite}}
 @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.18)}}
 
+/* ---------- hero: smaller wordmark + video-style feed ---------- */
+.wordmark{width:min(100%,400px)}
+.hero h1{margin-top:18px}
+.hero-media{display:grid;position:relative;min-width:0}
+.feed{position:relative;margin:0 0 0;margin-inline-end:34px;aspect-ratio:16/9;max-width:100%;border-radius:14px;overflow:hidden;border:1px solid var(--line-2);background:#050B16;box-shadow:0 30px 60px -30px var(--shade),0 0 0 1px rgba(79,163,255,.08)}
+.feed-slides{position:absolute;inset:0}
+.fs{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.1s ease;filter:saturate(1.05) contrast(1.05)}
+.fs.on{opacity:1}
+@media (prefers-reduced-motion: no-preference){.fs.on{animation:feedKb 6s linear forwards}.feed.paused .fs.on{animation-play-state:paused}}
+@keyframes feedKb{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.14) translate(-2%,-1.5%)}}
+.feed::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 1px,transparent 1px 3px),radial-gradient(ellipse at center,transparent 55%,rgba(2,6,14,.55)),linear-gradient(180deg,rgba(5,11,22,.45),transparent 28%,transparent 60%,rgba(5,11,22,.85))}
+.feed-scan{position:absolute;inset-inline:0;top:0;height:3px;z-index:2;background:linear-gradient(90deg,transparent,rgba(92,200,208,.9),transparent);box-shadow:0 0 16px rgba(92,200,208,.8);opacity:0}
+@media (prefers-reduced-motion: no-preference){.feed-scan{animation:scan 5s cubic-bezier(.5,0,.5,1) infinite}}
+.feed-ui{position:absolute;z-index:3;top:12px;inset-inline:14px;display:flex;align-items:center;gap:12px;direction:ltr;font-size:11.5px;color:#DCE8F6;letter-spacing:.06em}
+.feed-rec{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:5px;background:rgba(5,11,22,.6);border:1px solid rgba(240,112,112,.5);color:#FF9A9A;font-weight:700}
+.feed-rec i{width:7px;height:7px;border-radius:50%;background:#F05050;box-shadow:0 0 8px #F05050}
+@media (prefers-reduced-motion: no-preference){.feed-rec i{animation:blink 1.2s steps(1) infinite}}
+.feed-file{opacity:.8}
+.feed-time{margin-left:auto;padding:3px 8px;border-radius:5px;background:rgba(5,11,22,.6);font-variant-numeric:tabular-nums}
+.feed-cap{position:absolute;z-index:3;bottom:40px;inset-inline-start:16px;inset-inline-end:16px;color:#F2F7FD;font:700 15px/1.5 var(--f-display);text-shadow:0 2px 10px rgba(0,0,0,.7)}
+.feed-ctrl{position:absolute;z-index:3;bottom:12px;inset-inline:14px;display:flex;align-items:center;gap:10px}
+.feed-play{width:26px;height:26px;border-radius:50%;border:1px solid rgba(220,232,246,.4);background:rgba(5,11,22,.6);color:#fff;display:grid;place-items:center;cursor:pointer;padding:0}
+.feed-play svg{width:12px;height:12px;fill:currentColor}
+.feed-play .i-play{display:none}
+.feed.paused .feed-play .i-play{display:block}
+.feed.paused .feed-play .i-pause{display:none}
+.feed-dots{display:flex;gap:6px}
+.feed-dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:rgba(220,232,246,.35);cursor:pointer;transition:width .3s,background .3s}
+.feed-dots button.on{width:22px;border-radius:4px;background:#5CC8D0}
+.feed-bar{position:absolute;z-index:3;inset-inline:0;bottom:0;height:3px;background:rgba(255,255,255,.1)}
+.feed-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#4FA3FF,#5CC8D0);box-shadow:0 0 10px rgba(92,200,208,.8)}
+.hero-media .code{margin-top:16px;margin-inline-start:34px;z-index:4}
+@media (max-width:980px){.feed{margin-inline-end:0}.hero-media .code{margin-top:16px;margin-inline-start:0}}
+@media (max-width:600px){.feed-cap{font-size:13.5px;bottom:36px}.feed-file{display:none}}
+
 /* ---------- standalone page + phone/laptop tuning ---------- */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{margin:0}
@@ -1064,10 +1100,13 @@ img{max-width:100%}
           <span><span class="k">ADVISOR</span><span class="l-ar">تحت إشراف: <b>د. أنمار الحجيلي</b></span><span class="l-en">Supervised by <b>Dr. Anmar Al-Hujaili</b></span></span>
         </div>
       </div>
+      <div class="hero-media">
+      <figure class="feed rv" id="feed" aria-label="صور متحركة للذكاء الاصطناعي في المملكة · Moving images of AI in the Kingdom"><div class="feed-slides"><img class="fs on" src="img/saudi-ai-city.webp" alt=""><img class="fs" src="img/saudi-ai-class.webp" alt=""><img class="fs" src="img/saudi-ai-talk.webp" alt=""><img class="fs" src="img/saudi-data-center.webp" alt=""><img class="fs" src="img/saudi-ai-forum.webp" alt=""></div><span class="feed-scan" aria-hidden="true"></span><div class="feed-ui"><span class="feed-rec mono"><i></i>LIVE</span><span class="feed-file mono">ksa_ai_feed.mp4</span><span class="feed-time mono" id="feedTime">00:00</span></div><figcaption class="feed-cap" id="feedCap"></figcaption><div class="feed-ctrl"><button class="feed-play" id="feedPlay" type="button" aria-label="Pause"><svg class="i-pause" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg><svg class="i-play" viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg></button><div class="feed-dots" id="feedDots"></div></div><div class="feed-bar"><span id="feedBar"></span></div></figure>
       <div class="code rv" aria-label="club.py">
         <div class="code-head"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg>club.py</b><span>Python 3</span></div>
 <pre><span class="ln" style="--i:0"><i>1</i><span class="k1">class</span> <span class="f">EWAAIClub</span>(Community):</span><span class="ln" style="--i:1"><i>2</i>    name     = <span class="s">"EWA AI Club"</span></span><span class="ln" style="--i:2"><i>3</i>    academy  = <span class="s">"Energy &amp; Water Academy"</span></span><span class="ln" style="--i:3"><i>4</i>    leader   = <span class="s">"Afnan Fahad Aljohani"</span></span><span class="ln" style="--i:4"><i>5</i>    deputy   = <span class="s">"Sara Al-Shamrani"</span></span><span class="ln" style="--i:5"><i>6</i>    advisor  = <span class="s">"Dr. Anmar Al-Hujaili"</span></span><span class="ln" style="--i:6"><i>7</i>    members  = <span class="n">30</span>   <span class="c"># first cohort</span></span><span class="ln" style="--i:7"><i>8</i>    tracks   = [<span class="s">"Learning"</span>, <span class="s">"Projects"</span>, <span class="s">"Challenges"</span>,</span><span class="ln" style="--i:8"><i>9</i>                <span class="s">"Community"</span>, <span class="s">"Career"</span>]</span><span class="ln" style="--i:9"><i>10</i>    season   = (<span class="s">"2026-10-14"</span>, <span class="s">"2027-03-31"</span>)</span><span class="ln" style="--i:10"><i>11</i></span><span class="ln" style="--i:11"><i>12</i>    <span class="k2">def</span> <span class="f">mission</span>(self):</span><span class="ln" style="--i:12"><i>13</i>        <span class="k1">return</span> <span class="s">"Learn. Build. Innovate. Impact."</span></span></pre>
         <div class="code-foot"><span class="ok">● status: <span id="codeStatus">launching</span></span><span>UTF-8 · LF</span></div>
+      </div>
       </div>
     </div>
 
@@ -2001,6 +2040,30 @@ document.addEventListener('click',e=>{const z=e.target.closest('[data-zoom]');if
 lb.addEventListener('click',e=>{if(e.target===lb||e.target.closest('[data-close]'))lb.close()});
 
 
+
+/* ---------- hero video-style feed ---------- */
+(function(){
+  const feed=$('#feed');if(!feed)return;
+  const slides=$$('.fs',feed),cap=$('#feedCap'),bar=$('#feedBar'),dots=$('#feedDots'),tm=$('#feedTime'),btn=$('#feedPlay');
+  const CAPS=[['مدينة ذكية بطابع سعودي','A smart Saudi city'],['التعلم التطبيقي مع الذكاء الاصطناعي','Hands-on learning with AI'],['لقاءات الذكاء الاصطناعي','AI talks'],['مراكز البيانات والتحليل','Data and analytics centers'],['منتديات البيانات والذكاء الاصطناعي','Data and AI forums']];
+  const DUR=4500;let i=0,playing=!reduce,t0=performance.now(),elapsed=0,secs=0,raf=null;
+  dots.innerHTML=slides.map((_,k)=>`<button type="button" aria-label="${k+1}"></button>`).join('');
+  const db=$$('button',dots);
+  function setCap(){cap.textContent=T(CAPS[i][0],CAPS[i][1])}
+  function go(k){slides[i].classList.remove('on');i=(k+slides.length)%slides.length;void slides[i].offsetWidth;slides[i].classList.add('on');db.forEach((d,j)=>d.classList.toggle('on',j===i));setCap();t0=performance.now();elapsed=0}
+  function tick(now){
+    if(playing){const p=Math.min(1,(now-t0+elapsed)/DUR);bar.style.width=(p*100)+'%';if(p>=1)go(i+1)}
+    const s=Math.floor(now/1000);if(playing&&s!==secs){secs=s;const n=(+tm.dataset.n||0)+1;tm.dataset.n=n;tm.textContent=String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+    raf=requestAnimationFrame(tick);
+  }
+  function setPlay(v){playing=v;feed.classList.toggle('paused',!v);btn.setAttribute('aria-label',v?'Pause':'Play');if(v){t0=performance.now()-elapsed;elapsed=0}else{elapsed=performance.now()-t0}}
+  btn.addEventListener('click',()=>setPlay(!playing));
+  dots.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;go(db.indexOf(b))});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf)}else{t0=performance.now();raf=requestAnimationFrame(tick)}});
+  db[0].classList.add('on');setCap();setPlay(playing);raf=requestAnimationFrame(tick);
+  window.__feedLang=setCap;
+})();
+
 /* ---------- pages (hash router) ---------- */
 const VIEWS=['home','about','departments','plan','admin','prompts'];
 const SUBS=['leaders','members','honor','files','ideas','survey','identity'];
@@ -2091,6 +2154,7 @@ function applyLang(l){
   renderFilters();renderMembers();renderFiles();renderPhases();renderEvFilters();renderSched();renderSeason();renderCharts();renderLogos();renderCmp();renderChecks();renderHonor();renderPromptFilters();renderPrompts();
   setTitle();reveal(document);
   if(window.__splashLang)window.__splashLang();
+  if(window.__feedLang)window.__feedLang();
 }
 $('#langBtn').addEventListener('click',()=>applyLang(LANG==='en'?'ar':'en'));
 window.__splashStartPending=true;
