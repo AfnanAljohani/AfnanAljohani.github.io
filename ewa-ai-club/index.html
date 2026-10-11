@@ -1,0 +1,1500 @@
+<title>EWA AI Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Kufi+Arabic:wght@500;600;700;800&display=swap">
+<style>
+/* Layout: a dark "IDE on a circuit board" — sticky mono nav, hero split into wordmark + code panel,
+   then one section per club document, each tagged with its source file. Dark-first, light on toggle. */
+:root{
+  --bg:#050B16; --bg-2:#071121; --surface:#0A1528; --surface-2:#0E1C34; --line:#15284A; --line-2:#21406C;
+  --fg:#DCE6F4; --muted:#8AA0BC; --dim:#566C8C;
+  --accent:#4FA3FF; --accent-hi:#9CCBFF; --cyan:#5CC8D0; --teal:#0E7C80; --orange:#E07B39;
+  --ok:#3DDC97; --warn:#E8B44A; --bad:#F07070;
+  --trace:rgba(79,163,255,.12); --pad:rgba(79,163,255,.22); --glow:rgba(79,163,255,.45);
+  --shade:rgba(2,6,14,.72); --on-accent:#041021;
+  --f-display:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --r:10px; --wrap:1200px; --gut:clamp(16px,4vw,40px);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
+  --bg:#EDF2F8; --bg-2:#E4EBF4; --surface:#FFFFFF; --surface-2:#F4F7FB; --line:#D2DDEB; --line-2:#AFC3DC;
+  --fg:#0A1E37; --muted:#4A6080; --dim:#7D91AC;
+  --accent:#1D6AD2; --accent-hi:#1D6AD2; --cyan:#0B8790; --teal:#0E7C80; --orange:#C45E1C;
+  --ok:#11885A; --warn:#9A6B0C; --bad:#C23838;
+  --trace:rgba(29,106,210,.10); --pad:rgba(29,106,210,.20); --glow:rgba(29,106,210,.22);
+  --shade:rgba(10,30,55,.55); --on-accent:#FFFFFF; color-scheme:light;
+}}
+:root[data-theme="light"]{
+  --bg:#EDF2F8; --bg-2:#E4EBF4; --surface:#FFFFFF; --surface-2:#F4F7FB; --line:#D2DDEB; --line-2:#AFC3DC;
+  --fg:#0A1E37; --muted:#4A6080; --dim:#7D91AC;
+  --accent:#1D6AD2; --accent-hi:#1D6AD2; --cyan:#0B8790; --teal:#0E7C80; --orange:#C45E1C;
+  --ok:#11885A; --warn:#9A6B0C; --bad:#C23838;
+  --trace:rgba(29,106,210,.10); --pad:rgba(29,106,210,.20); --glow:rgba(29,106,210,.22);
+  --shade:rgba(10,30,55,.55); --on-accent:#FFFFFF; color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--on-accent)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.mono{font-family:var(--f-mono)}
+.ltr{direction:ltr;unicode-bidi:isolate}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut)}
+
+/* ---------- circuit background ---------- */
+#board{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(0,0,0,.35),#000 85%);
+          mask-image:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(0,0,0,.35),#000 85%)}
+.page{position:relative;z-index:1}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 78%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:20px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.brand-box{width:34px;height:34px;border:1px solid var(--line-2);border-radius:8px;display:grid;place-items:center;color:var(--accent);font:700 14px var(--f-mono);background:var(--surface)}
+.brand-txt{font:700 15px var(--f-mono);direction:ltr;letter-spacing:.01em}
+.cursor{display:inline-block;width:.55em;height:1.05em;background:var(--ok);vertical-align:-2px;margin-inline-start:4px;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.links{display:flex;gap:4px;margin-inline:auto;overflow-x:auto;scrollbar-width:none}
+.links::-webkit-scrollbar{display:none}
+.links a{font:500 13px var(--f-mono);color:var(--muted);text-decoration:none;padding:7px 9px;border-radius:6px;white-space:nowrap;direction:ltr;transition:color .2s,background .2s}
+.links a b{color:var(--accent);font-weight:500}
+.links a:hover,.links a.on{color:var(--fg);background:var(--surface-2)}
+.tools{display:flex;gap:8px;flex-shrink:0}
+.icon-btn{width:40px;height:40px;border-radius:9px;border:1px solid var(--line-2);background:var(--surface);color:var(--fg);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,transform .2s}
+.icon-btn:hover{border-color:var(--accent);transform:translateY(-1px)}
+.icon-btn svg{width:18px;height:18px}
+@media (max-width:980px){
+  .nav-in{flex-wrap:wrap;height:auto;padding-block:10px;gap:8px 12px}
+  .links{order:3;width:100%;margin:0}
+  .tools{margin-inline-start:auto}
+}
+
+/* ---------- hero ---------- */
+.hero{padding-block:clamp(40px,7vw,88px) 40px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(28px,4vw,56px);align-items:center}
+@media (max-width:980px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+.status{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line-2);background:var(--surface);border-radius:7px;padding:6px 12px;font-size:14px;color:var(--muted)}
+.status .mono{color:var(--ok);font-size:13px;direction:ltr}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 var(--ok);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 60%,transparent)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.eyebrow{font:500 12.5px var(--f-mono);letter-spacing:.14em;color:var(--muted);text-transform:uppercase;direction:ltr;text-align:var(--side);margin:26px 0 14px}
+.wordmark{width:min(100%,560px);height:auto;display:block;overflow:visible;filter:drop-shadow(0 0 14px var(--glow))}
+.gl{fill:none;stroke:var(--accent);stroke-width:.36;stroke-linecap:round;stroke-linejoin:round}
+.gd{fill:var(--accent-hi);transform-box:fill-box;transform-origin:center}
+.node-o{fill:var(--orange)}
+.ring{fill:none;stroke:var(--orange);stroke-width:.12;transform-box:fill-box;transform-origin:center;opacity:0}
+.hero h1{font:800 clamp(28px,4.2vw,44px)/1.35 var(--f-display);margin:22px 0 6px;color:var(--fg);text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.motto{font:500 clamp(14px,1.6vw,17px) var(--f-mono);color:var(--cyan);display:flex;flex-wrap:wrap;gap:6px 12px}
+.motto span+span::before{content:"/";color:var(--dim);margin-inline-end:12px}
+.lede{font-size:clamp(16px,1.6vw,18.5px);color:var(--muted);max-width:56ch;margin:18px 0 26px;font-weight:300}
+.lede strong{color:var(--fg);font-weight:500}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px var(--f-body);padding:12px 22px;border-radius:8px;text-decoration:none;border:1px solid var(--line-2);color:var(--fg);background:var(--surface);transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);box-shadow:0 8px 28px -10px var(--glow)}
+.btn svg{width:16px;height:16px}
+.credits{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:26px;font-size:14px;color:var(--muted)}
+.credits b{color:var(--fg);font-weight:500}
+.credits .k{font:12px var(--f-mono);color:var(--dim);margin-inline-end:6px}
+
+/* code panel */
+.code{background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--line-2);border-radius:12px;position:relative;direction:ltr;box-shadow:0 30px 60px -30px var(--shade);min-width:0}
+.code::before,.code::after{content:"";position:absolute;width:16px;height:16px;border:2px solid var(--accent)}
+.code::before{top:-6px;left:-6px;border-right:0;border-bottom:0;border-top-left-radius:6px}
+.code::after{bottom:-6px;right:-6px;border-left:0;border-top:0;border-bottom-right-radius:6px}
+.code-head,.code-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;font:500 13px var(--f-mono);color:var(--muted)}
+.code-head{border-bottom:1px solid var(--line)}
+.code-head b{color:var(--fg);font-weight:700;display:flex;gap:8px;align-items:center}
+.code-head b svg{width:15px;height:15px;color:var(--accent)}
+.code-foot{border-top:1px solid var(--line);font-size:12px}
+.code-foot .ok{color:var(--ok)}
+.code pre{margin:0;padding:16px 0;overflow-x:auto;font:13.5px/1.95 var(--f-mono)}
+.code .ln{display:block;padding-inline:18px;white-space:pre}
+.code .ln i{display:inline-block;width:2.2em;color:var(--dim);font-style:normal;user-select:none}
+.k1{color:#C792EA}.k2{color:var(--accent)}.s{color:var(--cyan)}.c{color:var(--dim);font-style:italic}.n{color:var(--orange)}.f{color:#E8B44A}
+:root[data-theme="light"] .k1{color:#8B3FC9}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .k1{color:#8B3FC9}}
+
+/* stats strip */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:clamp(40px,6vw,70px);border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--surface) 85%,transparent);overflow:hidden}
+.stat{padding:22px 26px;border-inline-start:1px solid var(--line)}
+.stat:first-child{border-inline-start:0}
+.stat .lab{font:500 12px var(--f-mono);letter-spacing:.14em;color:var(--muted);direction:ltr;text-align:var(--side)}
+.stat .num{font:700 clamp(34px,4.5vw,50px)/1.1 var(--f-mono);margin-top:10px;font-variant-numeric:tabular-nums;direction:ltr;text-align:var(--side)}
+.stat .num sup{color:var(--accent);font-size:.45em;vertical-align:top}
+.stat .sub{color:var(--muted);font-size:14px}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat:nth-child(3){border-inline-start:0}.stat:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* ---------- sections ---------- */
+section.sec{padding-block:clamp(64px,9vw,110px) 0}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-bottom:clamp(28px,4vw,44px);max-width:880px}
+.sec-idx{font:700 14px var(--f-mono);color:var(--accent);display:flex;gap:10px;align-items:center}
+.sec-idx span{direction:ltr;unicode-bidi:isolate}
+.sec-idx span{color:var(--muted);font-weight:500;letter-spacing:.12em;font-size:12.5px}
+.sec-idx::after{content:"";height:1px;flex:1;max-width:120px;background:linear-gradient(to left,var(--accent),transparent)}
+.page[dir=ltr] .sec-idx::after{background:linear-gradient(to right,var(--accent),transparent)}
+.sec-head h2{font:800 clamp(26px,3.6vw,40px)/1.35 var(--f-display);margin:0;text-wrap:balance}
+.sec-lead{color:var(--muted);max-width:66ch;margin:0;font-size:17px}
+.src{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;width:fit-content;max-width:100%;border:1px dashed var(--line-2);border-radius:8px;padding:7px 12px;font-size:13.5px;color:var(--muted);background:color-mix(in srgb,var(--surface) 70%,transparent)}
+.src svg{width:15px;height:15px;color:var(--muted);flex-shrink:0}
+.src .k{font:500 11.5px var(--f-mono);color:var(--dim);letter-spacing:.08em}
+.ext{font:700 10.5px var(--f-mono);padding:2px 7px;border-radius:4px;letter-spacing:.06em;direction:ltr}
+.ext.pdf{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.ext.docx{background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent)}
+.ext.xlsx{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+h3.sub{font:700 20px/1.5 var(--f-display);margin:44px 0 18px;display:flex;align-items:center;gap:12px}
+h3.sub::before{content:"";width:10px;height:10px;border:2px solid var(--accent);border-radius:2px;transform:rotate(45deg);flex-shrink:0}
+h3.sub small{font:500 11.5px var(--f-mono);color:var(--dim);letter-spacing:.12em;direction:ltr}
+
+.panel{background:color-mix(in srgb,var(--surface) 90%,transparent);border:1px solid var(--line);border-radius:var(--r);position:relative;min-width:0}
+.spot{isolation:isolate;overflow:hidden}
+.spot::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;
+  background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--accent) 14%,transparent),transparent 60%)}
+.spot:hover::before{opacity:1}
+.spot:hover{border-color:var(--line-2)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:980px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.g2,.g3,.g4{grid-template-columns:minmax(0,1fr)}}
+.card{padding:22px}
+.card h4{font:700 17px/1.5 var(--f-display);margin:0 0 6px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.idx{font:700 12px var(--f-mono);color:var(--accent);letter-spacing:.08em;direction:ltr;display:block;margin-bottom:10px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;padding:3px 10px;border-radius:999px;border:1px solid var(--line-2);color:var(--muted);white-space:nowrap}
+.tag.a{border-color:color-mix(in srgb,var(--accent) 45%,transparent);color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.tag.o{border-color:color-mix(in srgb,var(--orange) 45%,transparent);color:var(--orange);background:color-mix(in srgb,var(--orange) 9%,transparent)}
+.tag.c{border-color:color-mix(in srgb,var(--cyan) 45%,transparent);color:var(--cyan);background:color-mix(in srgb,var(--cyan) 9%,transparent)}
+.tag.g{border-color:color-mix(in srgb,var(--ok) 45%,transparent);color:var(--ok);background:color-mix(in srgb,var(--ok) 9%,transparent)}
+.note{font-size:13.5px;color:var(--dim);margin-top:16px;display:flex;gap:8px;align-items:flex-start}
+.note::before{content:"//";font-family:var(--f-mono);color:var(--accent);flex-shrink:0}
+
+/* reveal: elements stay visible; they only glide into place */
+@media (prefers-reduced-motion: no-preference){
+  .rv{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+  .rv.low{transform:translateY(22px)}
+  .gl{stroke-dasharray:1;animation:draw 1.15s var(--d) both cubic-bezier(.6,0,.2,1)}
+  .gd{animation:pop .45s var(--d) both cubic-bezier(.3,1.6,.5,1)}
+  .ring{animation:ring 2.6s 2.2s infinite}
+  .ring.r2{animation-delay:3.5s}
+  .code .ln{animation:type .35s calc(.5s + var(--i)*.07s) both}
+}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes pop{from{transform:scale(0)}}
+@keyframes ring{0%{transform:scale(.6);opacity:.9}100%{transform:scale(3.2);opacity:0}}
+@keyframes type{from{opacity:0;transform:translateX(-6px)}}
+
+/* ---------- 01 summary ---------- */
+.idea{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center;padding:clamp(22px,4vw,40px)}
+.orb{width:clamp(130px,18vw,210px);aspect-ratio:1;max-width:100%;border-radius:50%;position:relative;display:grid;place-items:center}
+.orb img{width:82%;height:82%;object-fit:cover;border-radius:50%}
+.orb::before{content:"";position:absolute;inset:0;border-radius:50%;border:1px dashed var(--line-2)}
+.orb::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid transparent;border-top-color:var(--accent);border-left-color:var(--cyan)}
+@media (prefers-reduced-motion: no-preference){.orb img{animation:spin 60s linear infinite}.orb::after{animation:spin 6s linear infinite}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.idea .k{font:500 12px var(--f-mono);color:var(--muted);letter-spacing:.14em}
+.idea blockquote{margin:8px 0 14px;font:700 clamp(22px,3vw,32px)/1.55 var(--f-display);text-wrap:balance}
+.idea blockquote mark{background:none;color:var(--accent)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+@media (max-width:620px){.idea{grid-template-columns:minmax(0,1fr)}.orb{margin-inline:auto}}
+.vm .card{padding:26px}
+.vm .lbl{font:700 12px var(--f-mono);letter-spacing:.14em;color:var(--cyan);direction:ltr;display:block;text-align:right;margin-bottom:8px}
+.vm p{font-size:17px;color:var(--fg)}
+.goals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:color-mix(in srgb,var(--surface) 90%,transparent)}
+.goal{padding:22px;border-inline-start:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.goal:first-child{border-inline-start:0}
+.goal .n{font:700 28px var(--f-mono);color:var(--line-2);direction:ltr;text-align:var(--side)}
+.goal b{font:700 17px var(--f-display)}
+@media (max-width:760px){.goals{grid-template-columns:repeat(2,minmax(0,1fr))}.goal:nth-child(3){border-inline-start:0}.goal:nth-child(n+3){border-top:1px solid var(--line)}}
+.closing{margin-top:36px;padding:26px clamp(20px,4vw,40px);border-radius:var(--r);border:1px solid color-mix(in srgb,var(--orange) 40%,transparent);background:linear-gradient(to left,color-mix(in srgb,var(--orange) 10%,transparent),transparent 70%);font:700 clamp(18px,2.2vw,23px)/1.7 var(--f-display);text-wrap:balance}
+
+/* ---------- tabs (02) ---------- */
+.tabs{border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--surface) 92%,transparent);overflow:hidden}
+.tabbar{display:flex;overflow-x:auto;border-bottom:1px solid var(--line);background:var(--bg-2);scrollbar-width:thin}
+.tab{appearance:none;border:0;background:none;color:var(--muted);font:500 14px var(--f-body);padding:14px 20px;display:flex;align-items:center;gap:8px;cursor:pointer;border-inline-end:1px solid var(--line);white-space:nowrap;position:relative}
+.tab .mono{font-size:11.5px;color:var(--dim);direction:ltr}
+.tab[aria-selected="true"]{color:var(--fg);background:var(--surface)}
+.tab[aria-selected="true"]::after{content:"";position:absolute;inset-inline:0;top:0;height:2px;background:var(--accent)}
+.tab[aria-selected="true"] .mono{color:var(--accent)}
+.tabpanel{padding:clamp(18px,3vw,32px)}
+@media (prefers-reduced-motion: no-preference){.tabpanel:not([hidden]){animation:fadeup .45s both}}
+@keyframes fadeup{from{opacity:.2;transform:translateY(8px)}}
+.tracks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:1100px){.tracks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.tracks{grid-template-columns:minmax(0,1fr)}}
+.track{padding:20px;display:flex;flex-direction:column;gap:12px;background:var(--surface-2)}
+.track svg{width:30px;height:30px;color:var(--cyan)}
+.track h4{margin:0;font:700 17px var(--f-display)}
+.track dl{margin:0;display:grid;gap:8px;font-size:14.5px}
+.track dt{font:500 11px var(--f-mono);color:var(--dim);letter-spacing:.12em}
+.track dd{margin:0;color:var(--muted)}
+.freq{display:grid;gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.freq-row{display:grid;grid-template-columns:150px 190px minmax(0,1fr);gap:16px;padding:16px 20px;border-top:1px solid var(--line);align-items:center;background:var(--surface-2)}
+.freq-row:first-child{border-top:0}
+.freq-row .when{font-size:14px;color:var(--cyan);display:flex;flex-direction:column}
+.freq-row .when .mono{font-size:11px;color:var(--dim)}
+.freq-row b{font:700 15.5px var(--f-display)}
+.freq-row p{margin:0;color:var(--muted);font-size:14.5px}
+@media (max-width:760px){.freq-row{grid-template-columns:minmax(0,1fr);gap:4px}}
+.crit{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.crit span{padding:9px 16px;border:1px solid var(--line-2);border-radius:8px;background:var(--surface-2);font-size:14.5px;display:flex;gap:8px;align-items:center}
+.crit span::before{content:"";width:7px;height:7px;background:var(--orange);border-radius:2px;transform:rotate(45deg)}
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;position:relative}
+.flow .st{padding:20px;position:relative;border:1px solid var(--line);background:var(--surface-2);margin-inline-end:-1px}
+.flow .st:first-child{border-radius:0 var(--r) var(--r) 0}
+.flow .st:last-child{border-radius:var(--r) 0 0 var(--r)}
+.flow .st h4{margin:4px 0;font:700 16px var(--f-display)}
+.flow .st p{margin:0;color:var(--muted);font-size:14.5px}
+.flow .st .nd{position:absolute;top:50%;inset-inline-end:-7px;width:12px;height:12px;border-radius:50%;background:var(--accent);z-index:2;transform:translateY(-50%);box-shadow:0 0 12px var(--glow)}
+.flow .st:last-child .nd{display:none}
+@media (max-width:760px){.flow{grid-template-columns:minmax(0,1fr)}.flow .st{margin:0 0 -1px;border-radius:0!important}.flow .st .nd{display:none}}
+.journey{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;counter-reset:j}
+@media (max-width:760px){.journey{grid-template-columns:minmax(0,1fr)}}
+.req{display:grid;gap:10px;counter-reset:r}
+.req li{list-style:none;display:flex;gap:14px;align-items:center;padding:14px 18px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);font-size:15.5px}
+.req li::before{counter-increment:r;content:"0" counter(r);font:700 13px var(--f-mono);color:var(--accent);width:34px;height:34px;border-radius:7px;border:1px solid var(--line-2);display:grid;place-items:center;flex-shrink:0}
+ul.plain{margin:0;padding:0}
+
+/* ---------- 03 team ---------- */
+.org{display:grid;justify-items:center;gap:0;padding:clamp(20px,3vw,34px)}
+.org .node{border:1px solid var(--line-2);border-radius:10px;background:var(--surface-2);padding:14px 22px;text-align:center;min-width:0;max-width:100%}
+.org .node .r{font:500 11.5px var(--f-mono);color:var(--muted);letter-spacing:.1em;display:block}
+.org .node b{font:700 17px var(--f-display);display:block}
+.org .node.sv{border-style:dashed}
+.org .node.lead{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 10%,transparent)}
+.vline{width:2px;height:28px;background:linear-gradient(var(--line-2),var(--accent))}
+.pair{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.depts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;width:100%;position:relative;padding-top:28px}
+.depts::before{content:"";position:absolute;top:0;inset-inline:12.5%;height:2px;background:var(--line-2)}
+.dept{position:relative;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);padding:18px;text-align:center}
+.dept::before{content:"";position:absolute;top:-28px;left:50%;width:2px;height:28px;background:var(--line-2)}
+.dept .r{font:500 11.5px var(--f-mono);color:var(--cyan);letter-spacing:.1em}
+.dept h4{margin:4px 0 2px;font:700 18px var(--f-display)}
+.dept p{margin:0 0 12px;color:var(--muted);font-size:14px}
+.dept .lead-n{border-top:1px solid var(--line);padding-top:10px;font-size:14.5px}
+.dept .lead-n small{display:block;color:var(--dim);font-size:12px}
+.dept.tm{text-decoration:none;color:inherit;border-color:color-mix(in srgb,var(--orange) 45%,transparent);transition:transform .2s}
+.dept.tm:hover{transform:translateY(-2px)}
+.dept.tm .r{color:var(--orange)}
+@media (max-width:980px){.depts{grid-template-columns:repeat(2,minmax(0,1fr));padding-top:16px}.depts::before,.dept::before{display:none}}
+@media (max-width:560px){.depts{grid-template-columns:minmax(0,1fr)}}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:color-mix(in srgb,var(--surface) 92%,transparent)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{padding:13px 16px;text-align:start;border-top:1px solid var(--line);vertical-align:top}
+thead th{border-top:0;font:500 12px var(--f-mono);letter-spacing:.08em;color:var(--muted);background:var(--bg-2);white-space:nowrap}
+td small{display:block;color:var(--muted);font-size:13px}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+.search{flex:1 1 220px;display:flex;align-items:center;gap:8px;border:1px solid var(--line-2);border-radius:8px;background:var(--surface);padding:0 12px}
+.search svg{width:16px;height:16px;color:var(--dim)}
+.search input{border:0;background:none;color:var(--fg);font:15px var(--f-body);padding:10px 0;width:100%;outline:none}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{appearance:none;border:1px solid var(--line-2);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 14px;font:500 13.5px var(--f-body);cursor:pointer;display:inline-flex;gap:6px;align-items:center;transition:all .2s}
+.chip .mono{font-size:11.5px;color:var(--dim)}
+.chip:hover{color:var(--fg)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.chip[aria-pressed="true"] .mono{color:var(--on-accent);opacity:.8}
+.members{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.mem{text-align:start;padding:16px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center;transition:transform .2s,border-color .2s}
+
+.av{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;font:700 16px var(--f-display);color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--surface-2));border:1px solid var(--line-2);grid-row:span 2}
+.mem.ld .av{color:var(--orange);background:color-mix(in srgb,var(--orange) 12%,var(--surface-2));border-color:color-mix(in srgb,var(--orange) 40%,transparent)}
+.mem.ex .av{color:var(--cyan);background:color-mix(in srgb,var(--cyan) 10%,var(--surface-2))}
+.mem .nm{font-weight:600;font-size:15px;line-height:1.4;overflow-wrap:anywhere}
+.mem .rl{font-size:12.5px;color:var(--muted)}
+.mem .sk{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.mem .sk span{font-size:11.5px;padding:2px 8px;border-radius:5px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
+.mem .hr{grid-column:1/-1;display:flex;align-items:center;gap:8px;font:11px var(--f-mono);color:var(--dim);margin-top:6px;direction:ltr;justify-content:flex-end}
+.bars4{display:flex;gap:3px}
+.bars4 i{width:10px;height:5px;border-radius:2px;background:var(--line-2)}
+.bars4 i.on{background:var(--cyan)}
+.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--line-2);border-radius:var(--r)}
+dialog{border:1px solid var(--line-2);border-radius:14px;background:var(--surface);color:var(--fg);padding:0;width:min(640px,calc(100vw - 32px));max-height:min(86vh,800px);box-shadow:0 40px 80px -20px var(--shade)}
+dialog::backdrop{background:var(--shade);backdrop-filter:blur(4px)}
+.dlg-head{display:flex;gap:14px;align-items:center;padding:20px 22px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface)}
+.dlg-head h3{margin:0;font:700 19px var(--f-display);flex:1;min-width:0}
+.dlg-body{padding:20px 22px;display:grid;gap:14px}
+.kv{display:grid;grid-template-columns:130px minmax(0,1fr);gap:12px;font-size:15px}
+.kv dt{font:500 12px var(--f-mono);color:var(--dim);letter-spacing:.06em;padding-top:3px}
+.kv dd{margin:0}
+@media (max-width:520px){.kv{grid-template-columns:minmax(0,1fr);gap:2px}.kv dd{margin-bottom:8px}}
+.lightbox{width:min(980px,calc(100vw - 32px));background:var(--bg-2)}
+.lightbox img{display:block;width:100%;height:auto;max-height:80vh;object-fit:contain}
+.lightbox .cap{padding:12px 18px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+
+/* ---------- 04 ideas ---------- */
+.mini-stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.mini-stats div{border:1px solid var(--line);border-radius:8px;padding:10px 16px;background:var(--surface);display:flex;align-items:baseline;gap:10px}
+.mini-stats b{font:700 22px var(--f-mono);font-variant-numeric:tabular-nums}
+.mini-stats span{color:var(--muted);font-size:14px}
+.props{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.props{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.props{grid-template-columns:minmax(0,1fr)}}
+.prop{padding:20px;display:flex;flex-direction:column;gap:6px}
+.prop .idx{margin:0}
+.prop h4{margin:0;font:700 16.5px var(--f-display)}
+.prop p{margin:0;color:var(--muted);font-size:14.5px}
+.quotes{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}.quotes>*{grid-column:span 2}.quotes>:nth-child(-n+2){grid-column:span 3}@media (max-width:860px){.quotes{grid-template-columns:minmax(0,1fr)}.quotes>*,.quotes>:nth-child(-n+2){grid-column:auto}}
+.quote{padding:22px;display:flex;flex-direction:column;gap:14px}
+.quote p{margin:0;font-size:16.5px;line-height:1.8}
+.quote p::before{content:"“";font:700 34px/0 var(--f-display);color:var(--accent);vertical-align:-12px;margin-inline-end:6px}
+.quote footer{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:13.5px;color:var(--muted)}
+details.more{margin-top:18px;border:1px solid var(--line);border-radius:var(--r);background:color-mix(in srgb,var(--surface) 92%,transparent)}
+details.more summary{cursor:pointer;padding:14px 18px;font-weight:600;display:flex;justify-content:space-between;align-items:center;list-style:none}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:"+";font:700 18px var(--f-mono);color:var(--accent)}
+details.more[open] summary::after{content:"−"}
+details.more .tbl-wrap{border:0;border-top:1px solid var(--line);border-radius:0}
+
+/* ---------- 05 roadmap ---------- */
+.launch{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;margin-bottom:16px}
+@media (max-width:860px){.launch{grid-template-columns:minmax(0,1fr)}}
+.count{padding:24px;display:flex;flex-direction:column;gap:8px}
+.count .k{font:500 12px var(--f-mono);color:var(--muted);letter-spacing:.12em;direction:ltr;text-align:var(--side)}
+.count .big{font:700 clamp(44px,6vw,64px)/1 var(--f-mono);color:var(--accent);font-variant-numeric:tabular-nums;direction:ltr;text-align:var(--side)}
+.count .big small{font-size:.32em;color:var(--muted);margin-inline-start:8px;font-weight:500}
+.count .what{font:700 17px/1.6 var(--f-display)}
+.count .when{color:var(--muted);font-size:14.5px}
+.season{padding:24px;display:flex;flex-direction:column;gap:16px}
+.season .k{font:500 12px var(--f-mono);color:var(--muted);letter-spacing:.12em;display:flex;justify-content:space-between;direction:ltr}
+.prog{height:10px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);position:relative;overflow:visible}
+.prog .fill{position:absolute;inset-block:0;inset-inline-start:0;border-radius:99px;background:linear-gradient(to left,var(--accent),var(--cyan))}
+.prog .today{position:absolute;top:50%;width:16px;height:16px;border-radius:50%;background:var(--orange);border:3px solid var(--surface);transform:translateY(-50%);margin-inline-start:-8px;box-shadow:0 0 0 4px color-mix(in srgb,var(--orange) 30%,transparent)}
+.months{display:flex;justify-content:space-between;font:11.5px var(--f-mono);color:var(--dim)}
+.phases{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media (max-width:980px){.phases{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.phases{grid-template-columns:minmax(0,1fr)}}
+.phase{padding:18px;display:flex;flex-direction:column;gap:6px;border-top:3px solid var(--line-2)}
+.phase.now{border-top-color:var(--orange)}
+.phase.done{opacity:.6}
+.phase .idx{margin:0;display:flex;justify-content:space-between}
+.phase h4{margin:0;font:700 16px var(--f-display)}
+.phase .dates{font-size:13px;color:var(--cyan)}
+.phase p{margin:0;font-size:14px;color:var(--muted)}
+.labs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.labs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.labs{grid-template-columns:minmax(0,1fr)}}
+.lab{overflow:hidden;display:flex;flex-direction:column}
+.lab img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-bottom:1px solid var(--line);transition:transform .5s}
+.lab:hover img{transform:scale(1.05)}
+.lab div{padding:14px 16px}
+.lab b{display:block;font:700 15px/1.55 var(--f-display)}
+.lab span{font-size:13px;color:var(--muted)}
+.lab.hl{border-color:color-mix(in srgb,var(--orange) 50%,transparent)}
+.sched{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:color-mix(in srgb,var(--surface) 92%,transparent)}
+.ph-row{padding:10px 18px;background:var(--bg-2);font:500 12.5px var(--f-mono);color:var(--accent);letter-spacing:.06em;border-top:1px solid var(--line)}
+.ph-row:first-child{border-top:0}
+.ev{display:grid;grid-template-columns:120px minmax(0,1fr) 120px minmax(0,190px);gap:14px;padding:14px 18px;border-top:1px solid var(--line);align-items:center;font-size:14.5px;transition:background .2s}
+.ev:hover{background:var(--surface-2)}
+.ev .d{font:500 13px var(--f-mono);color:var(--cyan);direction:ltr;text-align:var(--side);font-variant-numeric:tabular-nums}
+.ev .d small{display:block;font:12px var(--f-body);color:var(--dim)}
+.ev .o{color:var(--muted);font-size:13px}
+.ev.past{opacity:.5}
+.ev.next{background:color-mix(in srgb,var(--orange) 8%,transparent);border-inline-start:3px solid var(--orange)}
+.ev.next .t::after{content:"NEXT";font:700 10px var(--f-mono);color:var(--orange);border:1px solid var(--orange);border-radius:4px;padding:1px 6px;margin-inline-start:8px;vertical-align:2px}
+@media (max-width:760px){.ev{grid-template-columns:minmax(0,1fr);gap:4px}.ev .d{text-align:right}}
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{padding:18px;text-align:center}
+.kpi b{display:block;font:700 30px var(--f-mono);color:var(--accent);direction:ltr;font-variant-numeric:tabular-nums}
+.kpi span{font-size:13.5px;color:var(--muted)}
+.resp{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.resp>*{grid-column:span 2}.resp>:nth-child(n+4){grid-column:span 3}
+@media (max-width:980px){.resp{grid-template-columns:repeat(2,minmax(0,1fr))}.resp>*,.resp>:nth-child(n+4){grid-column:auto}.resp>:last-child{grid-column:1/-1}}
+@media (max-width:560px){.resp{grid-template-columns:minmax(0,1fr)}.resp>:last-child{grid-column:auto}}
+.resp .card .who{font-size:13.5px;color:var(--cyan);margin-bottom:10px;display:block}
+
+/* ---------- 06 survey ---------- */
+.headline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+@media (max-width:860px){.headline{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.hl{padding:20px}
+.hl b{display:block;font:700 clamp(30px,3.6vw,40px)/1.1 var(--f-mono);direction:ltr;text-align:var(--side);font-variant-numeric:tabular-nums}
+.hl b small{font-size:.5em;color:var(--accent)}
+.hl span{font-size:14px;color:var(--muted)}
+.charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:860px){.charts{grid-template-columns:minmax(0,1fr)}}
+.chart{padding:22px}
+.chart.wide{grid-column:1/-1}
+.chart h4{margin:0;font:700 16px var(--f-display)}
+.chart .cs{font-size:13.5px;color:var(--muted);margin:2px 0 18px}
+.hbars{display:grid;gap:10px}
+.hbar{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 44px;gap:12px;align-items:center;font-size:14px;position:relative}
+.hbar .lb{color:var(--fg);overflow-wrap:anywhere;line-height:1.4}
+.hbar .tr{height:14px;background:var(--surface-2);border-radius:4px;position:relative;border:1px solid var(--line)}
+.hbar .bf{position:absolute;inset-block:-1px;inset-inline-start:-1px;border-radius:4px;background:var(--accent);width:var(--w)}
+.hbar.alt .bf{background:var(--cyan)}
+.hbar .v{font:600 14px var(--f-mono);text-align:end;direction:ltr;font-variant-numeric:tabular-nums;color:var(--fg)}
+.hbar .v small{color:var(--dim);font-weight:400;font-size:11px;margin-inline-start:4px}
+.hbar:hover .bf{filter:brightness(1.15)}
+.tip{position:absolute;z-index:5;pointer-events:none;background:var(--fg);color:var(--bg);font-size:12.5px;padding:5px 10px;border-radius:6px;white-space:nowrap;top:-34px;left:50%;transform:translateX(-50%);display:none}
+.hbar:hover .tip,.col:hover .tip{display:block}
+@media (max-width:520px){.hbar{grid-template-columns:minmax(0,1fr) 44px}.hbar .lb{grid-column:1/-1}.hbar .tr{grid-column:1}}
+@media (prefers-reduced-motion: no-preference){.grow .bf{animation:grow 1s cubic-bezier(.2,.7,.2,1) both}.grow .col i{animation:growy 1s cubic-bezier(.2,.7,.2,1) both}}
+@keyframes grow{from{width:0}}
+@keyframes growy{from{height:0}}
+.split{display:flex;height:40px;border-radius:6px;overflow:hidden;gap:2px;background:var(--surface)}
+.split div{display:flex;align-items:center;padding-inline:12px;font:600 13.5px var(--f-mono);color:var(--on-accent)}
+.split .y{background:var(--accent)}
+.split .n{background:var(--line-2);color:var(--fg)}
+.legend{display:flex;gap:16px;font-size:13.5px;color:var(--muted);margin-top:12px;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.cols{display:flex;align-items:flex-end;gap:18px;height:170px;padding-top:24px;border-bottom:1px solid var(--line-2)}
+.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;gap:6px}
+.col i{width:min(64px,70%);background:var(--accent);border-radius:4px 4px 0 0;height:var(--h);display:block;min-height:4px}
+.col b{font:600 13px var(--f-mono)}
+.col .tip{top:-6px}
+.col-l{display:flex;gap:18px;margin-top:8px}
+.col-l span{flex:1;text-align:center;font:12px var(--f-mono);color:var(--muted);direction:ltr}
+
+/* ---------- 07 identity ---------- */
+.logos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.logos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.logos{grid-template-columns:minmax(0,1fr)}}
+.logo{overflow:hidden;display:flex;flex-direction:column;cursor:zoom-in;appearance:none;font:inherit;color:inherit;text-align:start;padding:0}
+.logo .im{background:#05080F;display:grid;place-items:center;aspect-ratio:1/1;overflow:hidden;max-width:100%}
+.logo img{width:100%;height:100%;object-fit:contain;transition:transform .6s}
+.logo:hover img{transform:scale(1.05)}
+.logo .meta{padding:16px;display:grid;gap:6px}
+.logo .meta div{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.logo h4{margin:0;font:700 16.5px var(--f-display)}
+.logo p{margin:0;color:var(--muted);font-size:14px}
+.logo.rec{border-color:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 12%,transparent)}
+.rate{font-size:13.5px;font-weight:600;white-space:nowrap}
+.rate::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-inline-end:6px;background:currentColor}
+.rate.s{color:var(--ok)}.rate.m{color:var(--warn)}.rate.w{color:var(--bad)}
+.rec-box{margin-top:16px;padding:clamp(20px,3vw,30px);border-radius:var(--r);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 16%,var(--surface)),var(--surface) 70%);border:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+.rec-box .k{font:700 12px var(--f-mono);color:var(--cyan);letter-spacing:.14em}
+.rec-box h4{font:700 clamp(17px,2vw,21px)/1.7 var(--f-display);margin:6px 0 12px}
+.rec-box ul{margin:0;padding-inline-start:20px;color:var(--muted);display:grid;gap:4px}
+.swatches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media (max-width:640px){.swatches{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.sw{appearance:none;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface);color:var(--fg);cursor:pointer;padding:0;text-align:start;font:inherit;transition:transform .2s}
+.sw:hover{transform:translateY(-3px)}
+.sw i{display:block;height:84px}
+.sw div{padding:10px 12px;display:flex;justify-content:space-between;gap:6px;align-items:center;font-size:14px}
+.sw .mono{font-size:12px;color:var(--muted);direction:ltr}
+.launches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.launches{grid-template-columns:minmax(0,1fr)}}
+.lc{display:grid;grid-template-columns:150px minmax(0,1fr);overflow:hidden}
+.lc button{appearance:none;border:0;padding:0;cursor:zoom-in;background:#05080F;display:block}
+.lc img{width:100%;height:100%;object-fit:cover;display:block;min-height:180px}
+.lc>div{padding:18px;display:flex;flex-direction:column;gap:8px}
+.lc h4{margin:0;font:700 16px var(--f-display)}
+.lc p{margin:0;color:var(--muted);font-size:14.5px}
+.lc .pills{margin-top:auto}
+.lc small{color:var(--dim);font-size:12.5px}
+@media (max-width:440px){.lc{grid-template-columns:minmax(0,1fr)}.lc img{min-height:0;aspect-ratio:4/3}}
+.checks{display:grid;gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:color-mix(in srgb,var(--surface) 92%,transparent)}
+.ck{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:14px;align-items:center;padding:14px 18px;border-top:1px solid var(--line);cursor:pointer}
+.ck:first-child{border-top:0}
+.ck input{appearance:none;width:22px;height:22px;border:2px solid var(--line-2);border-radius:6px;display:grid;place-items:center;cursor:pointer;margin:0;transition:all .2s;background:var(--surface)}
+.ck input:checked{background:var(--ok);border-color:var(--ok)}
+.ck input:checked::after{content:"";width:6px;height:11px;border:solid var(--on-accent);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.ck input:checked ~ .t{text-decoration:line-through;color:var(--dim)}
+.ck .o{font-size:13px;color:var(--muted)}
+.ck .w{font-size:13px;color:var(--orange);white-space:nowrap}
+@media (max-width:640px){.ck{grid-template-columns:auto minmax(0,1fr)}.ck .o,.ck .w{grid-column:2}}
+.ck-prog{display:flex;align-items:center;gap:12px;margin-bottom:12px;font:13px var(--f-mono);color:var(--muted);direction:ltr;justify-content:flex-end}
+.ck-prog .prog{width:160px;height:6px}
+.boards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media (max-width:760px){.boards{grid-template-columns:minmax(0,1fr)}}
+.boards button{appearance:none;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;padding:0;cursor:zoom-in;background:#05080F}
+.boards img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .5s}
+.boards button:hover img{transform:scale(1.04)}
+.wm{display:flex;gap:20px;align-items:center;padding:18px;flex-wrap:wrap}
+.wm img{height:84px;width:auto;border-radius:8px;border:1px solid var(--line)}
+.wm div{flex:1;min-width:200px}
+.wm p{margin:4px 0 0;color:var(--muted);font-size:14.5px}
+
+/* ---------- 08 files ---------- */
+.files{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.file{padding:18px;display:flex;flex-direction:column;gap:10px;text-decoration:none}
+.file .top{display:flex;align-items:flex-start;gap:12px}
+.file .ic{width:42px;height:50px;flex-shrink:0;position:relative}
+.file .ic svg{width:100%;height:100%}
+.file h4{margin:0;font:600 15.5px/1.55 var(--f-body)}
+.file .meta{font:12px var(--f-mono);color:var(--dim);direction:ltr;text-align:var(--side)}
+.file p{margin:0;font-size:14px;color:var(--muted)}
+.file .go{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:13.5px;color:var(--accent);border-top:1px solid var(--line);padding-top:10px}
+.file .go svg{width:16px;height:16px;transition:transform .2s}
+.file:hover .go svg{transform:translateX(-4px)}
+
+
+/* ---------- 04 toastmasters ---------- */
+.tm-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:0;overflow:hidden}
+@media (max-width:900px){.tm-hero{grid-template-columns:minmax(0,1fr)}}
+.tm-about{padding:clamp(22px,3.5vw,36px);display:flex;flex-direction:column;gap:16px}
+.tm-lead{display:flex;align-items:center;gap:14px}
+.tm-lead .av{width:56px;height:56px;font-size:22px;color:var(--orange);background:color-mix(in srgb,var(--orange) 12%,var(--surface-2));border-color:color-mix(in srgb,var(--orange) 40%,transparent);grid-row:auto}
+.tm-lead b{display:block;font:700 19px var(--f-display)}
+.tm-lead span{color:var(--muted);font-size:14px}
+.tm-about p{margin:0;font-size:17px;line-height:1.85;max-width:56ch}
+.tm-timer{padding:clamp(22px,3.5vw,36px);background:var(--bg-2);border-inline-start:1px solid var(--line);display:flex;flex-direction:column;gap:16px}
+@media (max-width:900px){.tm-timer{border-inline-start:0;border-top:1px solid var(--line)}}
+.tm-timer .k{font:500 12px var(--f-mono);color:var(--muted);letter-spacing:.14em;direction:ltr;text-align:var(--side)}
+.lamps{display:flex;gap:14px;justify-content:flex-start;direction:ltr}
+.lamps i{width:34px;height:34px;border-radius:50%;display:block;border:2px solid var(--line-2)}
+.lamps .g{background:var(--ok);box-shadow:0 0 18px color-mix(in srgb,var(--ok) 50%,transparent)}
+.lamps .y{background:var(--warn);box-shadow:0 0 18px color-mix(in srgb,var(--warn) 50%,transparent)}
+.lamps .r{background:var(--bad);box-shadow:0 0 18px color-mix(in srgb,var(--bad) 50%,transparent)}
+@media (prefers-reduced-motion: no-preference){.lamps i{animation:lamp 7.5s infinite}.lamps .y{animation-delay:2.5s}.lamps .r{animation-delay:5s}}
+@keyframes lamp{0%,30%{opacity:1;transform:scale(1)}34%,100%{opacity:.18;box-shadow:none;transform:scale(.9)}}
+.tm-times{display:grid;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.tm-times div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:11px 14px;border-top:1px solid var(--line);align-items:center}
+.tm-times div:first-child{border-top:0}
+.tm-times b{font-weight:600;font-size:14.5px}
+.tm-times .ltr{font:500 12.5px var(--f-mono);display:flex;gap:10px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tm-times .ltr span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:0}
+.tm-times .ltr .g::before{background:var(--ok)}.tm-times .ltr .y::before{background:var(--warn)}.tm-times .ltr .r::before{background:var(--bad)}
+.tm-times small{grid-column:1/-1;color:var(--dim);font-size:12.5px}
+.tm-link .card .when{font:500 12.5px var(--f-mono);color:var(--orange);display:block;margin-top:10px}
+
+/* footer */
+footer.foot{margin-top:clamp(70px,10vw,120px);border-top:1px solid var(--line);padding-block:40px 30px;background:color-mix(in srgb,var(--bg) 70%,transparent)}
+.foot-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:flex-end}
+.foot .big{font:700 clamp(30px,6vw,64px)/1 var(--f-mono);color:var(--line-2);direction:ltr;letter-spacing:-.02em}
+.foot p{margin:4px 0;color:var(--muted);font-size:14px}
+.foot .mono{font-size:12px;color:var(--dim)}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translate(-50%,120px);background:var(--fg);color:var(--bg);padding:10px 18px;border-radius:8px;font-size:14px;z-index:50;transition:transform .3s,visibility .3s;visibility:hidden}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important}}
+
+/* ---------- language ---------- */
+.page[dir=rtl]{--side:right}
+.page[dir=ltr]{--side:left}
+:root.en{--f-display:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;--f-body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif}
+.l-en{display:none}
+:root.en .l-en{display:inline}
+:root.en .l-ar{display:none}
+.motto>.l-ar{display:contents}
+.motto>.l-en{display:none}
+:root.en .motto>.l-ar{display:none}
+:root.en .motto>.l-en{display:contents}
+:root.en .hero h1{letter-spacing:-.01em}
+:root.en .sec-head h2{letter-spacing:-.015em}
+.lang-btn{font:700 15px var(--f-mono)}
+.lang-btn .l-en{font-family:var(--f-display);font-size:18px;line-height:1}
+.page[dir=ltr] .closing{background:linear-gradient(to right,color-mix(in srgb,var(--orange) 10%,transparent),transparent 70%)}
+.foot-end{text-align:end}
+.logo .meta .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+a.dept{text-decoration:none;color:inherit;transition:transform .2s,border-color .2s}
+a.dept:hover{transform:translateY(-2px);border-color:var(--accent)}
+.mem-count{font-size:12px;color:var(--dim);letter-spacing:.1em;margin:-4px 0 12px;direction:ltr;text-align:var(--side)}
+
+/* ---------- section photos ---------- */
+.shot{position:relative;margin:0 0 clamp(22px,3vw,32px);border-radius:14px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/5.4;max-width:100%;
+  background:radial-gradient(circle at 20% 30%,color-mix(in srgb,var(--accent) 28%,transparent),transparent 55%),radial-gradient(circle at 85% 80%,color-mix(in srgb,var(--cyan) 22%,transparent),transparent 50%),var(--surface-2)}
+@media (max-width:760px){.shot{aspect-ratio:16/9}}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9) contrast(1.04)}
+.shot::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 35%,color-mix(in srgb,var(--bg) 88%,transparent)),linear-gradient(90deg,color-mix(in srgb,#0B3A6E 35%,transparent),transparent 60%)}
+.shot .scan{position:absolute;inset-inline:0;top:0;height:2px;z-index:2;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 14px var(--cyan)}
+.shot .br{position:absolute;width:18px;height:18px;z-index:2;border:2px solid var(--accent);pointer-events:none}
+.shot .br.a{top:12px;inset-inline-start:12px;border-inline-end:0;border-bottom:0}
+.shot .br.b{bottom:12px;inset-inline-end:12px;border-inline-start:0;border-top:0}
+.shot figcaption{position:absolute;z-index:2;bottom:14px;inset-inline-start:18px;display:flex;align-items:center;gap:10px;font-size:14px;color:#E6EEF8;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.shot figcaption .mono{font-size:11.5px;letter-spacing:.12em;color:#9CCBFF;border:1px solid rgba(156,203,255,.45);border-radius:5px;padding:2px 8px;background:rgba(5,11,22,.55)}
+.shot.noimg img{display:none}
+.shot.noimg::after{background:repeating-linear-gradient(0deg,transparent 0 25px,var(--trace) 25px 26px),repeating-linear-gradient(90deg,transparent 0 25px,var(--trace) 25px 26px)}
+.shot.noimg figcaption{color:var(--fg);text-shadow:none}
+@media (prefers-reduced-motion: no-preference){
+  .shot img{animation:kb 26s ease-in-out infinite alternate}
+  .shot .scan{animation:scan 6s cubic-bezier(.5,0,.5,1) infinite}
+}
+@keyframes kb{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.14) translate(-2%,-2%)}}
+@keyframes scan{0%{top:0;opacity:0}10%{opacity:.9}85%{opacity:.6}100%{top:100%;opacity:0}}
+
+/* ---------- departments ---------- */
+.deptx{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;background:color-mix(in srgb,var(--surface) 92%,transparent);margin-bottom:20px;scroll-margin-top:90px}
+.deptx:nth-of-type(even) .shot{order:2}
+.deptx .shot{margin:0;border:0;border-radius:0;aspect-ratio:auto;min-height:340px;height:100%}
+.deptx-body{padding:clamp(22px,3.5vw,40px);display:flex;flex-direction:column;gap:14px;min-width:0}
+.deptx-body .idx{margin:0}
+.deptx h3{margin:0;font:800 clamp(22px,2.6vw,30px)/1.35 var(--f-display)}
+.deptx-lead{display:flex;align-items:center;gap:12px}
+.deptx-lead .av{grid-row:auto;flex-shrink:0}
+.deptx-lead b{display:block;font-weight:600;font-size:16px}
+.deptx-lead span:not(.av){color:var(--muted);font-size:13.5px;line-height:1.6}
+.deptx-mission{margin:0;font-size:16.5px;line-height:1.85;color:var(--fg);max-width:62ch}
+.deptx-list{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.deptx-list li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:15px}
+.deptx-list li::before{content:"";width:7px;height:7px;margin-top:.7em;flex-shrink:0;border:1.5px solid var(--accent);transform:rotate(45deg)}
+.deptx-dates{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:4px}
+.deptx-dates .k{font:500 11px var(--f-mono);color:var(--dim);letter-spacing:.12em;margin-inline-end:4px}
+.dchip{display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:5px 11px;border-radius:7px;border:1px solid var(--line-2);background:var(--surface-2)}
+.dchip b{font:600 12px var(--f-mono);color:var(--cyan);direction:ltr}
+.deptx.tmx{border-color:color-mix(in srgb,var(--orange) 40%,transparent)}
+.deptx.tmx .idx{color:var(--orange)}
+.tm-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+.deptx .tm-timer{border:1px solid var(--line);border-radius:10px;padding:16px;gap:12px;background:var(--bg-2)}
+@media (max-width:900px){.deptx .tm-timer{border-top:1px solid var(--line)}}
+.deptx .tm-times div{padding:8px 12px}
+.deptx .lamps i{width:26px;height:26px}
+.deptx .tm-timer{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:18px}.deptx .tm-timer .k{grid-column:1/-1}.deptx .tm-times{grid-column:2}
+@media (max-width:560px){.deptx .tm-timer{grid-template-columns:minmax(0,1fr)}.deptx .tm-times{grid-column:auto}}
+@media (max-width:860px){.deptx{grid-template-columns:minmax(0,1fr)}.deptx:nth-of-type(even) .shot{order:0}.deptx .shot{min-height:0;aspect-ratio:16/9;height:auto}}
+.admin{display:grid;gap:12px}
+.admin-who{display:flex;align-items:center;gap:10px}
+.admin-who .av{grid-row:auto}
+.admin-who .av+.av{margin-inline-start:-18px;border-color:var(--surface)}
+.admin-who b{display:block;font-weight:600}
+.admin-who span:not(.av){color:var(--muted);font-size:13.5px}
+.admin p{max-width:80ch}
+.file .go svg{transition:transform .2s}
+.file:hover .go svg{transform:translateY(2px)}
+</style>
+
+<canvas id="board" aria-hidden="true"></canvas>
+<div class="page" dir="rtl" lang="ar" id="page">
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="EWA AI Club">
+      <span class="brand-box">E</span>
+      <span class="brand-txt">ewa.ai_club<span class="cursor" aria-hidden="true"></span></span>
+    </a>
+    <div class="links" id="links">
+      <a href="#summary"><b>01</b>.summary</a>
+      <a href="#proposal"><b>02</b>.proposal</a>
+      <a href="#leaders"><b>03</b>.leaders</a>
+      <a href="#departments"><b>04</b>.departments</a>
+      <a href="#members"><b>05</b>.members</a>
+      <a href="#ideas"><b>06</b>.ideas</a>
+      <a href="#roadmap"><b>07</b>.roadmap</a>
+      <a href="#survey"><b>08</b>.survey</a>
+      <a href="#identity"><b>09</b>.identity</a>
+    </div>
+    <div class="tools">
+      <button class="icon-btn lang-btn" id="langBtn" type="button" aria-label="Switch language"><span class="l-ar">EN</span><span class="l-en">ع</span></button>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="status"><span class="dot" aria-hidden="true"></span><span class="mono">season_01</span><span id="statusTxt"><span class="l-ar">الموسم الأول · أكتوبر 2026 – مارس 2027</span><span class="l-en">Season one · Oct 2026 – Mar 2027</span></span></div>
+        <div class="eyebrow">// Energy &amp; Water Academy · Student AI Club</div>
+        <svg class="wordmark" viewBox="0 0 28.50 16.60" role="img" aria-label="EWA AI CLUB" xmlns="http://www.w3.org/2000/svg"><polyline class="gl" style="--d:0.10s" pathLength="1" points="5.00,1.00 1.00,1.00 1.00,7.00 5.00,7.00"/><polyline class="gl" style="--d:0.17s" pathLength="1" points="1.00,4.00 4.00,4.00"/><polyline class="gl" style="--d:0.24s" pathLength="1" points="6.50,1.00 6.50,7.00 8.50,5.00 10.50,7.00 10.50,1.00"/><polyline class="gl" style="--d:0.31s" pathLength="1" points="12.00,7.00 12.00,2.20 13.20,1.00 14.80,1.00 16.00,2.20 16.00,7.00"/><polyline class="gl" style="--d:0.38s" pathLength="1" points="12.00,4.60 16.00,4.60"/><polyline class="gl" style="--d:0.45s" pathLength="1" points="19.00,7.00 19.00,2.20 20.20,1.00 21.80,1.00 23.00,2.20 23.00,7.00"/><polyline class="gl" style="--d:0.52s" pathLength="1" points="19.00,4.60 23.00,4.60"/><polyline class="gl" style="--d:0.59s" pathLength="1" points="26.00,1.00 26.00,7.00"/><polyline class="gl" style="--d:0.66s" pathLength="1" points="24.50,1.00 27.50,1.00"/><polyline class="gl" style="--d:0.73s" pathLength="1" points="24.50,7.00 27.50,7.00"/><polyline class="gl" style="--d:0.80s" pathLength="1" points="5.00,10.80 3.80,9.60 2.20,9.60 1.00,10.80 1.00,14.40 2.20,15.60 3.80,15.60 5.00,14.40"/><polyline class="gl" style="--d:0.87s" pathLength="1" points="6.50,9.60 6.50,15.60 10.50,15.60"/><polyline class="gl" style="--d:0.94s" pathLength="1" points="12.00,9.60 12.00,14.40 13.20,15.60 14.80,15.60 16.00,14.40 16.00,9.60"/><polyline class="gl" style="--d:1.01s" pathLength="1" points="17.50,9.60 17.50,15.60 20.50,15.60 21.50,14.60 21.50,13.60 20.50,12.60 17.50,12.60"/><polyline class="gl" style="--d:1.08s" pathLength="1" points="17.50,9.60 20.50,9.60 21.50,10.60 21.50,11.60 20.50,12.60"/><circle class="gd" style="--d:0.49s" cx="5.00" cy="1.00" r=".42"/><circle class="gd" style="--d:0.49s" cx="5.00" cy="7.00" r=".42"/><circle class="gd" style="--d:0.49s" cx="4.00" cy="4.00" r=".42"/><circle class="gd" style="--d:0.56s" cx="6.50" cy="1.00" r=".42"/><circle class="gd" style="--d:0.56s" cx="10.50" cy="1.00" r=".42"/><circle class="gd" style="--d:0.56s" cx="8.50" cy="5.00" r=".42"/><circle class="gd" style="--d:0.70s" cx="12.00" cy="7.00" r=".42"/><circle class="gd" style="--d:0.70s" cx="16.00" cy="7.00" r=".42"/><circle class="gd" style="--d:0.84s" cx="19.00" cy="7.00" r=".42"/><circle class="gd" style="--d:0.84s" cx="23.00" cy="7.00" r=".42"/><circle class="gd" style="--d:1.05s" cx="24.50" cy="1.00" r=".42"/><circle class="gd" style="--d:1.05s" cx="27.50" cy="1.00" r=".42"/><circle class="gd" style="--d:1.05s" cx="24.50" cy="7.00" r=".42"/><circle class="gd" style="--d:1.05s" cx="27.50" cy="7.00" r=".42"/><circle class="gd" style="--d:1.12s" cx="5.00" cy="10.80" r=".42"/><circle class="gd" style="--d:1.12s" cx="5.00" cy="14.40" r=".42"/><circle class="gd" style="--d:1.19s" cx="6.50" cy="9.60" r=".42"/><circle class="gd" style="--d:1.19s" cx="10.50" cy="15.60" r=".42"/><circle class="gd" style="--d:1.26s" cx="12.00" cy="9.60" r=".42"/><circle class="gd" style="--d:1.26s" cx="16.00" cy="9.60" r=".42"/><circle class="gd" style="--d:1.40s" cx="17.50" cy="9.60" r=".42"/><circle class="gd" style="--d:1.40s" cx="17.50" cy="15.60" r=".42"/><circle class="gd" style="--d:1.40s" cx="19.50" cy="12.60" r=".42"/><g class="sig"><circle class="ring r1" cx="14.0" cy="1.0" r=".9"/><circle class="ring r2" cx="14.0" cy="1.0" r=".9"/><circle class="node-o" cx="14.0" cy="1.0" r=".55"/></g></svg>
+        <h1><span class="l-ar">نادي <em>الذكاء الاصطناعي</em></span><span class="l-en">The <em>Artificial Intelligence</em> Club</span></h1>
+        <div class="motto"><span class="l-ar"><span>نتعلّم</span><span>نطبّق</span><span>نبتكر</span><span>نصنع الأثر</span></span><span class="l-en"><span>Learn</span><span>Apply</span><span>Innovate</span><span>Make an impact</span></span></div>
+        <p class="lede"><span class="l-ar"><strong>مجتمع تطبيقي يقود التعلم من القاعة إلى المشروع والأثر.</strong> أول دفعة في أكاديمية الطاقة والمياه تبني ثقافة الذكاء الاصطناعي بورش أسبوعية، وتحديات ببيانات حقيقية من الطاقة والمياه، وهاكاثون، ومعرض ختامي للمشاريع.</span><span class="l-en"><strong>A hands-on community that takes learning from the classroom to real projects and impact.</strong> The first cohort at the Energy &amp; Water Academy is building an AI culture through weekly workshops, challenges on real energy and water data, a hackathon, and a final project showcase.</span></p>
+        <div class="cta">
+          <a class="btn primary" href="#roadmap"><span class="l-ar">استكشف الخطة</span><span class="l-en">Explore the plan</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+          <a class="btn" href="#departments"><span class="l-ar">تعرّف على الأقسام</span><span class="l-en">Meet the departments</span></a>
+        </div>
+        <div class="credits">
+          <span><span class="k">LEAD</span><span class="l-ar">إعداد وقيادة: <b>أفنان فهد الجهني</b></span><span class="l-en">Prepared &amp; led by <b>Afnan Fahad Aljohani</b></span></span>
+          <span><span class="k">ADVISOR</span><span class="l-ar">تحت إشراف: <b>د. أنمار الحجيلي</b></span><span class="l-en">Supervised by <b>Dr. Anmar Al-Hujaili</b></span></span>
+        </div>
+      </div>
+      <div class="code rv" aria-label="club.py">
+        <div class="code-head"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg>club.py</b><span>Python 3</span></div>
+<pre><span class="ln" style="--i:0"><i>1</i><span class="k1">class</span> <span class="f">EWAAIClub</span>(Community):</span><span class="ln" style="--i:1"><i>2</i>    name     = <span class="s">"EWA AI Club"</span></span><span class="ln" style="--i:2"><i>3</i>    academy  = <span class="s">"Energy &amp; Water Academy"</span></span><span class="ln" style="--i:3"><i>4</i>    leader   = <span class="s">"Afnan Fahad Aljohani"</span></span><span class="ln" style="--i:4"><i>5</i>    deputy   = <span class="s">"Sara Al-Shamrani"</span></span><span class="ln" style="--i:5"><i>6</i>    advisor  = <span class="s">"Dr. Anmar Al-Hujaili"</span></span><span class="ln" style="--i:6"><i>7</i>    members  = <span class="n">30</span>   <span class="c"># first cohort</span></span><span class="ln" style="--i:7"><i>8</i>    tracks   = [<span class="s">"Learning"</span>, <span class="s">"Projects"</span>, <span class="s">"Challenges"</span>,</span><span class="ln" style="--i:8"><i>9</i>                <span class="s">"Community"</span>, <span class="s">"Career"</span>]</span><span class="ln" style="--i:9"><i>10</i>    season   = (<span class="s">"2026-10-14"</span>, <span class="s">"2027-03-31"</span>)</span><span class="ln" style="--i:10"><i>11</i></span><span class="ln" style="--i:11"><i>12</i>    <span class="k2">def</span> <span class="f">mission</span>(self):</span><span class="ln" style="--i:12"><i>13</i>        <span class="k1">return</span> <span class="s">"Learn. Build. Innovate. Impact."</span></span></pre>
+        <div class="code-foot"><span class="ok">● status: <span id="codeStatus">launching</span></span><span>UTF-8 · LF</span></div>
+      </div>
+    </div>
+
+    <div class="stats rv">
+      <div class="stat"><div class="lab">MEMBERS</div><div class="num" data-count="30">30</div><div class="sub"><span class="l-ar">عضوًا في الدفعة الأولى</span><span class="l-en">first-cohort members</span></div></div>
+      <div class="stat"><div class="lab">DEPARTMENTS</div><div class="num" data-count="4">4</div><div class="sub"><span class="l-ar">أقسام، منها توستماسترز</span><span class="l-en">departments, incl. Toastmasters</span></div></div>
+      <div class="stat"><div class="lab">LABS</div><div class="num" data-count="6">6</div><div class="sub"><span class="l-ar">مختبرات تطبيقية + هاكاثون</span><span class="l-en">hands-on labs + a hackathon</span></div></div>
+      <div class="stat"><div class="lab">PHASES</div><div class="num" data-count="5">5</div><div class="sub"><span class="l-ar">مراحل حتى مارس 2027</span><span class="l-en">phases through March 2027</span></div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ===================== 01 SUMMARY ===================== -->
+<section class="sec" id="summary">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-idx">01 <span>// EXECUTIVE_SUMMARY</span></div>
+      <h2><span class="l-ar">النادي في لمحة</span><span class="l-en">The club at a glance</span></h2>
+      <p class="sec-lead"><span class="l-ar">الفكرة، والرؤية، والرسالة، والأهداف كما وردت في الملخص التنفيذي للنادي.</span><span class="l-en">The idea, vision, mission and goals, as set out in the club's executive summary.</span></p>
+    </div>
+    <figure class="shot rv"><img class="ph" src="https://images.unsplash.com/photo-1758270705518-b61b40527e76?auto=format&amp;fit=crop&amp;w=1600&amp;q=70" alt="طلاب يتعاونون حول مشروع · Students collaborating on a project" loading="lazy" decoding="async"><span class="scan"></span><span class="br a"></span><span class="br b"></span><figcaption><span class="mono">IMG_01</span><span class="l-ar">طلاب يتعاونون حول مشروع</span><span class="l-en">Students collaborating on a project</span></figcaption></figure>
+
+    <div class="panel spot idea rv">
+      <div class="orb"><img src="img/cover-swirl.webp" alt=""></div>
+      <div>
+        <div class="k mono ltr">// THE IDEA IN ONE LINE</div>
+        <blockquote><span class="l-ar">مجتمع تطبيقي يقود التعلم <mark>من القاعة إلى المشروع والأثر</mark></span><span class="l-en">A hands-on community that takes learning <mark>from the classroom to projects and impact</mark></span></blockquote>
+        <div class="pills"><span class="tag a"><span class="l-ar">تعلم تطبيقي</span><span class="l-en">Applied learning</span></span><span class="tag c"><span class="l-ar">مشاريع قطاعية</span><span class="l-en">Sector projects</span></span><span class="tag o"><span class="l-ar">قيادات طلابية</span><span class="l-en">Student leadership</span></span></div>
+      </div>
+    </div>
+
+    <div class="grid g2 vm" style="margin-top:16px">
+      <div class="panel spot card rv"><span class="lbl"><span class="l-ar">VISION // الرؤية</span><span class="l-en">VISION</span></span><p><span class="l-ar">أن يكون النادي مجتمعًا رائدًا لصناعة مواهب وحلول ذكاء اصطناعي ذات أثر في الطاقة والمياه.</span><span class="l-en">To be a leading community that grows AI talent and builds AI solutions with real impact on energy and water.</span></p></div>
+      <div class="panel spot card rv"><span class="lbl"><span class="l-ar">MISSION // الرسالة</span><span class="l-en">MISSION</span></span><p><span class="l-ar">تمكين المتدربين بالتعلم التعاوني والتطبيق العملي والابتكار المسؤول، وربط المهارات التقنية بتحديات حقيقية.</span><span class="l-en">To empower trainees through collaborative learning, hands-on practice and responsible innovation, connecting technical skills to real challenges.</span></p></div>
+    </div>
+
+    <h3 class="sub"><span class="l-ar">لماذا الآن؟</span><span class="l-en">Why now?</span> <small>WHY NOW</small></h3>
+    <p class="sec-lead" style="margin-bottom:16px"><span class="l-ar">لأن أول دفعة تؤسس الثقافة والمعايير التي ستنتقل إلى الدفعات القادمة، وتحتاج إلى مساحة مستمرة للتجربة وتبادل المعرفة.</span><span class="l-en">The first cohort sets the culture and standards that future cohorts will inherit, and it needs an ongoing space to experiment and share knowledge.</span></p>
+    <div class="grid g4">
+      <div class="panel spot card rv"><h4><span class="l-ar">أول دفعة</span><span class="l-en">First cohort</span></h4><p><span class="l-ar">تأسيس الثقافة والمعايير التي ستنتقل إلى الدفعات القادمة.</span><span class="l-en">Setting the culture and standards for the cohorts that follow.</span></p></div>
+      <div class="panel spot card rv"><h4><span class="l-ar">ربط الدراسة بالتطبيق</span><span class="l-en">Study meets practice</span></h4><p><span class="l-ar">تحويل التعلم من القاعة إلى مشاريع حقيقية وتجربة مستمرة.</span><span class="l-en">Turning classroom learning into real projects and continuous practice.</span></p></div>
+      <div class="panel spot card rv"><h4><span class="l-ar">القيمة للأكاديمية</span><span class="l-en">Value to the academy</span></h4><p><span class="l-ar">إبراز المخرجات، ودعم الجاهزية المهنية، وبناء مجتمع تقني رائد.</span><span class="l-en">Showcasing outcomes, supporting career readiness and building a leading tech community.</span></p></div>
+      <div class="panel spot card rv"><h4><span class="l-ar">التمثيل الخارجي</span><span class="l-en">External presence</span></h4><p><span class="l-ar">تمثيل الأكاديمية تقنيًا في المسابقات والفعاليات التقنية.</span><span class="l-en">Representing the academy in tech competitions and events.</span></p></div>
+    </div>
+
+    <h3 class="sub"><span class="l-ar">الأهداف</span><span class="l-en">Goals</span> <small>GOALS</small></h3>
+    <div class="goals rv">
+      <div class="goal"><span class="n">01</span><b><span class="l-ar">رفع المهارات</span><span class="l-en">Build skills</span></b></div>
+      <div class="goal"><span class="n">02</span><b><span class="l-ar">بناء مشاريع</span><span class="l-en">Build projects</span></b></div>
+      <div class="goal"><span class="n">03</span><b><span class="l-ar">نشر المعرفة</span><span class="l-en">Share knowledge</span></b></div>
+      <div class="goal"><span class="n">04</span><b><span class="l-ar">تعزيز الجاهزية المهنية</span><span class="l-en">Career readiness</span></b></div>
+    </div>
+
+    <div class="closing rv"><span class="l-ar">«لنكن الدفعة التي لا تتعلم الذكاء الاصطناعي فقط... بل تبني مجتمعًا يصنع أثره.»</span><span class="l-en">“Let's be the cohort that doesn't just learn AI, but builds a community that makes its mark.”</span></div>
+  </div>
+</section>
+
+<!-- ===================== 02 PROPOSAL ===================== -->
+<section class="sec" id="proposal">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-idx">02 <span>// STRATEGIC_PROPOSAL</span></div>
+      <h2><span class="l-ar">المقترح الاستراتيجي</span><span class="l-en">Strategic proposal</span></h2>
+      <p class="sec-lead"><span class="l-ar">كيف يعمل النادي: المسارات، والإيقاع التشغيلي، ومركز المعرفة، والفعاليات والشراكات، وما يحتاجه للبدء.</span><span class="l-en">How the club works: tracks, operating rhythm, knowledge hub, events and partnerships, and what it needs to get started.</span></p>
+    </div>
+    <figure class="shot rv"><img class="ph" src="https://images.unsplash.com/photo-1586936893354-362ad6ae47ba?auto=format&amp;fit=crop&amp;w=1600&amp;q=70" alt="فريق يخطط بالملاحظات اللاصقة · A team planning with sticky notes" loading="lazy" decoding="async"><span class="scan"></span><span class="br a"></span><span class="br b"></span><figcaption><span class="mono">IMG_02</span><span class="l-ar">فريق يخطط بالملاحظات اللاصقة</span><span class="l-en">A team planning with sticky notes</span></figcaption></figure>
+
+    <div class="tabs rv">
+      <div class="tabbar" role="tablist">
+        <button class="tab" role="tab" id="t-tracks" aria-controls="p-tracks" aria-selected="true"><span class="mono">tracks</span><span class="l-ar">المسارات الخمسة</span><span class="l-en">Five tracks</span></button>
+        <button class="tab" role="tab" id="t-rhythm" aria-controls="p-rhythm" aria-selected="false" tabindex="-1"><span class="mono">rhythm</span><span class="l-ar">الإيقاع التشغيلي</span><span class="l-en">Operating rhythm</span></button>
+        <button class="tab" role="tab" id="t-hub" aria-controls="p-hub" aria-selected="false" tabindex="-1"><span class="mono">knowledge</span><span class="l-ar">مركز المعرفة</span><span class="l-en">Knowledge hub</span></button>
+        <button class="tab" role="tab" id="t-events" aria-controls="p-events" aria-selected="false" tabindex="-1"><span class="mono">events</span><span class="l-ar">الفعاليات والشراكات</span><span class="l-en">Events &amp; partners</span></button>
+        <button class="tab" role="tab" id="t-req" aria-controls="p-req" aria-selected="false" tabindex="-1"><span class="mono">requirements</span><span class="l-ar">المطلوب للبدء</span><span class="l-en">What we need</span></button>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-tracks" aria-labelledby="t-tracks">
+        <p class="sec-lead" style="margin-bottom:18px"><span class="l-ar">خمسة مسارات تجمع المعرفة والتطبيق والفرص، ويختار كل عضو ما يناسب اهتمامه.</span><span class="l-en">Five tracks that combine knowledge, practice and opportunity. Each member picks what fits their interests.</span></p>
+        <div class="tracks">
+          <div class="panel spot track"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5 12 2l10 4.5-10 4.5z"/><path d="M6 8.5V14c0 1.7 2.7 3 6 3s6-1.3 6-3V8.5"/></svg><span class="idx">TRACK_01</span><h4><span class="l-ar">التعلم والمعرفة</span><span class="l-en">Learning &amp; knowledge</span></h4><dl><dt>FOCUS</dt><dd><span class="l-ar">تعلم الآلة، والذكاء التوليدي، وتحليل البيانات، و MLOps</span><span class="l-en">Machine learning, generative AI, data analysis and MLOps</span></dd><dt>IN PRACTICE</dt><dd><span class="l-ar">جلسات مبسطة، وأخلاقيات الذكاء الاصطناعي</span><span class="l-en">Bite-size sessions and AI ethics</span></dd></dl></div>
+          <div class="panel spot track"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c3 3.5 5 6.4 5 9.5a5 5 0 0 1-10 0c0-3.1 2-6 5-9.5z"/><path d="M12.5 9 10.5 13h3l-2 4"/></svg><span class="idx">TRACK_02</span><h4><span class="l-ar">المشاريع والابتكار</span><span class="l-en">Projects &amp; innovation</span></h4><dl><dt>FOCUS</dt><dd><span class="l-ar">كفاءة الطاقة، وإدارة المياه، والصيانة والتنبؤ</span><span class="l-en">Energy efficiency, water management, maintenance and forecasting</span></dd><dt>IN PRACTICE</dt><dd><span class="l-ar">فرق متعددة المهارات تطوّر نماذج أولية</span><span class="l-en">Cross-skilled teams building prototypes</span></dd></dl></div>
+          <div class="panel spot track"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8M9 18h6"/></svg><span class="idx">TRACK_03</span><h4><span class="l-ar">التحديات والمسابقات</span><span class="l-en">Challenges &amp; competitions</span></h4><dl><dt>FOCUS</dt><dd><span class="l-ar">المنافسات المحلية والوطنية</span><span class="l-en">Local and national competitions</span></dd><dt>IN PRACTICE</dt><dd><span class="l-ar">تحدٍّ شهري، وهاكاثونات داخلية، وتجهيز فرق للمنافسات</span><span class="l-en">A monthly challenge, internal hackathons and competition teams</span></dd></dl></div>
+          <div class="panel spot track"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M12 7.5v4M7 16.5l5-5 5 5"/></svg><span class="idx">TRACK_04</span><h4><span class="l-ar">المجتمع والشراكات</span><span class="l-en">Community &amp; partners</span></h4><dl><dt>FOCUS</dt><dd><span class="l-ar">التعاون مع القطاع التقني</span><span class="l-en">Working with the tech sector</span></dd><dt>IN PRACTICE</dt><dd><span class="l-ar">لقاءات خبراء، وزيارات مهنية، وتعاون مع الشركات التقنية</span><span class="l-en">Expert talks, site visits and collaboration with tech companies</span></dd></dl></div>
+          <div class="panel spot track"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg><span class="idx">TRACK_05</span><h4><span class="l-ar">المهنة والظهور</span><span class="l-en">Career &amp; visibility</span></h4><dl><dt>FOCUS</dt><dd><span class="l-ar">الجاهزية لسوق العمل</span><span class="l-en">Job-market readiness</span></dd><dt>IN PRACTICE</dt><dd><span class="l-ar">مراجعة ملفات GitHub و LinkedIn، وعروض المشاريع، والتدريب على التقديم</span><span class="l-en">GitHub and LinkedIn reviews, project demos and presentation practice</span></dd></dl></div>
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-rhythm" aria-labelledby="t-rhythm" hidden>
+        <p class="sec-lead" style="margin-bottom:18px"><span class="l-ar">أنشطة منتظمة تجعل النادي قابلًا للاستمرار.</span><span class="l-en">A regular rhythm that keeps the club going.</span></p>
+        <div class="freq">
+          <div class="freq-row"><div class="when"><span class="l-ar">أسبوعيًا</span><span class="l-en">Weekly</span><span class="mono">EVERY WEDNESDAY</span></div><b><span class="l-ar">أربعاء الذكاء + AI Byte</span><span class="l-en">AI Wednesday + AI Byte</span></b><p><span class="l-ar">20 دقيقة تفاعلية (كويز Kahoot، تحدي الدقيقة، AI Fact or Myth، سيناريو عملي) يتبعها شرح مفهوم واحد يقدمه أحد الأعضاء.</span><span class="l-en">20 interactive minutes (Kahoot quiz, one-minute challenge, AI Fact or Myth, a case scenario), followed by one concept explained by a member.</span></p></div>
+          <div class="freq-row"><div class="when"><span class="l-ar">كل أسبوعين</span><span class="l-en">Bi-weekly</span><span class="mono">BI-WEEKLY</span></div><b><span class="l-ar">المختبر التطبيقي</span><span class="l-en">Hands-on lab</span></b><p><span class="l-ar">ورشة عملية يبني فيها الأعضاء نموذجًا أو أداة صغيرة.</span><span class="l-en">A practical workshop where members build a small model or tool.</span></p></div>
+          <div class="freq-row"><div class="when"><span class="l-ar">شهريًا</span><span class="l-en">Monthly</span><span class="mono">MONTHLY</span></div><b><span class="l-ar">تحدٍّ + لقاء خبير</span><span class="l-en">Challenge + expert talk</span></b><p><span class="l-ar">تحدٍّ ببيانات حقيقية من الطاقة أو المياه، ولقاء مع خبير من القطاع.</span><span class="l-en">A challenge on real energy or water data, plus a talk with an industry expert.</span></p></div>
+          <div class="freq-row"><div class="when"><span class="l-ar">شهريًا</span><span class="l-en">Monthly</span><span class="mono">MONTHLY</span></div><b><span class="l-ar">لوحة الشرف</span><span class="l-en">Honor board</span></b><p><span class="l-ar">إعلان أفضل 10 أعضاء حسب الحضور والمشاركة ونتائج التحديات ونقل المعرفة والعمل الجماعي.</span><span class="l-en">The top 10 members by attendance, participation, challenge results, knowledge sharing and teamwork.</span></p></div>
+          <div class="freq-row"><div class="when"><span class="l-ar">كل فصل</span><span class="l-en">Each semester</span><span class="mono">PER SEMESTER</span></div><b>EWA AI Showcase</b><p><span class="l-ar">معرض لمشاريع الأعضاء أمام إدارة الأكاديمية والشركاء.</span><span class="l-en">Members present their projects to academy leadership and partners.</span></p></div>
+        </div>
+        <h3 class="sub"><span class="l-ar">أربعاء الذكاء</span><span class="l-en">AI Wednesday</span> <small>15–20 MIN</small></h3>
+        <div class="grid g4">
+          <div class="panel spot card"><span class="idx">KAHOOT</span><h4><span class="l-ar">كويز Kahoot</span><span class="l-en">Kahoot quiz</span></h4><p><span class="l-ar">أسئلة سريعة وتفاعلية عن الدروس والمفاهيم السابقة.</span><span class="l-en">Quick, interactive questions on past lessons and concepts.</span></p></div>
+          <div class="panel spot card"><span class="idx">60_SEC</span><h4><span class="l-ar">تحدي الدقيقة</span><span class="l-en">One-minute challenge</span></h4><p><span class="l-ar">حل سؤال منطقي أو اكتشاف خطأ في نموذج برمجي.</span><span class="l-en">Solve a logic puzzle or spot the bug in a code sample.</span></p></div>
+          <div class="panel spot card"><span class="idx">FACT_OR_MYTH</span><h4>AI Fact or Myth</h4><p><span class="l-ar">تمييز الحقائق من المفاهيم الخاطئة والشائعات التقنية.</span><span class="l-en">Separate facts from misconceptions and tech rumors.</span></p></div>
+          <div class="panel spot card"><span class="idx">CASE_STUDY</span><h4><span class="l-ar">سيناريو عملي</span><span class="l-en">Case scenario</span></h4><p><span class="l-ar">اختيار الحل أو المقياس الأنسب لحالة دراسية في الطاقة أو المياه.</span><span class="l-en">Pick the right solution or metric for an energy or water case.</span></p></div>
+        </div>
+        <h3 class="sub"><span class="l-ar">محرك التحفيز: لوحة شرف أفضل 10 أعضاء شهريًا</span><span class="l-en">Motivation engine: a monthly top-10 honor board</span> <small>HONOR BOARD</small></h3>
+        <p class="sec-lead"><span class="l-ar">«الهدف تحفيز الاستمرارية، لا المنافسة فقط.» ومعايير الاختيار:</span><span class="l-en">“The goal is to reward consistency, not just competition.” Selection criteria:</span></p>
+        <div class="crit"><span><span class="l-ar">الحضور والالتزام</span><span class="l-en">Attendance</span></span><span><span class="l-ar">المشاركة الفعالة</span><span class="l-en">Active participation</span></span><span><span class="l-ar">نتائج التحديات</span><span class="l-en">Challenge results</span></span><span><span class="l-ar">تقديم ونقل المعرفة</span><span class="l-en">Sharing knowledge</span></span><span><span class="l-ar">العمل الجماعي</span><span class="l-en">Teamwork</span></span></div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-hub" aria-labelledby="t-hub" hidden>
+        <h3 class="sub" style="margin-top:0"><span class="l-ar">مصادر موثوقة في مكان واحد</span><span class="l-en">Trusted resources in one place</span> <small>KNOWLEDGE HUB</small></h3>
+        <div class="grid g3">
+          <div class="panel spot card"><span class="idx">REPO</span><h4><span class="l-ar">مستودع الموارد</span><span class="l-en">Resource repository</span></h4><p><span class="l-ar">توحيد المصادر الموثوقة ومسارات التطور في قاعدة مركزية يسهل الوصول إليها.</span><span class="l-en">Trusted sources and learning paths in one easy-to-reach place.</span></p></div>
+          <div class="panel spot card"><span class="idx">HANDBOOKS</span><h4><span class="l-ar">كتيّبات الأقسام</span><span class="l-en">Track handbooks</span></h4><p><span class="l-ar">مرجع مختصر لكل مسار يضم المفاهيم الأساسية والأدوات والمشاريع المقترحة.</span><span class="l-en">A short guide per track with key concepts, tools and suggested projects.</span></p></div>
+          <div class="panel spot card"><span class="idx">COURSES</span><h4><span class="l-ar">دليل الدورات</span><span class="l-en">Course guide</span></h4><p><span class="l-ar">رصد الدورات المجانية والاحترافية في الذكاء الاصطناعي وتصنيفها حسب المستوى مع المواعيد.</span><span class="l-en">Free and professional AI courses, sorted by level with dates.</span></p></div>
+        </div>
+        <h3 class="sub"><span class="l-ar">رحلة العضو الجديد: من الانضمام إلى التمكين</span><span class="l-en">New-member journey: from joining to confidence</span> <small>ONBOARDING</small></h3>
+        <div class="flow">
+          <div class="st"><span class="idx">STEP_01</span><h4><span class="l-ar">بوابة الطالب الجديد</span><span class="l-en">New-member portal</span></h4><p><span class="l-ar">رابط موحد للتعريف بالبرنامج والأسئلة الشائعة والأدوات.</span><span class="l-en">One link for the program overview, FAQ and tools.</span></p><span class="nd"></span></div>
+          <div class="st"><span class="idx">STEP_02</span><h4><span class="l-ar">المواد التمهيدية</span><span class="l-en">Starter material</span></h4><p><span class="l-ar">استعراض جدول الورش وآلية التسجيل ومسارات التطور الأولية.</span><span class="l-en">The workshop schedule, how to register, and first learning paths.</span></p><span class="nd"></span></div>
+          <div class="st"><span class="idx">STEP_03</span><h4><span class="l-ar">ورش التهيئة</span><span class="l-en">Orientation workshops</span></h4><p><span class="l-ar">جلسات للمستجدين عن أساسيات البرمجة والبيانات وكيفية الاستفادة القصوى من النادي.</span><span class="l-en">Sessions on programming and data basics, and how to get the most from the club.</span></p><span class="nd"></span></div>
+          <div class="st"><span class="idx">RESULT</span><h4><span class="l-ar">عضو متمكّن</span><span class="l-en">Ready to build</span></h4><p><span class="l-ar">ينضم لفريق مشروع (3–4 أعضاء) ويبدأ المشاركة في المختبرات والتحديات.</span><span class="l-en">Joins a project team (3–4 members) and starts taking part in labs and challenges.</span></p></div>
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-events" aria-labelledby="t-events" hidden>
+        <h3 class="sub" style="margin-top:0"><span class="l-ar">هاكاثون EWA AI المصغّر: ذروة التطبيق</span><span class="l-en">EWA AI mini-hackathon: practice at its peak</span> <small>MINI HACKATHON</small></h3>
+        <p class="sec-lead" style="margin-bottom:16px"><span class="l-ar">فعالية داخلية مكثفة ليوم واحد لحل تحدٍّ حقيقي في الطاقة أو المياه.</span><span class="l-en">An intensive one-day internal event to solve a real energy or water challenge.</span></p>
+        <div class="flow">
+          <div class="st"><span class="idx">01</span><h4><span class="l-ar">تحدٍّ حقيقي</span><span class="l-en">A real challenge</span></h4><p><span class="l-ar">مشكلة من قطاع الطاقة أو المياه.</span><span class="l-en">A problem from the energy or water sector.</span></p><span class="nd"></span></div>
+          <div class="st"><span class="idx">02</span><h4><span class="l-ar">ورش الابتكار</span><span class="l-en">Innovation workshops</span></h4><p><span class="l-ar">تفكير تصميمي وريادة أعمال.</span><span class="l-en">Design thinking and entrepreneurship.</span></p><span class="nd"></span></div>
+          <div class="st"><span class="idx">03</span><h4><span class="l-ar">بناء النماذج</span><span class="l-en">Build the prototype</span></h4><p><span class="l-ar">تطوير نموذج أولي للحل.</span><span class="l-en">Develop a working prototype.</span></p><span class="nd"></span></div>
+          <div class="st"><span class="idx">04</span><h4><span class="l-ar">التحكيم والعرض</span><span class="l-en">Judging &amp; demo</span></h4><p><span class="l-ar">عرض الحلول أمام لجنة التقييم.</span><span class="l-en">Present solutions to the judging panel.</span></p></div>
+        </div>
+        <h3 class="sub"><span class="l-ar">الفعاليات والمناسبات الوطنية</span><span class="l-en">Events and national occasions</span> <small>EVENTS</small></h3>
+        <div class="grid g3">
+          <div class="panel spot card"><h4><span class="l-ar">انطلاقة العام</span><span class="l-en">Season kickoff</span></h4><p><span class="l-ar">لقاء ترحيبي، وتجارب تفاعلية، وفتح باب العضوية، وإعلان تقويم الفصل.</span><span class="l-en">A welcome meetup, interactive demos, open membership and the semester calendar.</span></p></div>
+          <div class="panel spot card"><h4><span class="l-ar">المناسبات الوطنية</span><span class="l-en">National occasions</span></h4><p><span class="l-ar">أنشطة تقنية في اليوم الوطني ويوم التأسيس تربط الذكاء الاصطناعي بالهوية والطموح الوطني.</span><span class="l-en">Tech activities on National Day and Founding Day that tie AI to national identity and ambition.</span></p></div>
+          <div class="panel spot card"><h4><span class="l-ar">معرض الابتكار</span><span class="l-en">Innovation showcase</span></h4><p><span class="l-ar">عرض مشاريع المتدربين وقصص التعلم أمام إدارة الأكاديمية والشركاء المحتملين.</span><span class="l-en">Trainee projects and learning stories presented to academy leadership and potential partners.</span></p></div>
+        </div>
+        <h3 class="sub"><span class="l-ar">فرص واعدة لدعم المعرفة والتطبيق</span><span class="l-en">Promising partnership opportunities</span> <small>PARTNERS</small></h3>
+        <div class="grid g4">
+          <div class="panel spot card"><h4><span class="l-ar">أكاديمية سدايا (SDAIA)</span><span class="l-en">SDAIA Academy</span></h4><p><span class="l-ar">تقديم ضيوف</span><span class="l-en">Guest speakers</span></p></div>
+          <div class="panel spot card"><h4><span class="l-ar">الأكاديمية السعودية الرقمية</span><span class="l-en">Saudi Digital Academy</span></h4><p><span class="l-ar">ورش عمل</span><span class="l-en">Workshops</span></p></div>
+          <div class="panel spot card"><h4><span class="l-ar">خبراء القطاع</span><span class="l-en">Industry experts</span></h4><p><span class="l-ar">توجيه وإرشاد</span><span class="l-en">Mentoring</span></p></div>
+          <div class="panel spot card"><h4><span class="l-ar">الجامعات والشركات التقنية</span><span class="l-en">Universities &amp; tech companies</span></h4><p><span class="l-ar">فرص تعلم</span><span class="l-en">Learning opportunities</span></p></div>
+        </div>
+        <p class="note"><span class="l-ar">أسماء الجهات أعلاه فرص تعاون مقترحة، ولا تمثل شراكات قائمة إلا بعد اعتماد الأكاديمية والتنسيق الرسمي.</span><span class="l-en">These organizations are proposed collaboration opportunities, not existing partnerships, until approved by the academy and formally arranged.</span></p>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-req" aria-labelledby="t-req" hidden>
+        <h3 class="sub" style="margin-top:0"><span class="l-ar">المطلوب من الأكاديمية</span><span class="l-en">What we need from the academy</span> <small>REQUIREMENTS</small></h3>
+        <ul class="req plain">
+          <li><span class="l-ar">الاعتماد الرسمي لتأسيس النادي.</span><span class="l-en">Official approval to establish the club.</span></li>
+          <li><span class="l-ar">تخصيص مشرف داعم للنادي.</span><span class="l-en">A supporting faculty advisor.</span></li>
+          <li><span class="l-ar">إتاحة قاعة أو منصة للاجتماعات.</span><span class="l-en">A room or platform for meetings.</span></li>
+          <li><span class="l-ar">دعم التواصل مع الخبراء والجهات الخارجية.</span><span class="l-en">Help reaching experts and external organizations.</span></li>
+          <li><span class="l-ar">السماح باستخدام اسم الأكاديمية وفق الضوابط.</span><span class="l-en">Permission to use the academy's name within its guidelines.</span></li>
+        </ul>
+        <p class="note"><span class="l-ar">التواريخ مبدئية، وتُعتمد بعد التنسيق مع د. أنمار الحجيلي ومواءمتها مع التقويم الدراسي للأكاديمية.</span><span class="l-en">Dates are provisional and will be confirmed with Dr. Anmar Al-Hujaili against the academy calendar.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 03 LEADERS ===================== -->
+<section class="sec" id="leaders">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-idx">03 <span>// CLUB_LEADERS</span></div>
+      <h2><span class="l-ar">قادة النادي</span><span class="l-en">Club leaders</span></h2>
+      <p class="sec-lead"><span class="l-ar">إدارة النادي وقادة أقسامه الأربعة، ومعها ملفات الخطط التي يعمل عليها الفريق القيادي.</span><span class="l-en">The club's management and its four department leads, with the planning files the leadership team works from.</span></p>
+    </div>
+    <figure class="shot rv"><img class="ph" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&amp;fit=crop&amp;w=1600&amp;q=70" alt="اجتماع قيادة وتوزيع مهام · A leadership meeting" loading="lazy" decoding="async"><span class="scan"></span><span class="br a"></span><span class="br b"></span><figcaption><span class="mono">IMG_03</span><span class="l-ar">اجتماع قيادة وتوزيع مهام</span><span class="l-en">A leadership meeting</span></figcaption></figure>
+
+    <div class="panel org rv">
+      <div class="node sv"><span class="r">ADVISOR · <span class="l-ar">المشرف</span><span class="l-en">Supervisor</span></span><b><span class="l-ar">د. أنمار الحجيلي</span><span class="l-en">Dr. Anmar Al-Hujaili</span></b></div>
+      <div class="vline"></div>
+      <div class="pair">
+        <div class="node lead"><span class="r">LEAD · <span class="l-ar">قائدة النادي</span><span class="l-en">Club lead</span></span><b><span class="l-ar">أفنان الجهني</span><span class="l-en">Afnan Aljohani</span></b></div>
+        <div class="node lead"><span class="r">DEPUTY · <span class="l-ar">نائبة القائدة</span><span class="l-en">Deputy lead</span></span><b><span class="l-ar">سارة الشمراني</span><span class="l-en">Sara Al-Shamrani</span></b></div>
+      </div>
+      <div class="vline"></div>
+      <div class="depts">
+        <a class="dept" href="#dept-1"><span class="r">DEPT_01</span><h4><span class="l-ar">التدريب والتطوير</span><span class="l-en">Training &amp; Development</span></h4><p><span class="l-ar">تقديم ورش العمل</span><span class="l-en">Running workshops</span></p><div class="lead-n"><small><span class="l-ar">قائد القسم</span><span class="l-en">Department lead</span></small>Ahmed Mahmoud Alsayed</div></a>
+        <a class="dept" href="#dept-2"><span class="r">DEPT_02</span><h4><span class="l-ar">العلاقات العامة</span><span class="l-en">Public Relations</span></h4><p><span class="l-ar">الشراكات مع الكافيهات والأندية الأخرى</span><span class="l-en">Partnerships with cafés and other clubs</span></p><div class="lead-n"><small><span class="l-ar">قائد القسم</span><span class="l-en">Department lead</span></small><span class="l-ar">فهد حمد اليامي</span><span class="l-en">Fahad Hamad Al-Yami</span></div></a>
+        <a class="dept" href="#dept-3"><span class="r">DEPT_03</span><h4><span class="l-ar">الفعاليات والتصميم</span><span class="l-en">Events &amp; Design</span></h4><p><span class="l-ar">تنظيم الفعاليات وتصميمها</span><span class="l-en">Organizing and designing events</span></p><div class="lead-n"><small><span class="l-ar">قائد القسم</span><span class="l-en">Department lead</span></small>Abdullah Khaled Ibrahim Alghamdi</div></a>
+        <a class="dept tm" href="#dept-4"><span class="r">DEPT_04 · NEW</span><h4>Toastmasters Club</h4><p><span class="l-ar">الخطابة والإلقاء والقيادة</span><span class="l-en">Public speaking &amp; leadership</span></p><div class="lead-n"><small><span class="l-ar">قائد القسم</span><span class="l-en">Department lead</span></small><span class="l-ar">مروان الجهني</span><span class="l-en">Marwan Aljohani</span></div></a>
+      </div>
+    </div>
+
+    <h3 class="sub"><span class="l-ar">مهام الإدارة</span><span class="l-en">What the leadership does</span> <small>ADMIN</small></h3>
+    <div class="panel spot card rv admin">
+      <div class="admin-who"><span class="av"><span class="l-ar">أ</span><span class="l-en">A</span></span><span class="av"><span class="l-ar">س</span><span class="l-en">S</span></span><div><b><span class="l-ar">أفنان الجهني وسارة الشمراني</span><span class="l-en">Afnan Aljohani &amp; Sara Al-Shamrani</span></b><span><span class="l-ar">قائدة النادي ونائبتها</span><span class="l-en">Club lead and deputy</span></span></div></div>
+      <p><span class="l-ar">التنسيق مع د. أنمار والأكاديمية، واعتماد التقويم، ومتابعة الأقسام وفرق المشاريع، ولوحة الشرف، والتقرير الختامي.</span><span class="l-en">Coordinating with Dr. Anmar and the academy, approving the calendar, following up with departments and project teams, running the honor board, and writing the final report.</span></p>
+    </div>
+
+    <h3 class="sub"><span class="l-ar">ملفات الخطط</span><span class="l-en">Planning files</span> <small>LEADERS' FILES</small></h3>
+    <p class="sec-lead" style="margin-bottom:16px"><span class="l-ar">الملفات الأساسية للنادي جاهزة للتحميل. حُذفت أرقام الجوالات والأرقام الأكاديمية من كل النسخ هنا حفاظًا على خصوصية الأعضاء.</span><span class="l-en">The club's core files, ready to download. Phone numbers and academic IDs have been removed from every copy here to protect members' privacy.</span></p>
+    <div class="files" id="fileGrid"></div>
+  </div>
+</section>
+
+<!-- ===================== 04 DEPARTMENTS ===================== -->
+<section class="sec" id="departments">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-idx">04 <span>// DEPARTMENTS</span></div>
+      <h2><span class="l-ar">أقسام النادي الأربعة</span><span class="l-en">The club's four departments</span></h2>
+      <p class="sec-lead"><span class="l-ar">كل قسم بقائده ومهامه وأهم مواعيده في الخطة التشغيلية.</span><span class="l-en">Each department with its lead, responsibilities and key dates from the operating plan.</span></p>
+    </div>
+
+    <article class="deptx rv" id="dept-1">
+      <figure class="shot rv"><img class="ph" src="https://images.unsplash.com/photo-1603478804503-dc909c7f5ce5?auto=format&amp;fit=crop&amp;w=1600&amp;q=70" alt="ورشة عمل تطبيقية · A hands-on workshop" loading="lazy" decoding="async"><span class="scan"></span><span class="br a"></span><span class="br b"></span><figcaption><span class="mono">IMG_04</span><span class="l-ar">ورشة عمل تطبيقية</span><span class="l-en">A hands-on workshop</span></figcaption></figure>
+      <div class="deptx-body">
+        <span class="idx">DEPT_01</span>
+        <h3><span class="l-ar">التدريب والتطوير</span><span class="l-en">Training &amp; Development</span></h3>
+        <div class="deptx-lead"><span class="av">A</span><div><b>Ahmed Mahmoud Alsayed</b><span><span class="l-ar">قائد القسم · خلفية في هندسة الميكاترونكس ومشاريع Computer Vision و Machine Learning</span><span class="l-en">Department lead · background in mechatronics engineering, computer vision and machine learning projects</span></span></div></div>
+        <p class="deptx-mission"><span class="l-ar">القسم المسؤول عن التعلم في النادي: يقدّم ورش العمل والمختبرات التطبيقية، ويبني المحتوى المعرفي الذي يرجع له الأعضاء طوال الموسم.</span><span class="l-en">The department behind learning in the club. It runs the workshops and hands-on labs, and builds the knowledge base members rely on all season.</span></p>
+        <ul class="deptx-list">
+          <li><span class="l-ar">تقديم المختبرات التطبيقية وجلسات AI Byte.</span><span class="l-en">Deliver the hands-on labs and AI Byte sessions.</span></li>
+          <li><span class="l-ar">إعداد التحديات الشهرية ببيانات من الطاقة والمياه.</span><span class="l-en">Prepare the monthly challenges on energy and water data.</span></li>
+          <li><span class="l-ar">بناء مستودع الموارد وكتيّبات الأقسام ودليل الدورات.</span><span class="l-en">Build the resource repository, track handbooks and course guide.</span></li>
+          <li><span class="l-ar">مرافقة فرق المشاريع حتى العرض النهائي.</span><span class="l-en">Mentor project teams through to the final demo.</span></li>
+        </ul>
+        <div class="deptx-dates"><span class="k">KEY_DATES</span>
+          <span class="dchip"><b>28.10</b><span class="l-ar">أساسيات Python</span><span class="l-en">Python basics</span></span><span class="dchip"><b>11.11</b><span class="l-ar">تحليل البيانات</span><span class="l-en">Data analysis</span></span><span class="dchip"><b>25.11</b><span class="l-ar">تعلم الآلة</span><span class="l-en">Machine learning</span></span><span class="dchip"><b>09.12</b><span class="l-ar">الرؤية الحاسوبية</span><span class="l-en">Computer vision</span></span><span class="dchip"><b>23.12</b><span class="l-ar">الذكاء التوليدي</span><span class="l-en">Generative AI</span></span><span class="dchip"><b>06.01</b>MLOps</span><span class="dchip"><b>17.02</b><span class="l-ar">أخلاقيات الذكاء الاصطناعي</span><span class="l-en">AI ethics</span></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="deptx rv" id="dept-2">
+      <figure class="shot rv"><img class="ph" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&amp;fit=crop&amp;w=1600&amp;q=70" alt="بناء الشراكات · Building partnerships" loading="lazy" decoding="async"><span class="scan"></span><span class="br a"></span><span class="br b"></span><figcaption><span class="mono">IMG_05</span><span class="l-ar">بناء الشراكات</span><span class="l-en">Building partnerships</span></figcaption></figure>
+      <div class="deptx-body">
+        <span class="idx">DEPT_02</span>
+        <h3><span class="l-ar">العلاقات العامة</span><span class="l-en">Public Relations</span></h3>
+        <div class="deptx-lead"><span class="av"><span class="l-ar">ف</span><span class="l-en">F</span></span><div><b><span class="l-ar">فهد حمد اليامي</span><span class="l-en">Fahad Hamad Al-Yami</span></b><span><span class="l-ar">قائد القسم</span><span class="l-en">Department lead</span></span></div></div>
+        <p class="deptx-mission"><span class="l-ar">واجهة النادي خارج القاعة: يبني الشراكات، ويستضيف الخبراء، وينشر أخبار النادي وإنجازات أعضائه.</span><span class="l-en">The club's face beyond the classroom. It builds partnerships, brings in experts, and shares the club's news and members' achievements.</span></p>
+        <ul class="deptx-list">
+          <li><span class="l-ar">التواصل مع الخبراء والجهات المقترحة مثل سدايا والأكاديمية السعودية الرقمية.</span><span class="l-en">Reach out to experts and proposed organizations such as SDAIA and the Saudi Digital Academy.</span></li>
+          <li><span class="l-ar">بناء الشراكات مع الكافيهات والأندية الأخرى.</span><span class="l-en">Build partnerships with cafés and other clubs.</span></li>
+          <li><span class="l-ar">إرسال دعوات المعرض الختامي.</span><span class="l-en">Send out the final showcase invitations.</span></li>
+          <li><span class="l-ar">النشر عن أنشطة النادي في حسابات الأكاديمية ومجموعات الدفعات.</span><span class="l-en">Post about club activities on academy accounts and cohort groups.</span></li>
+        </ul>
+        <div class="deptx-dates"><span class="k">KEY_DATES</span>
+          <span class="dchip"><b>15.10</b><span class="l-ar">إعلانات الانضمام</span><span class="l-en">Join campaign</span></span><span class="dchip"><b>16.12</b><span class="l-ar">لقاء خبير: معالجة اللغة العربية</span><span class="l-en">Expert talk: Arabic NLP</span></span><span class="dchip"><b>13.01</b><span class="l-ar">لقاء خبير من الطاقة والمياه</span><span class="l-en">Energy &amp; water expert</span></span><span class="dchip"><b>03.03</b><span class="l-ar">دعوات المعرض</span><span class="l-en">Showcase invitations</span></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="deptx rv" id="dept-3">
+      <figure class="shot rv"><img class="ph" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&amp;fit=crop&amp;w=1600&amp;q=70" alt="فعالية وجمهور · An event and its audience" loading="lazy" decoding="async"><span class="scan"></span><span class="br a"></span><span class="br b"></span><figcaption><span class="mono">IMG_06</span><span class="l-ar">فعالية وجمهور</span><span class="l-en">An event and its audience</span></figcaption></figure>
+      <div class="deptx-body">
+        <span class="idx">DEPT_03</span>
+        <h3><span class="l-ar">الفعاليات والتصميم</span><span class="l-en">Events &amp; Design</span></h3>
+        <div class="deptx-lead"><span class="av">A</span><div><b>Abdullah Khaled Ibrahim Alghamdi</b><span><span class="l-ar">قائد القسم · محرر ومطور محتوى مرئي سابق في مجلة ميم السينمائية</span><span class="l-en">Department lead · former editor and visual content developer at Meem film magazine</span></span></div></div>
+        <p class="deptx-mission"><span class="l-ar">يصنع تجربة النادي: من اللقاء التعريفي إلى الهاكاثون والمعرض الختامي، ومن الهوية البصرية إلى الإعلانات والشهادات.</span><span class="l-en">It shapes the club experience, from the intro meeting to the hackathon and final showcase, and from the visual identity to posters and certificates.</span></p>
+        <ul class="deptx-list">
+          <li><span class="l-ar">تنظيم اللقاء التعريفي وأربعاء الذكاء.</span><span class="l-en">Run the intro meeting and AI Wednesday.</span></li>
+          <li><span class="l-ar">تنظيم هاكاثون EWA AI المصغّر وفعالية يوم التأسيس.</span><span class="l-en">Organize the EWA AI mini-hackathon and Founding Day activity.</span></li>
+          <li><span class="l-ar">تنظيم معرض EWA AI Showcase الختامي.</span><span class="l-en">Run the final EWA AI Showcase.</span></li>
+          <li><span class="l-ar">تصميم الهوية والإعلانات والشهادات.</span><span class="l-en">Design the identity, posters and certificates.</span></li>
+        </ul>
+        <div class="deptx-dates"><span class="k">KEY_DATES</span>
+          <span class="dchip"><b>21.10</b><span class="l-ar">اللقاء التعريفي</span><span class="l-en">Intro meeting</span></span><span class="dchip"><b>27.01</b><span class="l-ar">الهاكاثون</span><span class="l-en">Hackathon</span></span><span class="dchip"><b>22.02</b><span class="l-ar">يوم التأسيس</span><span class="l-en">Founding Day</span></span><span class="dchip"><b>24.03</b>EWA AI Showcase</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="deptx tmx rv" id="dept-4">
+      <figure class="shot rv"><img class="ph" src="https://images.unsplash.com/photo-1715610237622-748477adf2e4?auto=format&amp;fit=crop&amp;w=1600&amp;q=70" alt="الخطابة أمام الجمهور · Speaking to an audience" loading="lazy" decoding="async"><span class="scan"></span><span class="br a"></span><span class="br b"></span><figcaption><span class="mono">IMG_07</span><span class="l-ar">الخطابة أمام الجمهور</span><span class="l-en">Speaking to an audience</span></figcaption></figure>
+      <div class="deptx-body">
+        <span class="idx">DEPT_04 · NEW</span>
+        <h3>Toastmasters Club</h3>
+        <div class="deptx-lead"><span class="av"><span class="l-ar">م</span><span class="l-en">M</span></span><div><b><span class="l-ar">مروان الجهني</span><span class="l-en">Marwan Aljohani</span></b><span><span class="l-ar">قائد القسم</span><span class="l-en">Department lead</span></span></div></div>
+        <p class="deptx-mission"><span class="l-ar">مساحة يتدرب فيها الأعضاء على الخطابة والإلقاء والقيادة بأسلوب لقاءات Toastmasters: خطابات مُعدّة، ومواضيع ارتجالية، وتقييم بنّاء، وأدوار يتناوب عليها الأعضاء. الهدف أن يعرض كل عضو أفكاره ومشاريعه في الذكاء الاصطناعي بثقة ووضوح.</span><span class="l-en">A space to practice public speaking, presenting and leadership in the Toastmasters meeting style: prepared speeches, impromptu Table Topics, constructive evaluations and rotating meeting roles. The goal is for every member to present their AI ideas and projects with confidence.</span></p>
+        <div class="tm-grid">
+          <ul class="deptx-list">
+            <li><span class="l-ar">تجهيز الأعضاء لتقديم جلسات AI Byte خلال 20 دقيقة.</span><span class="l-en">Prepare members to deliver 20-minute AI Byte sessions.</span></li>
+            <li><span class="l-ar">دعم ورشة الابتكار وعروض الفرق أمام لجنة تحكيم الهاكاثون.</span><span class="l-en">Support the innovation workshop and team pitches to the hackathon judges.</span></li>
+            <li><span class="l-ar">مساعدة الفرق في البروفة النهائية لمعرض EWA AI Showcase.</span><span class="l-en">Coach teams through the final EWA AI Showcase rehearsal.</span></li>
+          </ul>
+          <div class="tm-timer" aria-label="Speech timing lights">
+            <div class="k">SPEECH_TIMER</div>
+            <div class="lamps" aria-hidden="true"><i class="g"></i><i class="y"></i><i class="r"></i></div>
+            <div class="tm-times">
+              <div><b><span class="l-ar">خطاب مُعدّ</span><span class="l-en">Prepared speech</span></b><span class="ltr"><span class="g">5:00</span><span class="y">6:00</span><span class="r">7:00</span></span></div>
+              <div><b><span class="l-ar">موضوع ارتجالي</span><span class="l-en">Table Topics</span></b><span class="ltr"><span class="g">1:00</span><span class="y">1:30</span><span class="r">2:00</span></span></div>
+              <div><b><span class="l-ar">تقييم</span><span class="l-en">Evaluation</span></b><span class="ltr"><span class="g">2:00</span><span class="y">2:30</span><span class="r">3:00</span></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="deptx-dates"><span class="k">KEY_DATES</span>
+          <span class="dchip"><b><span class="l-ar">كل أربعاء</span><span class="l-en">Wed</span></b>AI Byte</span><span class="dchip"><b>20.01</b><span class="l-ar">مهارات العرض أمام لجنة التحكيم</span><span class="l-en">Pitching to judges</span></span><span class="dchip"><b>17.03</b><span class="l-ar">البروفة النهائية</span><span class="l-en">Final rehearsal</span></span>
+        </div>
+        <p class="note"><span class="l-ar">تفاصيل برنامج القسم ومواعيد لقاءاته تُحدَّد مع قائد القسم وتُعتمد من إدارة النادي.</span><span class="l-en">The department's program and meeting dates will be set with its lead and approved by club management.</span></p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== 05 MEMBERS ===================== -->
+<section class="sec" id="members">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-idx">05 <span>// CLUB_MEMBERS</span></div>
+      <h2><span class="l-ar">أعضاء النادي</span><span class="l-en">Club members</span></h2>
+      <p class="sec-lead"><span class="l-ar">أعضاء الدفعة الأولى الثلاثون، بأدوارهم ومهاراتهم كما ذكروها في استمارة الانضمام.</span><span class="l-en">The 30 first-cohort members, with the roles and skills they listed on the join form.</span></p>
+    </div>
+    <figure class="shot rv"><img class="ph" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&amp;fit=crop&amp;w=1600&amp;q=70" alt="أعضاء يعملون معًا · Members working together" loading="lazy" decoding="async"><span class="scan"></span><span class="br a"></span><span class="br b"></span><figcaption><span class="mono">IMG_08</span><span class="l-ar">أعضاء يعملون معًا</span><span class="l-en">Members working together</span></figcaption></figure>
+    <div class="toolbar">
+      <label class="search" for="memSearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="memSearch" type="search" autocomplete="off" data-ph-ar="ابحث بالاسم أو المهارة…" data-ph-en="Search by name or skill…" placeholder="ابحث بالاسم أو المهارة…"></label>
+      <div class="chips" id="memFilters" role="group"></div>
+    </div>
+    <div class="mem-count mono" id="memCount"></div>
+    <div class="members" id="membersGrid"></div>
+  </div>
+</section>
+
+<!-- ===================== 06 IDEAS ===================== -->
+<section class="sec" id="ideas">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-idx">06 <span>// MEMBERS_SUGGESTIONS</span></div>
+      <h2><span class="l-ar">المقترحات ورغبة الانضمام</span><span class="l-en">Suggestions &amp; membership</span></h2>
+      <p class="sec-lead"><span class="l-ar">مقترحات قائدة النادي التسعة، وصوت الأعضاء في استمارة الانضمام.</span><span class="l-en">The club lead's nine proposals, and what members said on the join form.</span></p>
+    </div>
+    <figure class="shot rv"><img class="ph" src="https://images.unsplash.com/photo-1588856122867-363b0aa7f598?auto=format&amp;fit=crop&amp;w=1600&amp;q=70" alt="جدار الأفكار · A wall of ideas" loading="lazy" decoding="async"><span class="scan"></span><span class="br a"></span><span class="br b"></span><figcaption><span class="mono">IMG_09</span><span class="l-ar">جدار الأفكار</span><span class="l-en">A wall of ideas</span></figcaption></figure>
+    <div class="mini-stats rv">
+      <div><b>30</b><span><span class="l-ar">عضوًا</span><span class="l-en">members</span></span></div>
+      <div><b>9</b><span><span class="l-ar">الفريق التنفيذي</span><span class="l-en">executive team</span></span></div>
+      <div><b>20</b><span><span class="l-ar">عضو مستفيد</span><span class="l-en">participants</span></span></div>
+      <div><b>1</b><span><span class="l-ar">متطوع</span><span class="l-en">volunteer</span></span></div>
+    </div>
+
+    <h3 class="sub" style="margin-top:10px"><span class="l-ar">مقترحات قائدة النادي (أفنان فهد الجهني)</span><span class="l-en">Proposals from the club lead (Afnan Fahad Aljohani)</span> <small>LEAD'S PROPOSALS</small></h3>
+    <div class="props">
+      <div class="panel spot prop rv"><span class="idx">01</span><h4><span class="l-ar">أربعة مسارات للنادي</span><span class="l-en">Four club tracks</span></h4><p><span class="l-ar">التعلم والمعرفة، والمشاريع والابتكار، والتحديات والمسابقات، والمجتمع والشراكات.</span><span class="l-en">Learning, projects and innovation, challenges and competitions, and community and partnerships.</span></p></div>
+      <div class="panel spot prop rv"><span class="idx">02</span><h4><span class="l-ar">إيقاع تشغيلي منتظم</span><span class="l-en">A steady operating rhythm</span></h4><p><span class="l-ar">جلسة أسبوعية قصيرة (AI Byte) يشرح فيها عضو مفهومًا في 20 دقيقة، ومختبر تطبيقي كل أسبوعين، وتحدٍّ ولقاء خبير شهريًا، ومعرض مشاريع (EWA AI Showcase) كل فصل.</span><span class="l-en">A short weekly AI Byte where a member explains a concept in 20 minutes, a lab every two weeks, a monthly challenge and expert talk, and an EWA AI Showcase each semester.</span></p></div>
+      <div class="panel spot prop rv"><span class="idx">03</span><h4><span class="l-ar">أربعاء الذكاء</span><span class="l-en">AI Wednesday</span></h4><p><span class="l-ar">20 دقيقة تفاعلية أسبوعيًا: كويز Kahoot، وتحدي الدقيقة، و AI Fact or Myth، وسيناريو عملي من الطاقة أو المياه.</span><span class="l-en">20 interactive minutes each week: a Kahoot quiz, a one-minute challenge, AI Fact or Myth, and an energy or water scenario.</span></p></div>
+      <div class="panel spot prop rv"><span class="idx">04</span><h4><span class="l-ar">هاكاثون EWA AI المصغّر</span><span class="l-en">EWA AI mini-hackathon</span></h4><p><span class="l-ar">يوم واحد لحل تحدٍّ حقيقي في الطاقة أو المياه: ورش ابتكار، ثم بناء نموذج أولي، ثم عرض أمام لجنة تحكيم.</span><span class="l-en">One day to solve a real energy or water challenge: innovation workshops, a prototype, then a pitch to judges.</span></p></div>
+      <div class="panel spot prop rv"><span class="idx">05</span><h4><span class="l-ar">بنية معرفية موحدة</span><span class="l-en">One knowledge base</span></h4><p><span class="l-ar">مستودع للموارد الموثوقة، وكتيّب مختصر لكل قسم، ودليل للدورات المجانية والاحترافية مصنّف حسب المستوى.</span><span class="l-en">A repository of trusted resources, a short handbook per track, and a course guide sorted by level.</span></p></div>
+      <div class="panel spot prop rv"><span class="idx">06</span><h4><span class="l-ar">رحلة العضو الجديد</span><span class="l-en">New-member journey</span></h4><p><span class="l-ar">بوابة تعريفية موحدة، ومواد تمهيدية، وورش تهيئة في أساسيات البرمجة والبيانات.</span><span class="l-en">One welcome portal, starter material, and orientation workshops on programming and data basics.</span></p></div>
+      <div class="panel spot prop rv"><span class="idx">07</span><h4><span class="l-ar">محرك التحفيز</span><span class="l-en">Motivation engine</span></h4><p><span class="l-ar">لوحة شرف لأفضل 10 أعضاء شهريًا حسب الحضور والمشاركة ونتائج التحديات ونقل المعرفة والعمل الجماعي.</span><span class="l-en">A monthly top-10 honor board based on attendance, participation, challenge results, knowledge sharing and teamwork.</span></p></div>
+      <div class="panel spot prop rv"><span class="idx">08</span><h4><span class="l-ar">شراكات وفعاليات وطنية</span><span class="l-en">Partnerships &amp; national events</span></h4><p><span class="l-ar">فرص تعاون مع سدايا والأكاديمية السعودية الرقمية وخبراء القطاع، وأنشطة في اليوم الوطني ويوم التأسيس، ومعرض للابتكار.</span><span class="l-en">Collaboration with SDAIA, the Saudi Digital Academy and industry experts, National Day and Founding Day activities, and an innovation showcase.</span></p></div>
+      <div class="panel spot prop rv"><span class="idx">09</span><h4><span class="l-ar">خطة 90 يومًا ومؤشرات الأثر</span><span class="l-en">A 90-day plan and impact metrics</span></h4><p><span class="l-ar">تأسيس ثم إطلاق ثم بناء ثم إظهار الأثر، بأهداف: أكثر من 30 عضوًا نشطًا، وست ورش، وثلاثة مشاريع، وخبيران مستضافان، ونسبة رضا تتجاوز 80%، ومعرض ختامي.</span><span class="l-en">Set up, launch, build, then show impact, with targets of 30+ active members, six workshops, three projects, two guest experts, 80%+ satisfaction and a final showcase.</span></p></div>
+    </div>
+
+    <h3 class="sub"><span class="l-ar">أبرز مقترحات الأعضاء</span><span class="l-en">Top member suggestions</span> <small>MEMBERS' VOICE</small></h3>
+    <div class="quotes">
+      <figure class="panel spot quote rv" style="margin:0"><p><span class="l-ar">ترتيب هاكثونات خاصة لطلاب النادي.</span><span class="l-en">Organize hackathons just for club members.</span></p><footer><span>Khalid Ibrahim Al-Harbi</span><span class="tag c"><span class="l-ar">الفريق التنفيذي</span><span class="l-en">Executive team</span></span></footer></figure>
+      <figure class="panel spot quote rv" style="margin:0"><p><span class="l-ar">استضافة شخصيات بارزة، والتعاون في مشاريع خارجية، وبناء فريق من أعضاء النادي يحضر الفعاليات ذات الصلة ويمثل النادي والأكاديمية.</span><span class="l-en">Host prominent speakers, collaborate on outside projects, and build a member team that attends related events and represents the club and academy.</span></p><footer><span>سارة منصور الوذيناني</span><span class="tag c"><span class="l-ar">الفريق التنفيذي</span><span class="l-en">Executive team</span></span></footer></figure>
+      <figure class="panel spot quote rv" style="margin:0"><p>AI in business, AI and cybersecurity</p><footer><span>Reema Wasl Allah Alotaibi</span><span class="tag c"><span class="l-ar">الفريق التنفيذي</span><span class="l-en">Executive team</span></span></footer></figure>
+      <figure class="panel spot quote rv" style="margin:0"><p><span class="l-ar">التنوع والربط الاجتماعي ما بين فعاليات الحياة و AI.</span><span class="l-en">Variety, and social links between everyday-life events and AI.</span></p><footer><span>Raghad ayedh altrisy</span><span class="tag"><span class="l-ar">عضو مستفيد</span><span class="l-en">Participant</span></span></footer></figure>
+      <figure class="panel spot quote rv" style="margin:0"><p><span class="l-ar">يفضّل ألا يكون النادي محصورًا على الذكاء الاصطناعي حتى لا يملّ الأعضاء، فهناك فعاليات كثيرة يمكن إقامتها بنتائج مثمرة.</span><span class="l-en">Don't limit the club to AI only, so members don't get bored. There are many events we could run with good results.</span></p><footer><span>رغد يوسف المرشدي</span><span class="tag c"><span class="l-ar">الفريق التنفيذي</span><span class="l-en">Executive team</span></span></footer></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 07 ROADMAP ===================== -->
+<section class="sec" id="roadmap">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-idx">07 <span>// OPERATIONAL_PLAN</span></div>
+      <h2><span class="l-ar">الخطة التشغيلية: 14 أكتوبر 2026 – مارس 2027</span><span class="l-en">Operating plan: 14 Oct 2026 – Mar 2027</span></h2>
+      <p class="sec-lead"><span class="l-ar">خمس مراحل، وجدول أسبوعي كل أربعاء، ومؤشرات نجاح واضحة. التاريخ المميز بالبرتقالي هو موعدنا القادم.</span><span class="l-en">Five phases, a schedule every Wednesday, and clear success metrics. The date highlighted in orange is what's next.</span></p>
+    </div>
+    <figure class="shot rv"><img class="ph" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&amp;fit=crop&amp;w=1600&amp;q=70" alt="فرق تبني نماذجها في الهاكاثون · Teams building at a hackathon" loading="lazy" decoding="async"><span class="scan"></span><span class="br a"></span><span class="br b"></span><figcaption><span class="mono">IMG_10</span><span class="l-ar">فرق تبني نماذجها في الهاكاثون</span><span class="l-en">Teams building at a hackathon</span></figcaption></figure>
+
+    <div class="launch">
+      <div class="panel spot count rv">
+        <div class="k">NEXT_EVENT</div>
+        <div class="big" id="cdBig">3</div>
+        <div class="what" id="cdWhat"></div>
+        <div class="when" id="cdWhen"></div>
+      </div>
+      <div class="panel spot season rv">
+        <div class="k"><span>SEASON_PROGRESS</span><span id="seasonPct">0%</span></div>
+        <div class="prog"><div class="fill" id="seasonFill" style="width:0%"></div><div class="today" id="seasonToday"></div></div>
+        <div class="months mono"><span>OCT</span><span>NOV</span><span>DEC</span><span>JAN</span><span>FEB</span><span>MAR</span></div>
+        <div style="color:var(--muted);font-size:14.5px" id="seasonTxt"></div>
+      </div>
+    </div>
+
+    <div class="phases" id="phases"></div>
+
+    <h3 class="sub"><span class="l-ar">الورش والمختبرات التطبيقية</span><span class="l-en">Workshops and labs</span> <small>LABS</small></h3>
+    <div class="labs">
+      <div class="panel spot lab rv"><img src="img/lab-python.webp" alt=""><div><b><span class="l-ar">ورشة التهيئة: أساسيات Python للبيانات</span><span class="l-en">Orientation: Python for data</span></b><span><span class="l-ar">الأربعاء 28 أكتوبر</span><span class="l-en">Wed 28 Oct</span></span></div></div>
+      <div class="panel spot lab rv"><img src="img/lab-viz.webp" alt=""><div><b><span class="l-ar">المختبر 1: تحليل البيانات وتصويرها</span><span class="l-en">Lab 1: Data analysis &amp; visualization</span></b><span><span class="l-ar">الأربعاء 11 نوفمبر · Pandas و Power BI</span><span class="l-en">Wed 11 Nov · Pandas and Power BI</span></span></div></div>
+      <div class="panel spot lab rv"><img src="img/lab-ml.webp" alt=""><div><b><span class="l-ar">المختبر 2: تعلم الآلة – الانحدار والتصنيف</span><span class="l-en">Lab 2: ML – regression &amp; classification</span></b><span><span class="l-ar">الأربعاء 25 نوفمبر</span><span class="l-en">Wed 25 Nov</span></span></div></div>
+      <div class="panel spot lab rv"><img src="img/lab-cv.webp" alt=""><div><b><span class="l-ar">المختبر 3: الرؤية الحاسوبية</span><span class="l-en">Lab 3: Computer vision</span></b><span><span class="l-ar">الأربعاء 9 ديسمبر</span><span class="l-en">Wed 9 Dec</span></span></div></div>
+      <div class="panel spot lab rv"><img src="img/lab-genai.webp" alt=""><div><b><span class="l-ar">المختبر 4: الذكاء التوليدي وهندسة الأوامر</span><span class="l-en">Lab 4: Generative AI &amp; prompting</span></b><span><span class="l-ar">الأربعاء 23 ديسمبر</span><span class="l-en">Wed 23 Dec</span></span></div></div>
+      <div class="panel spot lab rv"><img src="img/lab-mlops.webp" alt=""><div><b><span class="l-ar">المختبر 5: نشر النماذج وأساسيات MLOps</span><span class="l-en">Lab 5: Model deployment &amp; MLOps</span></b><span><span class="l-ar">الأربعاء 6 يناير</span><span class="l-en">Wed 6 Jan</span></span></div></div>
+      <div class="panel spot lab hl rv"><img src="img/lab-hack.webp" alt=""><div><b><span class="l-ar">هاكاثون EWA AI المصغّر</span><span class="l-en">EWA AI mini-hackathon</span></b><span><span class="l-ar">الأربعاء 27 يناير · يوم كامل</span><span class="l-en">Wed 27 Jan · full day</span></span></div></div>
+      <div class="panel spot lab rv"><img src="img/lab-ethics.webp" alt=""><div><b><span class="l-ar">المختبر 6: أخلاقيات الذكاء الاصطناعي</span><span class="l-en">Lab 6: AI ethics</span></b><span><span class="l-ar">الأربعاء 17 فبراير (عن بُعد)</span><span class="l-en">Wed 17 Feb (online)</span></span></div></div>
+    </div>
+
+    <h3 class="sub"><span class="l-ar">الجدول الزمني الأسبوعي</span><span class="l-en">Weekly schedule</span> <small>SCHEDULE</small></h3>
+    <div class="toolbar"><div class="chips" id="evFilters" role="group"></div></div>
+    <div class="sched" id="sched"></div>
+
+    <h3 class="sub"><span class="l-ar">مؤشرات النجاح بنهاية مارس 2027</span><span class="l-en">Success metrics by end of March 2027</span> <small>KPIs</small></h3>
+    <div class="kpis">
+      <div class="panel spot kpi rv"><b>30+</b><span><span class="l-ar">عضوًا نشطًا</span><span class="l-en">active members</span></span></div>
+      <div class="panel spot kpi rv"><b>6</b><span><span class="l-ar">ورش تطبيقية</span><span class="l-en">hands-on workshops</span></span></div>
+      <div class="panel spot kpi rv"><b>3</b><span><span class="l-ar">مشاريع أولية على الأقل</span><span class="l-en">prototype projects, at least</span></span></div>
+      <div class="panel spot kpi rv"><b>3</b><span><span class="l-ar">لقاءات خبراء</span><span class="l-en">expert talks</span></span></div>
+      <div class="panel spot kpi rv"><b>2 + 1</b><span><span class="l-ar">تحديان شهريان وهاكاثون</span><span class="l-en">monthly challenges + hackathon</span></span></div>
+      <div class="panel spot kpi rv"><b>80%+</b><span><span class="l-ar">رضا المشاركين</span><span class="l-en">participant satisfaction</span></span></div>
+    </div>
+    <p class="note"><span class="l-ar">التواريخ مبدئية، وتُعتمد بعد التنسيق مع د. أنمار الحجيلي ومواءمتها مع التقويم الدراسي للأكاديمية.</span><span class="l-en">Dates are provisional and will be confirmed with Dr. Anmar Al-Hujaili against the academy calendar.</span></p>
+    <p class="note" style="margin-top:6px"><span class="l-ar">مواعيد رمضان وعيد الفطر تقريبية بحسب تقويم أم القرى (1 رمضان 1448 يوافق 8 فبراير 2027)، وتتأكد برؤية الهلال.</span><span class="l-en">Ramadan and Eid dates are approximate per the Umm al-Qura calendar (1 Ramadan 1448 ≈ 8 Feb 2027) and depend on the moon sighting.</span></p>
+  </div>
+</section>
+
+<!-- ===================== 08 SURVEY ===================== -->
+<section class="sec" id="survey">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-idx">08 <span>// JOIN_FORM_INSIGHTS</span></div>
+      <h2><span class="l-ar">قراءة في استمارة الانضمام</span><span class="l-en">What the join form tells us</span></h2>
+      <p class="sec-lead"><span class="l-ar">ملخص إجابات الأعضاء الثلاثين: نوع العضوية، والالتزام، والخبرة، والمهارات.</span><span class="l-en">A summary of all 30 responses: membership type, weekly commitment, experience and skills.</span></p>
+    </div>
+    <figure class="shot rv"><img class="ph" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&amp;fit=crop&amp;w=1600&amp;q=70" alt="قراءة البيانات · Reading the data" loading="lazy" decoding="async"><span class="scan"></span><span class="br a"></span><span class="br b"></span><figcaption><span class="mono">IMG_11</span><span class="l-ar">قراءة البيانات</span><span class="l-en">Reading the data</span></figcaption></figure>
+    <div class="headline">
+      <div class="panel spot hl rv"><b>30</b><span><span class="l-ar">ردًّا على الاستمارة</span><span class="l-en">form responses</span></span></div>
+      <div class="panel spot hl rv"><b>26</b><span><span class="l-ar">منها في اليوم الأول (6 أكتوبر)</span><span class="l-en">on day one (6 Oct)</span></span></div>
+      <div class="panel spot hl rv"><b>73<small>%</small></b><span><span class="l-ar">لديهم خبرة سابقة في الأندية أو الفعاليات</span><span class="l-en">have prior club or event experience</span></span></div>
+      <div class="panel spot hl rv"><b>67<small>%</small></b><span><span class="l-ar">يلتزمون من ساعة إلى ساعتين أسبوعيًا</span><span class="l-en">can give 1–2 hours a week</span></span></div>
+    </div>
+    <div class="charts">
+      <div class="panel chart wide rv"><h4><span class="l-ar">المهارات الأكثر تكرارًا</span><span class="l-en">Most common skills</span></h4><p class="cs"><span class="l-ar">عدد الأعضاء الذين اختاروا كل مهارة (يمكن اختيار أكثر من مهارة)</span><span class="l-en">Members who picked each skill (more than one allowed)</span></p><div class="hbars" id="chSkills"></div></div>
+      <div class="panel chart rv"><h4><span class="l-ar">نوع العضوية المطلوب</span><span class="l-en">Membership type</span></h4><p class="cs"><span class="l-ar">عدد الأعضاء من أصل 30</span><span class="l-en">Members out of 30</span></p><div class="hbars" id="chJoin"></div></div>
+      <div class="panel chart rv"><h4><span class="l-ar">الالتزام الأسبوعي</span><span class="l-en">Weekly commitment</span></h4><p class="cs"><span class="l-ar">الساعات التي يستطيع العضو الالتزام بها</span><span class="l-en">Hours a member can commit each week</span></p><div class="hbars" id="chHours"></div></div>
+      <div class="panel chart rv"><h4><span class="l-ar">الخبرة السابقة</span><span class="l-en">Prior experience</span></h4><p class="cs"><span class="l-ar">في الأندية أو تنظيم الفعاليات أو المشاريع أو العمل التطوعي</span><span class="l-en">In clubs, events, projects or volunteering</span></p>
+        <div class="split" role="img" aria-label="22 / 8"><div class="y" style="flex:22">22</div><div class="n" style="flex:8">8</div></div>
+        <div class="legend"><span><i style="background:var(--accent)"></i><span class="l-ar">لديه خبرة سابقة (22)</span><span class="l-en">Has experience (22)</span></span><span><i style="background:var(--line-2)"></i><span class="l-ar">بدون خبرة سابقة (8)</span><span class="l-en">No experience (8)</span></span></div>
+      </div>
+      <div class="panel chart rv"><h4><span class="l-ar">الردود حسب اليوم</span><span class="l-en">Responses by day</span></h4><p class="cs"><span class="l-ar">تاريخ تعبئة الاستمارة، أكتوبر 2026</span><span class="l-en">Submission date, October 2026</span></p>
+        <div class="cols" id="chDays"></div><div class="col-l"><span>06 OCT</span><span>07 OCT</span><span>08 OCT</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 09 IDENTITY ===================== -->
+<section class="sec" id="identity">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-idx">09 <span>// VISUAL_IDENTITY</span></div>
+      <h2><span class="l-ar">الهوية البصرية ومقترحات الإطلاق</span><span class="l-en">Visual identity &amp; launch ideas</span></h2>
+      <p class="sec-lead"><span class="l-ar">الشعارات المرشحة ومقارنتها، والألوان والخطوط المقترحة، وأفكار التصميم للقاء التعريفي والتسجيل.</span><span class="l-en">Shortlisted logos and how they compare, the proposed colors and fonts, and design ideas for the intro meeting and sign-ups.</span></p>
+    </div>
+    <figure class="shot rv"><img class="ph" src="https://images.unsplash.com/photo-1572044162444-ad60f128bdea?auto=format&amp;fit=crop&amp;w=1600&amp;q=70" alt="تصميم الهوية · Designing the identity" loading="lazy" decoding="async"><span class="scan"></span><span class="br a"></span><span class="br b"></span><figcaption><span class="mono">IMG_12</span><span class="l-ar">تصميم الهوية</span><span class="l-en">Designing the identity</span></figcaption></figure>
+
+    <div class="panel wm rv">
+      <img src="img/club-wordmark.webp" alt="EWA AI CLUB" width="240" height="125">
+      <div><span class="idx">IN USE</span><b style="font:700 17px var(--f-display)"><span class="l-ar">الشعار المستخدم في بوسترات الإطلاق</span><span class="l-en">The wordmark used on launch posters</span></b><p><span class="l-ar">كلمة EWA بخطوط دوائر ونقاط اتصال، مع عقدة برتقالية تبث إشارة، وهي الفكرة التي يستلهمها شعار هذا الموقع.</span><span class="l-en">EWA drawn as circuit lines and nodes, with an orange node sending a signal. This site's wordmark builds on the same idea.</span></p></div>
+    </div>
+
+    <h3 class="sub"><span class="l-ar">الشعارات المرشحة</span><span class="l-en">Logo shortlist</span> <small>SHORTLIST</small></h3>
+    <div class="logos" id="logos"></div>
+
+    <h3 class="sub"><span class="l-ar">مقارنة الخيارات والتوصية</span><span class="l-en">Comparison and recommendation</span> <small>COMPARISON</small></h3>
+    <div class="tbl-wrap rv"><table id="cmp"></table></div>
+    <div class="rec-box rv">
+      <div class="k">RECOMMENDATION</div>
+      <h4><span class="l-ar">اعتماد «الكرة الرقمية» شعارًا رئيسيًا لأنها الأقرب لهوية الأكاديمية، مع نسخة خطية مبسطة (الدماغ أو الروبوت) للملصقات والأيقونات الصغيرة.</span><span class="l-en">Adopt the “Digital Globe” as the main logo, since it's closest to the academy's identity, with a simplified line version (brain or robot) for stickers and small icons.</span></h4>
+      <ul>
+        <li><span class="l-ar">إضافة الاسم العربي «نادي الذكاء الاصطناعي» في النسخة النهائية، لأن الخيارات المفضلة كلها بالإنجليزي فقط.</span><span class="l-en">Add the Arabic name in the final version, since all favorites are English-only.</span></li>
+        <li><span class="l-ar">إعادة رسم الشعار المختار بصيغة متجهة (SVG أو AI) قبل الطباعة، لأن الصور الحالية مولّدة وبدقة محدودة.</span><span class="l-en">Redraw the chosen logo as a vector (SVG or AI) before printing, since the current images are generated and low-resolution.</span></li>
+        <li><span class="l-ar">تجهيز ثلاث نسخ: ملونة على خلفية داكنة، وملونة على خلفية فاتحة، وبلون واحد.</span><span class="l-en">Prepare three versions: color on dark, color on light, and single-color.</span></li>
+      </ul>
+    </div>
+
+    <h3 class="sub"><span class="l-ar">ألوان وخطوط مقترحة لتوحيد الهوية</span><span class="l-en">Proposed colors and fonts</span> <small>CLICK TO COPY</small></h3>
+    <div class="swatches">
+      <button class="sw" type="button" data-hex="#082C4E"><i style="background:#082C4E"></i><div><b>Navy</b><span class="mono">#082C4E</span></div></button>
+      <button class="sw" type="button" data-hex="#0E7C80"><i style="background:#0E7C80"></i><div><b>Teal</b><span class="mono">#0E7C80</span></div></button>
+      <button class="sw" type="button" data-hex="#5CC8D0"><i style="background:#5CC8D0"></i><div><b>Cyan</b><span class="mono">#5CC8D0</span></div></button>
+      <button class="sw" type="button" data-hex="#E07B39"><i style="background:#E07B39"></i><div><b>Orange</b><span class="mono">#E07B39</span></div></button>
+      <button class="sw" type="button" data-hex="#F4F7FA"><i style="background:#F4F7FA;border-bottom:1px solid var(--line)"></i><div><b>Light</b><span class="mono">#F4F7FA</span></div></button>
+    </div>
+    <p class="note"><span class="l-ar">الخطوط: Noto Kufi Arabic للعناوين، و IBM Plex Sans Arabic للنصوص، ويُفضّل توحيد الإعلانات عليهما.</span><span class="l-en">Fonts: Noto Kufi Arabic for headings and IBM Plex Sans Arabic for body text. Posters should move to these as well.</span></p>
+
+    <h3 class="sub"><span class="l-ar">مقترحات الإطلاق</span><span class="l-en">Launch ideas</span> <small>LAUNCH</small></h3>
+    <div class="launches">
+      <div class="panel spot lc rv"><button type="button" data-zoom="img/launch-stickers.webp" aria-label="zoom"><img src="img/launch-stickers.webp" alt=""></button><div><h4><span class="l-ar">ملصقات النادي للأعضاء</span><span class="l-en">Club stickers for members</span></h4><p><span class="l-ar">ورقة ملصقات بأيقونات تقنية وشعار النادي تُوزّع في اللقاء الأول، فتصنع انطباعًا أوليًا قويًا وتنشر الهوية على أجهزة الأعضاء.</span><span class="l-en">A sticker sheet with tech icons and the club logo, handed out at the first meeting to make a strong first impression and spread the identity on members' laptops.</span></p><div class="pills"><span class="tag"><span class="l-ar">الفعاليات والتصميم</span><span class="l-en">Events &amp; Design</span></span><span class="tag o"><span class="l-ar">قبل 21 أكتوبر</span><span class="l-en">Before 21 Oct</span></span><span class="tag"><span class="l-ar">40 ورقة</span><span class="l-en">40 sheets</span></span></div></div></div>
+      <div class="panel spot lc rv"><button type="button" data-zoom="img/launch-intro.webp" aria-label="zoom"><img src="img/launch-intro.webp" alt=""></button><div><h4><span class="l-ar">عرض اللقاء التعريفي بهوية النادي</span><span class="l-en">Branded intro-meeting deck</span></h4><p><span class="l-ar">شاشة افتتاحية بشعار النادي وعنوان «اللقاء التعريفي» والعام الدراسي، ثم عرض قصير للرؤية والأقسام وخطة الفصل.</span><span class="l-en">An opening screen with the logo, “Intro Meeting” and the academic year, then a short look at the vision, departments and semester plan.</span></p><div class="pills"><span class="tag"><span class="l-ar">الإدارة + الفعاليات والتصميم</span><span class="l-en">Admin + Events &amp; Design</span></span><span class="tag o"><span class="l-ar">الأربعاء 21 أكتوبر</span><span class="l-en">Wed 21 Oct</span></span></div></div></div>
+      <div class="panel spot lc rv"><button type="button" data-zoom="img/launch-poster.webp" aria-label="zoom"><img src="img/launch-poster.webp" alt=""></button><div><h4><span class="l-ar">بوستر الانضمام: «المستقبل ما ينتظر... إحنا نصنعه»</span><span class="l-en">Join poster: “The future won't wait… we build it”</span></h4><p><span class="l-ar">إعلان دعوة للانضمام بعبارة جذابة، يُنشر في حسابات الأكاديمية ومجموعات الدفعات قبل اللقاء التعريفي.</span><span class="l-en">A catchy call to join, posted on academy accounts and cohort groups before the intro meeting.</span></p><div class="pills"><span class="tag"><span class="l-ar">العلاقات العامة</span><span class="l-en">Public Relations</span></span><span class="tag o"><span class="l-ar">أسبوع 14 أكتوبر</span><span class="l-en">Week of 14 Oct</span></span></div></div></div>
+      <div class="panel spot lc rv"><button type="button" data-zoom="img/launch-qr.webp" aria-label="zoom"><img src="img/launch-qr.webp" alt=""></button><div><h4><span class="l-ar">بوستر التسجيل بالباركود</span><span class="l-en">QR sign-up poster</span></h4><p><span class="l-ar">بوستر يحوّل مباشرة إلى استمارة الانضمام، ويُطبع ويُعلّق في القاعات وعند المداخل.</span><span class="l-en">A poster that links straight to the join form, printed and hung in halls and entrances.</span></p><div class="pills"><span class="tag"><span class="l-ar">العلاقات العامة</span><span class="l-en">Public Relations</span></span><span class="tag o"><span class="l-ar">مستمر خلال الفصل</span><span class="l-en">All semester</span></span></div></div></div>
+    </div>
+
+    <h3 class="sub"><span class="l-ar">الخطوات التالية</span><span class="l-en">Next steps</span> <small>NEXT STEPS</small></h3>
+    <div class="ck-prog"><span id="ckTxt">0/7 DONE</span><div class="prog"><div class="fill" id="ckFill" style="width:0%"></div></div></div>
+    <div class="checks" id="checks"></div>
+    <p class="note"><span class="l-ar">علامات الإنجاز تُحفظ في متصفحك فقط.</span><span class="l-en">Checkmarks are saved in your browser only.</span></p>
+
+    <h3 class="sub"><span class="l-ar">ملحق: لوحات أفكار الشعار</span><span class="l-en">Appendix: logo moodboards</span> <small>MOODBOARDS</small></h3>
+    <div class="boards">
+      <button type="button" data-zoom="img/board-a.webp" aria-label="zoom"><img src="img/board-a.webp" alt=""></button>
+      <button type="button" data-zoom="img/board-b.webp" aria-label="zoom"><img src="img/board-b.webp" alt=""></button>
+      <button type="button" data-zoom="img/board-ar.webp" aria-label="zoom"><img src="img/board-ar.webp" alt=""></button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <div class="big">EWA_AI_CLUB</div>
+      <p><span class="l-ar">نادي الذكاء الاصطناعي · أكاديمية الطاقة والمياه</span><span class="l-en">AI Club · Energy &amp; Water Academy</span></p>
+      <p><span class="l-ar">إعداد وقيادة: أفنان فهد الجهني · تحت إشراف: د. أنمار الحجيلي</span><span class="l-en">Led by Afnan Fahad Aljohani · Supervised by Dr. Anmar Al-Hujaili</span></p>
+    </div>
+    <div class="foot-end">
+      <p class="mono ltr">return "Learn. Build. Innovate. Impact."</p>
+      <p class="mono ltr">season_01 · 2026 → 2027</p>
+      <p class="mono"><span class="l-ar">الصور: Unsplash</span><span class="l-en">Photos: Unsplash</span></p>
+    </div>
+  </div>
+</footer>
+</div>
+
+<dialog id="lbDlg" class="lightbox" aria-label="Image"><img id="lbImg" alt=""><div class="cap"><span id="lbCap"></span><button class="icon-btn" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script id="membersData" type="application/json">[{"n": 1, "name": "رائد عوض الله العزيري", "role": "متطوع", "skills": ["تنظيم الفعاليات", "العلاقات وبناء الشراكات", "القيادة وإدارة المشاريع"]}, {"n": 2, "name": "رغد يوسف المرشدي", "role": "الفريق التنفيذي", "skills": ["البرمجة وتحليل البيانات", "تقديم ورش العمل امام الجمهور", "تصميم الجرافيك", "تنظيم الفعاليات", "العلاقات وبناء الشراكات", "القيادة وإدارة المشاريع"]}, {"n": 3, "name": "أسيل سامي الجهني", "role": "عضو مستفيد", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي", "الابتكار وحل المشكلات", "كتابة المحتوى", "تنظيم الفعاليات", "العلاقات وبناء الشراكات"]}, {"n": 4, "name": "الوليد احمد المطمي", "role": "عضو مستفيد", "skills": ["تعلم الآلة والذكاء الاصطناعي"]}, {"n": 5, "name": "Abdullah Khaled Ibrahim Alghamdi", "role": "قائد الفعاليات والتصميم", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي", "الابتكار وحل المشكلات", "كتابة المحتوى"]}, {"n": 6, "name": "رغد محمد الغامدي", "role": "عضو مستفيد", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي"]}, {"n": 7, "name": "سارة منصور الوذيناني", "role": "الفريق التنفيذي", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي", "تقديم ورش العمل امام الجمهور", "الابتكار وحل المشكلات", "كتابة المحتوى", "تنظيم الفعاليات", "القيادة وإدارة المشاريع"]}, {"n": 8, "name": "Raghad ayedh altrisy", "role": "عضو مستفيد", "skills": ["البرمجة وتحليل البيانات"]}, {"n": 9, "name": "شموخ محبوب العتيبي", "role": "عضو مستفيد", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي", "الابتكار وحل المشكلات"]}, {"n": 10, "name": "Reema Wasl Allah Alotaibi", "role": "الفريق التنفيذي", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي", "القيادة وإدارة المشاريع"]}, {"n": 11, "name": "ندى ذياب الحربي", "role": "عضو مستفيد", "skills": ["تعلم الآلة والذكاء الاصطناعي", "الابتكار وحل المشكلات", "تنظيم الفعاليات"]}, {"n": 12, "name": "يارا علي حكمي", "role": "عضو مستفيد", "skills": ["البرمجة وتحليل البيانات"]}, {"n": 13, "name": "تاله عبدالخالق فيرق", "role": "عضو مستفيد", "skills": ["تنظيم الفعاليات"]}, {"n": 14, "name": "جوري ضيف الله الجعيد", "role": "الفريق التنفيذي", "skills": ["البرمجة وتحليل البيانات", "الابتكار وحل المشكلات", "القيادة وإدارة المشاريع"]}, {"n": 15, "name": "Osama Adel Alrowithi", "role": "عضو مستفيد", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي", "تقديم ورش العمل امام الجمهور", "الابتكار وحل المشكلات"]}, {"n": 16, "name": "Khalid Ibrahim Al-Harbi", "role": "الفريق التنفيذي", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي", "تقديم ورش العمل امام الجمهور", "الابتكار وحل المشكلات", "كتابة المحتوى", "تنظيم الفعاليات", "العلاقات وبناء الشراكات", "القيادة وإدارة المشاريع"]}, {"n": 17, "name": "محمد إبراهيم المطيري", "role": "عضو مستفيد", "skills": ["تنظيم الفعاليات", "العلاقات وبناء الشراكات", "القيادة وإدارة المشاريع"]}, {"n": 18, "name": "أبرار علي العسيري", "role": "عضو مستفيد", "skills": ["البرمجة وتحليل البيانات", "تقديم ورش العمل امام الجمهور", "الابتكار وحل المشكلات", "كتابة المحتوى", "تنظيم الفعاليات", "القيادة وإدارة المشاريع"]}, {"n": 19, "name": "ليلى صالح العرجاني", "role": "عضو مستفيد", "skills": ["كتابة المحتوى"]}, {"n": 20, "name": "رنيم عوض الله السلمي", "role": "عضو مستفيد", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي", "تقديم ورش العمل امام الجمهور", "الابتكار وحل المشكلات", "القيادة وإدارة المشاريع"]}, {"n": 21, "name": "شرق رجاالله السلمي", "role": "الفريق التنفيذي", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي", "الابتكار وحل المشكلات"]}, {"n": 22, "name": "ميمونه احمد جعفري", "role": "عضو مستفيد", "skills": ["التصوير والمونتاج الفيديو"]}, {"n": 23, "name": "غاده علي الظاهري", "role": "عضو مستفيد", "skills": ["تصميم الجرافيك", "تنظيم الفعاليات", "القيادة وإدارة المشاريع"]}, {"n": 24, "name": "خالد محمد القرني", "role": "عضو مستفيد", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي"]}, {"n": 25, "name": "ساره مصطفى الشيخ", "role": "عضو مستفيد", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي"]}, {"n": 26, "name": "لجين عبدالله السلمي", "role": "الفريق التنفيذي", "skills": ["البرمجة وتحليل البيانات"]}, {"n": 27, "name": "فهد حمد اليامي", "role": "قائد العلاقات العامة", "skills": ["الابتكار وحل المشكلات"]}, {"n": 28, "name": "Ahmed Mahmoud Alsayed", "role": "قائد التدريب والتطوير", "skills": ["الابتكار وحل المشكلات"]}, {"n": 29, "name": "سلطان حسين بالحارث", "role": "الفريق التنفيذي", "skills": ["البرمجة وتحليل البيانات", "تعلم الآلة والذكاء الاصطناعي", "تقديم ورش العمل امام الجمهور"]}, {"n": 30, "name": "شهد علي مروي", "role": "الفريق التنفيذي", "skills": ["القيادة وإدارة المشاريع"]}]</script>
+<script>(function(){
+"use strict";
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),1800)};
+const root=document.documentElement;
+let LANG=store.get('ewa-lang')||(location.hash==='#en'?'en':'ar');
+const T=(ar,en)=>LANG==='en'?en:ar;
+const tx=o=>typeof o==='string'?o:(LANG==='en'?o.en:o.ar);
+
+/* ---------- theme ---------- */
+const saved=store.get('ewa-theme'); if(saved) root.dataset.theme=saved;
+const isDark=()=>root.dataset.theme?root.dataset.theme==='dark':!matchMedia('(prefers-color-scheme: light)').matches;
+
+/* ---------- circuit board canvas ---------- */
+const board=(function(){
+  const cv=$('#board'), ctx=cv.getContext('2d'); let W,H,dpr,traces=[],chips=[],pulses=[],col={},raf=null,staticImg=null;
+  const S=26;
+  function readCol(){const cs=getComputedStyle(root);col={trace:cs.getPropertyValue('--trace').trim(),pad:cs.getPropertyValue('--pad').trim(),a:cs.getPropertyValue('--accent').trim(),c:cs.getPropertyValue('--cyan').trim()}}
+  const rnd=(a,b)=>a+Math.random()*(b-a), ri=(a,b)=>Math.floor(rnd(a,b+1));
+  const DIRS=[[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1],[0,-1],[1,-1]];
+  function gen(){
+    traces=[];chips=[];
+    const cols=Math.ceil(W/S), rows=Math.ceil(H/S);
+    const nChips=Math.max(3,Math.round(W*H/180000));
+    for(let i=0;i<nChips;i++){const w=ri(3,6),h=ri(2,4);chips.push({x:ri(1,cols-w-1)*S,y:ri(1,rows-h-1)*S,w:w*S,h:h*S})}
+    const n=Math.round(W*H/9000);
+    for(let i=0;i<n;i++){
+      let x=ri(0,cols)*S,y=ri(0,rows)*S,d=ri(0,3)*2;const pts=[[x,y]];const segs=ri(2,5);
+      for(let s=0;s<segs;s++){if(s>0)d=(d+(Math.random()<.5?1:7))%8;const len=ri(2,7);const [dx,dy]=DIRS[d];x+=dx*len*S;y+=dy*len*S;pts.push([x,y])}
+      let L=0;for(let k=1;k<pts.length;k++)L+=Math.hypot(pts[k][0]-pts[k-1][0],pts[k][1]-pts[k-1][1]);
+      traces.push({pts,L});
+    }
+    pulses=[];const np=Math.max(6,Math.round(n/9));for(let i=0;i<np;i++)pulses.push(newPulse(true));
+  }
+  function newPulse(init){const t=traces[ri(0,traces.length-1)];return{t,p:init?Math.random()*t.L:0,v:rnd(.6,1.6),len:rnd(28,60),c:Math.random()<.7?'a':'c'}}
+  function at(t,dist){let acc=0;const P=t.pts;for(let k=1;k<P.length;k++){const sl=Math.hypot(P[k][0]-P[k-1][0],P[k][1]-P[k-1][1]);if(acc+sl>=dist){const f=(dist-acc)/sl;return[P[k-1][0]+(P[k][0]-P[k-1][0])*f,P[k-1][1]+(P[k][1]-P[k-1][1])*f]}acc+=sl}return P[P.length-1]}
+  function drawStatic(){
+    ctx.clearRect(0,0,W,H);ctx.lineWidth=1.2;ctx.strokeStyle=col.trace;ctx.lineJoin='round';
+    for(const t of traces){ctx.beginPath();t.pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke()}
+    ctx.fillStyle=col.pad;
+    for(const t of traces){const a=t.pts[0],b=t.pts[t.pts.length-1];ctx.beginPath();ctx.arc(a[0],a[1],2.6,0,7);ctx.fill();ctx.beginPath();ctx.arc(b[0],b[1],2.6,0,7);ctx.fill()}
+    for(const c of chips){ctx.strokeRect(c.x+.5,c.y+.5,c.w,c.h);ctx.strokeRect(c.x+8.5,c.y+8.5,c.w-16,c.h-16);
+      for(let x=c.x+10;x<c.x+c.w-6;x+=10){ctx.beginPath();ctx.moveTo(x,c.y);ctx.lineTo(x,c.y-7);ctx.moveTo(x,c.y+c.h);ctx.lineTo(x,c.y+c.h+7);ctx.stroke()}}
+  }
+  function frame(){
+    ctx.clearRect(0,0,W,H);ctx.drawImage(staticImg,0,0,W,H);ctx.lineCap='round';
+    for(let i=0;i<pulses.length;i++){const q=pulses[i];q.p+=q.v;if(q.p-q.len>q.t.L){pulses[i]=newPulse(false);continue}
+      const c=q.c==='a'?col.a:col.c;const steps=8;
+      for(let s=0;s<steps;s++){const d1=q.p-q.len*s/steps,d2=q.p-q.len*(s+1)/steps;if(d1<0||d2<0||d1>q.t.L)continue;const A=at(q.t,d1),B=at(q.t,Math.min(d2,q.t.L));
+        ctx.globalAlpha=(1-s/steps)*.9;ctx.strokeStyle=c;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(A[0],A[1]);ctx.lineTo(B[0],B[1]);ctx.stroke()}
+      if(q.p<=q.t.L){const h=at(q.t,q.p);ctx.globalAlpha=1;ctx.fillStyle=c;ctx.shadowColor=c;ctx.shadowBlur=10;ctx.beginPath();ctx.arc(h[0],h[1],2.2,0,7);ctx.fill();ctx.shadowBlur=0}
+    }
+    ctx.globalAlpha=1;raf=requestAnimationFrame(frame);
+  }
+  function snapshot(){const off=document.createElement('canvas');off.width=cv.width;off.height=cv.height;off.getContext('2d').drawImage(cv,0,0);staticImg=off}
+  function size(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+  function start(){cancelAnimationFrame(raf);drawStatic();snapshot();if(!reduce&&!document.hidden)raf=requestAnimationFrame(frame)}
+  function init(){size();readCol();gen();start()}
+  let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{if(Math.abs(innerWidth-W)>40||Math.abs(innerHeight-H)>160)init()},200)});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else start()});
+  init();
+  return{recolor(){readCol();start()}};
+})();
+$('#themeBtn').addEventListener('click',()=>{const t=isDark()?'light':'dark';root.dataset.theme=t;store.set('ewa-theme',t);board.recolor()});
+matchMedia('(prefers-color-scheme: light)').addEventListener('change',()=>board.recolor());
+
+/* ---------- photos: hide gracefully if a remote photo can't load ---------- */
+$$('img.ph').forEach(img=>{const fail=()=>img.closest('.shot').classList.add('noimg');if(img.complete&&img.naturalWidth===0&&img.src)fail();img.addEventListener('error',fail)});
+
+/* ---------- nav active ---------- */
+const navLinks=$$('#links a');
+const secObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))})},{rootMargin:'-45% 0px -50% 0px'});
+$$('section.sec').forEach(s=>secObs.observe(s));
+
+/* ---------- spotlight + reveal ---------- */
+document.addEventListener('pointermove',e=>{const el=e.target.closest&&e.target.closest('.spot');if(!el)return;const r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px')},{passive:true});
+let rvObs=null;
+if(!reduce&&'IntersectionObserver' in window){rvObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('low');rvObs.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px'})}
+function reveal(scope){if(!rvObs)return;$$('.rv',scope).forEach(el=>{if(el.dataset.rv)return;el.dataset.rv=1;const r=el.getBoundingClientRect();if(r.top>innerHeight){el.classList.add('low');rvObs.observe(el)}})}
+
+/* ---------- count up ---------- */
+if(!reduce){$$('[data-count]').forEach(el=>{const to=+el.dataset.count;let s=null;const step=t=>{s=s||t;const p=Math.min(1,(t-s)/1400);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)};el.textContent='0';setTimeout(()=>requestAnimationFrame(step),600)})}
+
+/* ---------- tabs ---------- */
+const tabs=$$('.tab');
+function selectTab(t,focus){tabs.forEach(x=>{const on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;$('#'+x.getAttribute('aria-controls')).hidden=!on});if(focus)t.focus();store.set('ewa-tab',t.id)}
+tabs.forEach((t,i)=>{t.addEventListener('click',()=>selectTab(t));t.addEventListener('keydown',e=>{const fwd=LANG==='en'?'ArrowRight':'ArrowLeft',back=LANG==='en'?'ArrowLeft':'ArrowRight';let j=null;if(e.key===fwd)j=(i+1)%tabs.length;if(e.key===back)j=(i-1+tabs.length)%tabs.length;if(j!==null){e.preventDefault();selectTab(tabs[j],true)}})});
+const st=store.get('ewa-tab');if(st&&$('#'+st))selectTab($('#'+st));
+
+/* ---------- data ---------- */
+const M=JSON.parse($('#membersData').textContent);
+const SK={'البرمجة وتحليل البيانات':['برمجة وبيانات','Programming & data'],'تعلم الآلة والذكاء الاصطناعي':['تعلم الآلة','Machine learning'],'الابتكار وحل المشكلات':['ابتكار','Problem solving'],'القيادة وإدارة المشاريع':['قيادة','Leadership'],'تنظيم الفعاليات':['فعاليات','Events'],'تقديم ورش العمل امام الجمهور':['تقديم ورش','Presenting'],'كتابة المحتوى':['محتوى','Content writing'],'العلاقات وبناء الشراكات':['شراكات','Partnerships'],'تصميم الجرافيك':['تصميم','Graphic design'],'التصوير والمونتاج الفيديو':['تصوير ومونتاج','Video & editing']};
+const SKF={'البرمجة وتحليل البيانات':'Programming & data analysis','تعلم الآلة والذكاء الاصطناعي':'Machine learning & AI','الابتكار وحل المشكلات':'Innovation & problem solving','القيادة وإدارة المشاريع':'Leadership & project management','تنظيم الفعاليات':'Event organizing','تقديم ورش العمل امام الجمهور':'Presenting workshops','كتابة المحتوى':'Content writing','العلاقات وبناء الشراكات':'Relations & partnerships','تصميم الجرافيك':'Graphic design','التصوير والمونتاج الفيديو':'Video shooting & editing'};
+const ROLE={'الفريق التنفيذي':'Executive team','عضو مستفيد':'Participant','متطوع':'Volunteer','قائد التدريب والتطوير':'Lead, Training & Development','قائد العلاقات العامة':'Lead, Public Relations','قائد الفعاليات والتصميم':'Lead, Events & Design'};
+const grp=m=>m.role.startsWith('قائد')?'ld':m.role==='الفريق التنفيذي'?'ex':m.role==='متطوع'?'vo':'be';
+const order={ld:0,ex:1,vo:2,be:3};
+const sorted=[...M].sort((a,b)=>order[grp(a)]-order[grp(b)]||a.n-b.n);
+const FIL=[['all','الكل','All'],['ld','قادة الأقسام','Department leads'],['ex','الفريق التنفيذي','Executive team'],['be','عضو مستفيد','Participants'],['vo','متطوع','Volunteer']];
+let fNow='all',q='';
+const initial=n=>(n.trim().split(/\s+/)[0]||'?').charAt(0).toUpperCase();
+function renderFilters(){$('#memFilters').innerHTML=FIL.map(([k,a,e])=>`<button class="chip" type="button" data-f="${k}" aria-pressed="${k===fNow}">${T(a,e)} <span class="mono">${k==='all'?M.length:M.filter(m=>grp(m)===k).length}</span></button>`).join('')}
+function renderMembers(){
+  const qq=q.trim().toLowerCase();
+  const list=sorted.filter(m=>(fNow==='all'||grp(m)===fNow)&&(!qq||(m.name+' '+m.role+' '+(ROLE[m.role]||'')+' '+m.skills.join(' ')+' '+m.skills.map(s=>SKF[s]||'').join(' ')).toLowerCase().includes(qq)));
+  $('#memCount').textContent=list.length+' / '+M.length+' MEMBERS';
+  $('#membersGrid').innerHTML=list.length?list.map(m=>{const g=grp(m);
+    return `<div class="panel spot mem ${g}"><span class="av">${esc(initial(m.name))}</span><span class="nm">${esc(m.name)}</span><span class="rl">${esc(T(m.role,ROLE[m.role]||m.role))}</span><span class="sk">${m.skills.map(s=>`<span>${esc(T((SK[s]||[s])[0],(SK[s]||[s,s])[1]))}</span>`).join('')}</span></div>`}).join('')
+    :`<div class="empty" style="grid-column:1/-1">${T(`لا يوجد عضو يطابق «${esc(q)}». جرّب اسمًا آخر أو مهارة مثل «تعلم الآلة».`,`No member matches “${esc(q)}”. Try another name or a skill like “machine learning”.`)}</div>`;
+}
+$('#memFilters').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;fNow=b.dataset.f;$$('#memFilters .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderMembers()});
+$('#memSearch').addEventListener('input',e=>{q=e.target.value;renderMembers()});
+
+/* ---------- files (leaders) ---------- */
+const FILES=[
+ ['docx','files/3-operational-plan-2026-2027.docx',{ar:'الخطة التشغيلية 2026–2027',en:'Operating plan 2026–2027'},'266 KB',{ar:'المراحل الخمس، والجدول الأسبوعي، وتوزيع المسؤوليات، ومؤشرات النجاح.',en:'The five phases, weekly schedule, responsibilities and success metrics.'}],
+ ['pdf','files/ewa-ai-club-executive-summary.pdf',{ar:'الملخص التنفيذي',en:'Executive summary'},'6 PAGES · 3.3 MB',{ar:'الفكرة، والهيكل، والخطة، والأثر المتوقع في صفحات مختصرة.',en:'The idea, structure, plan and expected impact in a few pages.'}],
+ ['docx','files/ewa-ai-club-full-file.docx',{ar:'الملف الشامل لنادي الذكاء الاصطناعي',en:'Full club file'},'1.4 MB',{ar:'المقترح الاستراتيجي والهيكل والخطة والأعضاء. نسخة بدون أرقام.',en:'Strategy, structure, plan and members. Copy without phone numbers or IDs.'}],
+ ['docx','files/1-members-structure.docx',{ar:'كشف الأعضاء والهيكل التنظيمي',en:'Members & structure'},'271 KB',{ar:'الهيكل، وخيارات إدارة الأقسام، وملفات الأعضاء. نسخة بدون أرقام.',en:'Structure, department options and member profiles. Copy without phone numbers or IDs.'}],
+ ['docx','files/2-members-suggestions.docx',{ar:'مقترحات الأعضاء ورغبتهم في الانضمام',en:'Member suggestions'},'264 KB',{ar:'مقترحات القائدة التسعة، ونوع عضوية كل عضو ومقترحه.',en:"The lead's nine proposals and each member's membership type and suggestion."}],
+ ['xlsx','files/ai-club-survey.xlsx',{ar:'ردود استمارة الانضمام',en:'Join-form responses'},'30 ROWS',{ar:'ردود الأعضاء الثلاثين. نسخة بدون الأرقام الأكاديمية وأرقام التواصل.',en:'All 30 responses. Copy without academic IDs or phone numbers.'}],
+ ['pdf','files/ewa-ai-club-visual-identity.pdf',{ar:'الهوية البصرية ومقترحات الإطلاق',en:'Visual identity & launch ideas'},'6 PAGES · 1.6 MB',{ar:'الشعارات المرشحة، والألوان والخطوط، والخطوات التالية.',en:'Shortlisted logos, colors and fonts, and next steps.'}]];
+const FI={pdf:'var(--bad)',docx:'var(--accent)',xlsx:'var(--ok)'};
+function renderFiles(){$('#fileGrid').innerHTML=FILES.map(([x,href,t,m,d])=>`<a class="panel spot file rv" href="${href}" download><span class="top"><span class="ic"><svg viewBox="0 0 42 50" fill="none"><path d="M3 3h24l12 12v32H3z" fill="var(--surface-2)" stroke="var(--line-2)" stroke-width="1.5" stroke-linejoin="round"/><path d="M27 3v12h12" stroke="var(--line-2)" stroke-width="1.5" stroke-linejoin="round"/><rect x="0" y="27" width="30" height="13" rx="3" fill="${FI[x]}"/><text x="15" y="36.5" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" font-weight="700" fill="var(--on-accent)">${x.toUpperCase()}</text></svg></span><span><h4>${esc(tx(t))}</h4><span class="meta">${m}</span></span></span><p>${esc(tx(d))}</p><span class="go"><span>${T('تحميل الملف','Download')}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></span></a>`).join('')}
+
+/* ---------- roadmap ---------- */
+const PH=[
+ {n:1,t:{ar:'التأسيس والانطلاق',en:'Setup & launch'},d:{ar:'14 أكتوبر – 4 نوفمبر 2026',en:'14 Oct – 4 Nov 2026'},s:'2026-10-14',e:'2026-11-10',p:{ar:'اعتماد الهيكل وتوزيع المهام، واللقاء التعريفي، وتهيئة الأعضاء الجدد، وتشكيل فرق المشاريع.',en:'Approve the structure and roles, hold the intro meeting, onboard new members and form project teams.'}},
+ {n:2,t:{ar:'التعلم والإطلاق',en:'Learn & launch'},d:{ar:'11 نوفمبر – 30 ديسمبر 2026',en:'11 Nov – 30 Dec 2026'},s:'2026-11-11',e:'2027-01-05',p:{ar:'ورش تطبيقية كل أسبوعين، وتحديات شهرية، ولقاءات خبراء، ومتابعة أولى لفرق المشاريع.',en:'Labs every two weeks, monthly challenges, expert talks and a first project check-in.'}},
+ {n:3,t:{ar:'البناء والتحدي',en:'Build & compete'},d:{ar:'6 يناير – 3 فبراير 2027',en:'6 Jan – 3 Feb 2027'},s:'2027-01-06',e:'2027-02-07',p:{ar:'نشر النماذج، وورشة الابتكار، وهاكاثون EWA AI المصغّر، والمتابعة الثانية للمشاريع.',en:'Model deployment, the innovation workshop, the EWA AI mini-hackathon and a second project check-in.'}},
+ {n:4,t:{ar:'رمضان: إيقاع خفيف',en:'Ramadan: lighter pace'},d:{ar:'8 فبراير – 9 مارس 2027 تقريبًا',en:'~8 Feb – 9 Mar 2027'},s:'2027-02-08',e:'2027-03-16',p:{ar:'جلسات قصيرة عن بُعد، ومحتوى يوم التأسيس، وعيادة لتجويد المشاريع قبل العرض النهائي.',en:'Short online sessions, Founding Day content, and a project clinic before the final demo.'}},
+ {n:5,t:{ar:'إظهار الأثر',en:'Show the impact'},d:{ar:'بعد عيد الفطر – 31 مارس 2027',en:'After Eid – 31 Mar 2027'},s:'2027-03-17',e:'2027-03-31',p:{ar:'معرض EWA AI Showcase، وتكريم الأعضاء، وقياس الرضا، وإعداد التقرير الختامي.',en:'The EWA AI Showcase, member awards, a satisfaction survey and the final report.'}}];
+const OWN={adm:['الإدارة','Admin'],tr:['التدريب والتطوير','Training'],pr:['العلاقات العامة','PR'],ev:['الفعاليات والتصميم','Events & Design'],all:['جميع الأقسام','All departments'],no:['—','—']};
+const own=k=>k.split('+').map(x=>T(OWN[x][0],OWN[x][1])).join(' + ');
+const EV=[
+ [1,'2026-10-14',{ar:'اجتماع الإدارة التأسيسي: اعتماد الهيكل وقادة الأقسام، وتوزيع المهام، واعتماد التقويم مع د. أنمار.',en:'Founding leadership meeting: approve the structure and department leads, assign roles, and agree the calendar with Dr. Anmar.'},{ar:'اجتماع',en:'Meeting'},'meet','adm'],
+ [1,'2026-10-21',{ar:'اللقاء التعريفي للأعضاء: التعريف بالمسارات والأقسام، وإطلاق بوابة العضو الجديد.',en:'Member intro meeting: present the tracks and departments, and launch the new-member portal.'},{ar:'فعالية',en:'Event'},'event','ev'],
+ [1,'2026-10-28',{ar:'أول «أربعاء الذكاء» + ورشة تهيئة: أساسيات Python للبيانات.',en:'First AI Wednesday + orientation workshop: Python for data.'},{ar:'ورشة تهيئة',en:'Orientation'},'lab','tr'],
+ [1,'2026-11-04',{ar:'أول جلسة AI Byte، وإطلاق مستودع الموارد ودليل الدورات، وتشكيل فرق المشاريع (3–4 أعضاء لكل فريق).',en:'First AI Byte, launch of the resource repository and course guide, and project teams formed (3–4 members each).'},{ar:'تأسيس',en:'Setup'},'meet','tr+adm'],
+ [2,'2026-11-11',{ar:'المختبر التطبيقي 1: تحليل البيانات وتصويرها باستخدام Pandas و Power BI.',en:'Lab 1: data analysis and visualization with Pandas and Power BI.'},{ar:'ورشة',en:'Lab'},'lab','tr'],
+ [2,'2026-11-18',{ar:'إطلاق تحدي نوفمبر: التنبؤ باستهلاك الطاقة.',en:'November challenge launches: forecasting energy consumption.'},{ar:'تحدٍّ',en:'Challenge'},'chal','tr+ev'],
+ [2,'2026-11-25',{ar:'المختبر التطبيقي 2: تعلم الآلة – الانحدار والتصنيف.',en:'Lab 2: machine learning – regression and classification.'},{ar:'ورشة',en:'Lab'},'lab','tr'],
+ [2,'2026-12-02',{ar:'إعلان نتائج تحدي نوفمبر ولوحة شرف نوفمبر.',en:'November challenge results and November honor board.'},{ar:'تكريم',en:'Awards'},'honor','adm+pr'],
+ [2,'2026-12-09',{ar:'المختبر التطبيقي 3: الرؤية الحاسوبية، مع إطلاق تحدي ديسمبر: تصنيف الصور.',en:'Lab 3: computer vision, plus the December challenge launch: image classification.'},{ar:'ورشة + تحدٍّ',en:'Lab + challenge'},'lab chal','tr'],
+ [2,'2026-12-16',{ar:'بمناسبة اليوم العالمي للغة العربية: لقاء خبير عن الذكاء الاصطناعي ومعالجة اللغة العربية.',en:'For World Arabic Language Day: an expert talk on AI and Arabic language processing.'},{ar:'لقاء خبير',en:'Expert talk'},'expert','pr+ev'],
+ [2,'2026-12-23',{ar:'المختبر التطبيقي 4: الذكاء التوليدي وهندسة الأوامر.',en:'Lab 4: generative AI and prompt engineering.'},{ar:'ورشة',en:'Lab'},'lab','tr'],
+ [2,'2026-12-30',{ar:'المتابعة الأولى لفرق المشاريع، ونتائج تحدي ديسمبر ولوحة شرفه.',en:'First project-team check-in, December challenge results and honor board.'},{ar:'متابعة',en:'Check-in'},'honor','adm'],
+ [3,'2027-01-06',{ar:'المختبر التطبيقي 5: نشر النماذج وأساسيات MLOps.',en:'Lab 5: model deployment and MLOps basics.'},{ar:'ورشة',en:'Lab'},'lab','tr'],
+ [3,'2027-01-13',{ar:'لقاء خبير من قطاع الطاقة والمياه، وإعلان الهاكاثون وفتح التسجيل.',en:'Expert talk from the energy and water sector; hackathon announced and registration opens.'},{ar:'لقاء خبير',en:'Expert talk'},'expert','pr+ev'],
+ [3,'2027-01-20',{ar:'ورشة الابتكار: التفكير التصميمي ومهارات عرض الأفكار أمام لجنة التحكيم.',en:'Innovation workshop: design thinking and pitching ideas to judges.'},{ar:'ورشة',en:'Workshop'},'lab','tr+ev'],
+ [3,'2027-01-27',{ar:'هاكاثون EWA AI المصغّر: يوم كامل لحل تحدٍّ حقيقي، وبناء نموذج أولي، والعرض أمام لجنة تحكيم.',en:'EWA AI mini-hackathon: a full day to solve a real challenge, build a prototype and pitch to judges.'},{ar:'هاكاثون',en:'Hackathon'},'chal event','all'],
+ [3,'2027-02-03',{ar:'تكريم الفائزين في الهاكاثون، ولوحة شرف يناير، والمتابعة الثانية للمشاريع.',en:'Hackathon winners honored, January honor board, and second project check-in.'},{ar:'تكريم',en:'Awards'},'honor','adm+pr'],
+ [4,'2027-02-10',{ar:'جلسة AI Byte رمضانية مسائية عن بُعد مدتها 20 دقيقة.',en:'A 20-minute evening Ramadan AI Byte, online.'},{ar:'عن بُعد',en:'Online'},'lab','tr'],
+ [4,'2027-02-17',{ar:'المختبر التطبيقي 6 عن بُعد: أخلاقيات الذكاء الاصطناعي والذكاء الاصطناعي المسؤول.',en:'Lab 6, online: AI ethics and responsible AI.'},{ar:'ورشة عن بُعد',en:'Online lab'},'lab','tr'],
+ [4,'2027-02-22',{ar:'يوم التأسيس: محتوى رقمي ومسابقة تربط الذكاء الاصطناعي بقصة التأسيس والطموح الوطني.',en:'Founding Day: digital content and a contest linking AI to the founding story and national ambition.'},{ar:'مناسبة وطنية',en:'National day'},'event','ev+pr'],
+ [4,'2027-02-24',{ar:'عيادة المشاريع عن بُعد: مراجعة كل فريق وتجهيز العرض النهائي.',en:'Online project clinic: review each team and prepare the final demo.'},{ar:'متابعة',en:'Check-in'},'honor','tr+adm'],
+ [4,'2027-03-03',{ar:'لوحة شرف فبراير، وإرسال دعوات المعرض الختامي.',en:'February honor board, and final showcase invitations sent.'},{ar:'تكريم',en:'Awards'},'honor','adm+pr'],
+ [4,'2027-03-10',{ar:'إجازة عيد الفطر (بحسب تقويم الأكاديمية).',en:'Eid al-Fitr break (per the academy calendar).'},{ar:'إجازة',en:'Break'},'off','no'],
+ [5,'2027-03-17',{ar:'البروفة النهائية لعروض المشاريع (أو أول أسبوع بعد عودة الدراسة).',en:'Final rehearsal for project demos (or the first week back).'},{ar:'تجهيز',en:'Rehearsal'},'honor','tr+ev'],
+ [5,'2027-03-24',{ar:'معرض EWA AI Showcase: عرض مشاريع الأعضاء أمام إدارة الأكاديمية والشركاء.',en:'EWA AI Showcase: members present their projects to academy leadership and partners.'},{ar:'معرض',en:'Showcase'},'event','all'],
+ [5,'2027-03-31',{ar:'الحفل الختامي وتكريم الأعضاء، وقياس رضا المشاركين، وتسليم التقرير الختامي لد. أنمار.',en:'Closing ceremony and member awards, satisfaction survey, and final report to Dr. Anmar.'},{ar:'ختام',en:'Closing'},'event','adm']];
+const D=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const now=new Date();const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+const nextEv=EV.find(e=>D(e[1])>=today);
+const phNow=PH.find(p=>today>=D(p.s)&&today<=D(p.e));
+const MON_AR=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const MON_EN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DAY_AR=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const DAY_EN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const fmtDate=s=>{const d=D(s);return LANG==='en'?`${DAY_EN[d.getDay()]} ${d.getDate()} ${MON_EN[d.getMonth()]} ${d.getFullYear()}`:`${DAY_AR[d.getDay()]} ${d.getDate()} ${MON_AR[d.getMonth()]} ${d.getFullYear()}`};
+const TYPE_CLS={meet:'',event:'o',lab:'a',chal:'c',expert:'g',honor:'',off:''};
+const EVF=[['all','الكل','All'],['lab','ورش وجلسات','Labs & sessions'],['chal','تحديات وهاكاثون','Challenges'],['expert','لقاءات خبراء','Expert talks'],['event','فعاليات','Events'],['honor','تكريم ومتابعة','Awards & check-ins']];
+let evNow='all';
+function renderPhases(){$('#phases').innerHTML=PH.map(p=>{const done=today>D(p.e),cur=phNow===p;return `<div class="panel spot phase rv ${done?'done':''} ${cur?'now':''}"><span class="idx"><span>PHASE_0${p.n}</span>${cur?'<span style="color:var(--orange)">● NOW</span>':done?'<span>✓ DONE</span>':''}</span><h4>${tx(p.t)}</h4><span class="dates">${tx(p.d)}</span><p>${tx(p.p)}</p></div>`}).join('')}
+function renderEvFilters(){$('#evFilters').innerHTML=EVF.map(([k,a,e])=>`<button class="chip" type="button" data-f="${k}" aria-pressed="${k===evNow}">${T(a,e)} <span class="mono">${k==='all'?EV.length:EV.filter(x=>x[4].split(' ').includes(k)).length}</span></button>`).join('')}
+function renderSched(){
+  let html='',last=0;
+  EV.filter(e=>evNow==='all'||e[4].split(' ').includes(evNow)).forEach(e=>{
+    if(e[0]!==last){last=e[0];const p=PH[e[0]-1];html+=`<div class="ph-row">PHASE_0${p.n} // ${tx(p.t)}</div>`}
+    const past=D(e[1])<today,isNext=e===nextEv;const cls=TYPE_CLS[e[4].split(' ')[0]];
+    html+=`<div class="ev ${past?'past':''} ${isNext?'next':''}"><div class="d">${e[1].slice(8)}.${e[1].slice(5,7)}<small>${fmtDate(e[1])}</small></div><div class="t">${tx(e[2])}</div><div><span class="tag ${cls}">${tx(e[3])}</span></div><div class="o">${own(e[5])}</div></div>`;
+  });
+  $('#sched').innerHTML=html;
+}
+$('#evFilters').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;evNow=b.dataset.f;$$('#evFilters .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderSched()});
+const daysWord=n=>LANG==='en'?(n===1?'day':'days'):(n===1?'يوم':n===2?'يومان':n<=10?'أيام':'يومًا');
+function renderSeason(){
+  const s=D('2026-10-14'),e=D('2027-03-31');const p=Math.max(0,Math.min(1,(today-s)/(e-s)));
+  $('#seasonFill').style.width=(p*100).toFixed(1)+'%';$('#seasonToday').style.insetInlineStart=(p*100).toFixed(1)+'%';$('#seasonPct').textContent=Math.round(p*100)+'%';
+  $('#seasonTxt').textContent=T('الموسم يبدأ في 14 أكتوبر 2026 وينتهي بالحفل الختامي في 31 مارس 2027.','The season runs from 14 October 2026 to the closing ceremony on 31 March 2027.');
+  if(nextEv){const days=Math.round((D(nextEv[1])-today)/864e5);
+    $('#cdBig').innerHTML=days===0?T('اليوم','Today'):`${days}<small>${daysWord(days)}</small>`;
+    $('#cdWhat').textContent=tx(nextEv[2]).split(':')[0];$('#cdWhen').textContent=fmtDate(nextEv[1])+' · '+own(nextEv[5]);
+    if(today<s){$('#statusTxt').textContent=T(`الانطلاق بعد ${days} ${days===2?'يومين':daysWord(days)} · 14 أكتوبر 2026`,`Launching in ${days} ${daysWord(days)} · 14 Oct 2026`);$('#codeStatus').textContent='launching'}
+    else{$('#statusTxt').textContent=T('الموسم الأول قيد التشغيل','Season one is running')+(phNow?' · '+tx(phNow.t):'');$('#codeStatus').textContent='running';$('#seasonTxt').textContent=T(`مضى ${Math.round(p*100)}% من الموسم. القادم: ${tx(nextEv[2]).split(':')[0]}.`,`${Math.round(p*100)}% of the season is done. Next up: ${tx(nextEv[2]).split(':')[0]}.`)}
+  }else{$('#cdBig').textContent='✓';$('#cdWhat').textContent=T('اكتمل الموسم الأول','Season one is complete');$('#cdWhen').textContent=T('الحفل الختامي 31 مارس 2027','Closing ceremony, 31 March 2027');$('#statusTxt').textContent=T('اكتمل الموسم الأول','Season one complete');$('#codeStatus').textContent='completed'}
+}
+
+/* ---------- survey charts ---------- */
+function hbars(el,data,max,alt){el.innerHTML=data.map(([l,v])=>`<div class="hbar ${alt?'alt':''}"><span class="lb">${l}</span><span class="tr"><span class="bf" style="--w:${(v/max*100).toFixed(1)}%"></span><span class="tip">${l}: ${v} / 30</span></span><span class="v">${v}</span></div>`).join('')}
+const skills={};M.forEach(m=>m.skills.forEach(s=>skills[s]=(skills[s]||0)+1));
+const skArr=Object.entries(skills).sort((a,b)=>b[1]-a[1]);
+function renderCharts(){
+  hbars($('#chSkills'),skArr.map(([s,v])=>[T(s,SKF[s]||s),v]),30);
+  hbars($('#chJoin'),[[T('عضو مستفيد (الأنشطة والورش)','Participant (activities & workshops)'),20],[T('الفريق التنفيذي والمنظم','Executive & organizing team'),9],[T('متطوع عند إقامة الفعاليات','Event volunteer'),1]],30,true);
+  hbars($('#chHours'),[[T('أقل من ساعة','Under 1 hour'),6],[T('من ساعة إلى ساعتين','1–2 hours'),20],[T('من 3 إلى 4 ساعات','3–4 hours'),3],[T('لم يحدد','Not stated'),1]],30,true);
+  $('#chDays').innerHTML=[26,1,3].map((v,i)=>`<div class="col"><b>${v}</b><i style="--h:${(v/26*100).toFixed(1)}%"></i><span class="tip">${T(['6','7','8'][i]+' أكتوبر',['6','7','8'][i]+' Oct')}: ${v}</span></div>`).join('');
+}
+if(!reduce&&'IntersectionObserver' in window){const co=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('grow');void e.target.offsetWidth;e.target.classList.add('grow');co.unobserve(e.target)}}),{threshold:.3});$$('.chart').forEach(c=>co.observe(c))}
+
+/* ---------- identity ---------- */
+const LOGOS=[
+ ['logo-mind',{ar:'العقل البشري',en:'Human Mind'},{ar:'مرشح 1',en:'Option 1'},{ar:'وجه جانبي متدرج بألوان النادي، يعبّر عن الإنسان في قلب الذكاء الاصطناعي. شعار جانبي: Smarter Minds for a Sustainable Tomorrow.',en:'A gradient side profile in club colors, putting people at the heart of AI. Tagline: Smarter Minds for a Sustainable Tomorrow.'},'a'],
+ ['logo-globe',{ar:'الكرة الرقمية',en:'Digital Globe'},{ar:'مرشح 2 · الموصى به',en:'Option 2 · recommended'},{ar:'كرة من نقاط البيانات مع أفق مائي. الأقرب لهوية الأكاديمية، وشعارها الجانبي: DATA × ENERGY × WATER.',en:"A globe of data points over a water horizon. Closest to the academy's identity. Tagline: DATA × ENERGY × WATER."},'g'],
+ ['logo-swirl',{ar:'الدوامة',en:'Swirl'},{ar:'مرشح 3',en:'Option 3'},{ar:'دوامة تشبه المجرّة أو تدفق الماء. حديثة ولافتة، وشعارها الجانبي: Turning Data into Impact.',en:'A swirl like a galaxy or flowing water. Modern and eye-catching. Tagline: Turning Data into Impact.'},'a'],
+ ['logo-desert',{ar:'حروف AI بالصحراء والبحر',en:'AI in Desert & Sea'},{ar:'محدد بالأحمر',en:'Flagged'},{ar:'يربط الذكاء الاصطناعي بأرض المملكة وبحرها. يحتاج قرارًا: هل هو مفضّل أم مستبعد؟',en:"Ties AI to the Kingdom's land and sea. Needs a decision: keep or drop?"},'o'],
+ ['logo-robot',{ar:'كوكبة الروبوت',en:'Robot Constellation'},{ar:'خطي',en:'Line art'},{ar:'رسم خطي أبيض مع الاسم العربي. بسيط ويطبع بلون واحد على الملصقات والقمصان.',en:'White line art with the Arabic name. Simple, and prints in one color on stickers and shirts.'},''],
+ ['logo-brain',{ar:'الدماغ الإلكتروني',en:'Circuit Brain'},{ar:'خطي',en:'Line art'},{ar:'دماغ بخطوط دوائر. معناه واضح فورًا، ويصلح أيقونة للحسابات والملصقات.',en:'A brain made of circuit lines. Instantly clear, and works as an avatar or sticker.'},'']];
+function renderLogos(){$('#logos').innerHTML=LOGOS.map(([f,t,b,d,c])=>`<button type="button" class="panel spot logo rv ${f==='logo-globe'?'rec':''}" data-zoom="img/${f}.webp" data-cap="${esc(tx(t))}"><span class="im"><img src="img/${f}.webp" alt="${esc(tx(t))}"></span><span class="meta"><span class="row"><h4>${tx(t)}</h4><span class="tag ${c}">${tx(b)}</span></span><p>${tx(d)}</p></span></button>`).join('')}
+const RT={'قوي':['s','Strong'],'متوسط':['m','Medium'],'ضعيف':['w','Weak'],'سهل':['s','Easy'],'ممكن':['m','Possible'],'صعب':['w','Hard'],'نعم':['s','Yes'],'لا':['w','No'],'عالٍ':['s','High']};
+const CMP={head:LOGOS.map(l=>l[1]),rows:[
+ [{ar:'الارتباط بالطاقة والمياه',en:'Link to energy & water'},['متوسط','قوي','متوسط','قوي','ضعيف','ضعيف']],
+ [{ar:'وضوح معنى الذكاء الاصطناعي',en:'Reads clearly as AI'},['متوسط','متوسط','ضعيف','قوي','قوي','قوي']],
+ [{ar:'الوضوح عند التصغير (أيقونة)',en:'Clear at icon size'},['متوسط','متوسط','قوي','متوسط','قوي','قوي']],
+ [{ar:'الطباعة بلون واحد',en:'Single-color printing'},['صعب','صعب','ممكن','صعب','سهل','سهل']],
+ [{ar:'يحتوي الاسم العربي',en:'Includes Arabic name'},['لا','لا','لا','لا','نعم','لا']],
+ [{ar:'الطابع الفاخر واللافت',en:'Premium, eye-catching feel'},['عالٍ','عالٍ','عالٍ','عالٍ','متوسط','متوسط']]]};
+function renderCmp(){$('#cmp').innerHTML=`<thead><tr><th>${T('المعيار','Criterion')}</th>${CMP.head.map((h,i)=>`<th${i===1?' style="color:var(--ok)"':''}>${tx(h)}</th>`).join('')}</tr></thead><tbody>${CMP.rows.map(([k,v])=>`<tr><td><b>${tx(k)}</b></td>${v.map(x=>`<td><span class="rate ${RT[x][0]}">${T(x,RT[x][1])}</span></td>`).join('')}</tr>`).join('')}</tbody>`}
+$$('.sw').forEach(b=>b.addEventListener('click',()=>{const h=b.dataset.hex;const done=()=>toast(T('تم نسخ ','Copied ')+h);if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(h).then(done,()=>toast(h))}else toast(h)}));
+const STEPS=[
+ [{ar:'تصويت الإدارة وقادة الأقسام على الشعار من القائمة المرشحة',en:'Leadership and department leads vote on the logo shortlist'},'adm',{ar:'الأربعاء 14 أكتوبر',en:'Wed 14 Oct'}],
+ [{ar:'إعادة رسم الشعار المعتمد بصيغة متجهة مع الاسم العربي وثلاث نسخ',en:'Redraw the chosen logo as a vector with the Arabic name, in three versions'},'ev',{ar:'قبل 18 أكتوبر',en:'Before 18 Oct'}],
+ [{ar:'تحديث بوستر الانضمام وبوستر الباركود بالهوية الموحدة',en:'Update the join and QR posters to the unified identity'},'ev',{ar:'قبل 18 أكتوبر',en:'Before 18 Oct'}],
+ [{ar:'تصميم ورقة الملصقات وطباعتها',en:'Design and print the sticker sheet'},'ev',{ar:'قبل 21 أكتوبر',en:'Before 21 Oct'}],
+ [{ar:'تجهيز عرض اللقاء التعريفي',en:'Prepare the intro-meeting deck'},'adm',{ar:'قبل 21 أكتوبر',en:'Before 21 Oct'}],
+ [{ar:'نشر الإعلانات في حسابات الأكاديمية ومجموعات الدفعات',en:'Post announcements on academy accounts and cohort groups'},'pr',{ar:'من 15 أكتوبر',en:'From 15 Oct'}],
+ [{ar:'أخذ موافقة الأكاديمية على استخدام اسمها وشعارها',en:"Get the academy's approval to use its name and logo"},'adm',{ar:'قبل النشر',en:'Before publishing'}]];
+let ck={};try{ck=JSON.parse(store.get('ewa-steps')||'{}')}catch(e){}
+function renderChecks(){$('#checks').innerHTML=STEPS.map(([t,o,w],i)=>`<label class="ck" for="ck${i}"><input type="checkbox" id="ck${i}" data-i="${i}" ${ck[i]?'checked':''}><span class="t">${tx(t)}</span><span class="o">${own(o)}</span><span class="w">${tx(w)}</span></label>`).join('');ckUpd()}
+function ckUpd(){const n=$$('#checks input:checked').length;$('#ckTxt').textContent=n+'/'+STEPS.length+' DONE';$('#ckFill').style.width=(n/STEPS.length*100)+'%'}
+$('#checks').addEventListener('change',e=>{ck[e.target.dataset.i]=e.target.checked;store.set('ewa-steps',JSON.stringify(ck));ckUpd()});
+
+/* lightbox */
+const lb=$('#lbDlg');
+document.addEventListener('click',e=>{const z=e.target.closest('[data-zoom]');if(!z)return;$('#lbImg').src=z.dataset.zoom;$('#lbImg').alt=z.dataset.cap||'';$('#lbCap').textContent=z.dataset.cap||'';lb.dir=LANG==='en'?'ltr':'rtl';lb.showModal()});
+lb.addEventListener('click',e=>{if(e.target===lb||e.target.closest('[data-close]'))lb.close()});
+
+/* ---------- language ---------- */
+function applyLang(l){
+  LANG=l;store.set('ewa-lang',l);
+  root.classList.toggle('en',l==='en');root.lang=l;root.dir=l==='en'?'ltr':'rtl';
+  const pg=$('#page');pg.dir=root.dir;pg.lang=l;
+  document.title=l==='en'?'EWA AI Club':'EWA AI Club · نادي الذكاء الاصطناعي';
+  $$('[data-ph-ar]').forEach(i=>i.placeholder=i.dataset['ph'+(l==='en'?'En':'Ar')]);
+  $('#langBtn').setAttribute('aria-label',l==='en'?'التبديل إلى العربية':'Switch to English');
+  renderFilters();renderMembers();renderFiles();renderPhases();renderEvFilters();renderSched();renderSeason();renderCharts();renderLogos();renderCmp();renderChecks();
+  reveal(document);
+}
+$('#langBtn').addEventListener('click',()=>applyLang(LANG==='en'?'ar':'en'));
+applyLang(LANG);
+})();
+</script>
