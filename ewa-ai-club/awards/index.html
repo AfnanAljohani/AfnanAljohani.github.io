@@ -235,6 +235,7 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
 .members li::before{content:counter(m,decimal-leading-zero);font-family:var(--mono);font-size:11px;color:var(--gold);min-width:18px}
 .members .pending{grid-column:1/-1;border:none;color:var(--muted);font-style:italic}
 .members .pending::before{content:none}
+@media (max-width:430px){ .members{grid-template-columns:1fr !important} }
 @media (max-width:560px){
   .team summary{grid-template-columns:30px 46px minmax(0,1fr) 16px;grid-template-areas:"o l n c" ". d d d";gap:10px;padding:10px 12px 12px 8px}
   .t-ord{grid-area:o} .t-logo{grid-area:l} .t-name{grid-area:n} .chev{grid-area:c} .t-lead{grid-area:d}
@@ -248,10 +249,22 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
 .foot b{font-family:var(--mono);font-weight:600;letter-spacing:.14em;color:var(--gold-hi);font-size:12px}
 
 @media (max-width:720px){
-  .podium{grid-template-columns:1fr;gap:34px}
-  .spot.r1{order:1} .spot.r2{order:2} .spot.r3{order:3}
-  .plinth{min-height:0 !important}
-  .awards{grid-template-columns:1fr;gap:34px}
+  .podium{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .spot.r2{order:1} .spot.r1{order:2} .spot.r3{order:3}
+  .spot .medal{width:min(92px,80%);padding:12%;box-shadow:0 0 0 3px var(--night),0 0 0 5px var(--ring,var(--gold)),0 0 22px -4px var(--ring,var(--gold))}
+  .spot .crown{width:30px;height:18px;margin-bottom:6px}
+  .medal.tba::after{font-size:34px}
+  .plinth{margin-top:14px;padding:12px 6px 10px;border-radius:10px 10px 4px 4px}
+  .r1 .plinth{min-height:118px} .r2 .plinth{min-height:100px} .r3 .plinth{min-height:88px}
+  .place{font-size:30px} .who{font-size:13.5px;margin-top:6px;line-height:1.25} .grp{font-size:9px;letter-spacing:.06em}
+  .awards{grid-template-columns:1fr;gap:10px;margin-top:56px}
+  .award{display:grid;grid-template-columns:76px minmax(0,1fr);grid-template-areas:"m h" "m p";column-gap:16px;row-gap:2px;align-items:center;text-align:left;padding:14px 16px}
+  .award .medal{grid-area:m;width:76px;padding:12%;box-shadow:0 0 0 3px var(--night),0 0 0 5px var(--gold),0 0 18px -4px var(--gold)}
+  .award .ico{position:absolute;left:68px;top:60px;margin:0;width:30px;height:30px;border-radius:8px}
+  .award .ico svg{width:17px;height:17px}
+  .award h3{grid-area:h;margin:0;align-self:end;font-size:16px}
+  .award p{grid-area:p;margin:0;align-self:start;font-size:14px}
+  .award .medal.tba::after{font-size:30px}
   .phasenav{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px} .phasenav::before{display:none} .pi .ic{width:58px;height:58px} .pi .ic svg{width:26px;height:26px}
   .top{flex-direction:column;align-items:flex-start} .mainnav{width:100%;justify-content:space-between} .mainnav a{padding:8px 12px;font-size:13px}
   .club{font-size:13px}
