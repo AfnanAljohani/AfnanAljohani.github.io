@@ -120,6 +120,31 @@ h1{font-family:var(--display);font-weight:900;font-size:clamp(38px,7.4vw,84px);l
 .co .lg .vtext{font-family:var(--display);font-weight:800;color:var(--tile-ink);text-align:center;line-height:1.15}
 .co .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 12px;font-size:13px;font-weight:600}
 .co .meta span{font-family:var(--mono);font-size:11px;color:var(--gold-hi);white-space:nowrap}
+/* announcements */
+.ann{padding-block:20px 50px;border-top:1px solid rgba(163,174,208,.15)}
+.ann .sec-h{margin-top:30px}
+.post{border:1px solid var(--line);border-radius:18px;padding:22px;background:linear-gradient(180deg,rgba(23,52,137,.35),rgba(6,13,38,.7))}
+.post header{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pill{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#2a1a00;background:linear-gradient(180deg,var(--gold-hi),var(--gold));padding:4px 10px;border-radius:99px;font-weight:600}
+.post time{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--muted)}
+.post h3{font-family:var(--display);font-weight:800;font-size:22px;margin:12px 0 0;color:var(--ink)}
+.post p{margin:6px 0 0;color:var(--muted);max-width:65ch}
+.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.shot{position:relative;display:block;padding:0;border:1px solid rgba(163,174,208,.25);border-radius:12px;overflow:hidden;background:#000;cursor:zoom-in;aspect-ratio:4/5;max-width:100%}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .3s}
+.shot:hover img{transform:scale(1.03)}
+.shot span{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 10px;font-size:13px;font-weight:600;color:#fff;text-align:left;background:linear-gradient(transparent,rgba(0,0,0,.8))}
+.shot:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+dialog#viewer{border:none;padding:0;background:transparent;max-width:min(92vw,1000px);max-height:92vh;overflow:visible}
+dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
+#viewer figure{margin:0;text-align:center}
+#viewer img{max-width:min(92vw,1000px);max-height:82vh;border-radius:10px;display:block;margin:0 auto}
+#viewer figcaption{margin-top:10px;color:var(--ink);font-size:14px}
+.vclose,.vnav{position:absolute;border:1px solid var(--line);background:rgba(6,13,38,.85);color:var(--gold-hi);border-radius:50%;width:44px;height:44px;font-size:26px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.vclose{top:-14px;right:-14px}
+.vnav{top:calc(50% - 22px)} .vnav.prev{left:-58px} .vnav.next{right:-58px}
+@media (max-width:720px){ .shots{grid-template-columns:1fr} .vnav.prev{left:6px} .vnav.next{right:6px} .vclose{right:6px;top:6px} }
+@media (prefers-reduced-motion:reduce){ .shot img{transition:none} }
 /* organizers + live */
 .admin{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:44px;padding:16px 18px;border:1px dashed var(--line);border-radius:14px;background:rgba(232,182,74,.05)}
 .admin b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--gold-hi)}
@@ -211,6 +236,10 @@ h1{font-family:var(--display);font-weight:900;font-size:clamp(38px,7.4vw,84px);l
 
 <main class="wrap">
   <section class="panel" id="panel" aria-live="polite"></section>
+  <section class="ann" id="announcements" aria-labelledby="ann-h">
+    <div class="sec-h"><h2 id="ann-h">Announcements</h2><p>News and posters for the AI batch.</p></div>
+    <div id="annList"></div>
+  </section>
   <section class="field">
     <div class="sec-h"><h2>Competing Teams</h2><p>16 teams from 11 partner companies presented their capstone projects.</p></div>
     <div class="logos" id="logos"></div>
@@ -221,8 +250,14 @@ h1{font-family:var(--display);font-weight:900;font-size:clamp(38px,7.4vw,84px);l
     <div class="roster" id="roster"></div>
   </section>
 </main>
-<footer class="foot wrap"><b>EWA AI CLUB</b><br>Energy &amp; Water Academy</footer>
+<footer class="foot wrap"><b>ENERGY &amp; WATER ACADEMY</b><br>AI &amp; Data Science Diploma</footer>
 
+<dialog id="viewer" aria-label="Announcement image">
+  <button type="button" class="vclose" id="vClose" aria-label="Close">×</button>
+  <button type="button" class="vnav prev" id="vPrev" aria-label="Previous image">‹</button>
+  <figure><img id="vImg" alt=""><figcaption id="vCap"></figcaption></figure>
+  <button type="button" class="vnav next" id="vNext" aria-label="Next image">›</button>
+</dialog>
 <script>
 /* ===== Settings: paste the two Google links here ===== */
 const CONFIG = {
@@ -236,6 +271,14 @@ const CO = {
   vision:"Vision Industries", jigpc:"JIGPC", tabreed:"Saudi Tabreed", datavolt:"DataVolt", miahona:"Miahona"
 };
 const ROSTER = [{"order": "01", "group": "11", "name": "Tasnee", "logo": "tasnee", "members": ["Bandar Alzahrani", "Khaled Alqarni", "Bandar Alshammari"]}, {"order": "02", "group": "02", "name": "ACWA Power — Team 2", "logo": "acwa", "members": ["Mawaddah Alghamdi", "Najah Alsabei", "Fahad Alyami", "Ahmed Alsayed", "Laila Alarjani", "Sumaya Almusabi", "Lama Alqathami", "Mohammed Alsafari", "Raed Alaziri"]}, {"order": "03", "group": "05", "name": "Devoteam — Team 2", "logo": "devoteam", "members": ["Tala Fairaq", "Sultan Balharith", "Abdullah Alshahwan", "Afnan Alkhalidi", "Saud Alsuwaih", "Raghad Almutairi", "Abdulrahman Alraddadi", "Jouri Aljuaid", "Raneem Alsulami", "Ghaida Alqurashi"]}, {"order": "04", "group": "16", "name": "GIB", "logo": "gib", "members": ["Abeer Alakkoz", "Ziad Alzahrani"]}, {"order": "05", "group": "12", "name": "Vision Industries", "logo": "vision", "members": ["Afrah Alzahrani", "Rahaf Alqurashi", "Mohammed Alzuhair", "Faisal Alotaibi", "Abdulaziz Alrashidi", "Ibrahim Abu Musmar"]}, {"order": "06", "group": "04", "name": "Devoteam — Team 1", "logo": "devoteam", "members": ["Manal Washa", "Aljawhara Alharbi", "Salem Basfar", "Jood Alwajeeh", "Aseel Aljohani", "Yara Hakami", "Ghadah Aldhaheri", "Osama Alruwaithi", "Ebtehal Alshammari", "Abdullah Alghamdi"]}, {"order": "07", "group": "15", "name": "JIGPC", "logo": "jigpc", "members": ["Yahya Madkhali", "Maimona Jaafari", "Alwaleed Almutami"]}, {"order": "08", "group": "03", "name": "ACWA Power — Team 3", "logo": "acwa", "members": []}, {"order": "09", "group": "10", "name": "Saudi Tabreed", "logo": "tabreed", "members": ["Abdullah Althubaiti", "Sulaiman Alshammari", "Abdulrahman Alqusair", "Abdulaziz Alshammari"]}, {"order": "10", "group": "14", "name": "Panda", "logo": "panda", "members": ["Khaled Alharbi", "Sarah Alshamrani", "Shahad Marwi", "Rahaf Alhadrami", "Afnan Aljohani"]}, {"order": "11", "group": "09", "name": "DataVolt", "logo": "datavolt", "members": ["Reema Alotaibi", "Raghad Altarisi", "Badr Aldhaheri", "Abdullah Alshehri", "Taif Alharbi"]}, {"order": "12", "group": "01", "name": "ACWA Power — Team 1", "logo": "acwa", "members": ["Abdullah Al-Lajam", "Ameera Altalhi", "Ahmed Alzughaybi", "Raghad Asiri", "Raghad Albalawi", "Abdulrahman Hakim", "Rafa Almazroui", "Ayed Aldosari", "Ibrahim Alhaseel"]}, {"order": "13", "group": "08", "name": "Maaden — Team 3", "logo": "maaden", "members": ["Ahd Alfarsi", "Elaf Alsaedi", "Doaa Barnawi", "Atheer Alkhudair", "Marwan Aljohani", "Raghad Alghamdi", "Abdulrahman Qoutah", "Shouq Alsulami", "Ebtehal Alomrani"]}, {"order": "14", "group": "13", "name": "Miahona", "logo": "miahona", "members": ["Maria Alharbi", "Abdulaziz Alotaibi", "Abdulaziz Alolayani", "Khaled Alarki"]}, {"order": "15", "group": "06", "name": "Maaden — Team 1", "logo": "maaden", "members": ["Sarah Alwadhinani", "Rawan Alkhalidi", "Shumoukh Alotaibi", "Haitham Al-Marai", "Sarah Alsheikh", "Najla Qari", "Ibrahim Asiri", "Nada Alharbi", "Majd Albogami", "Abdulrahman Alkhalidi"]}, {"order": "16", "group": "07", "name": "Maaden — Team 2", "logo": "maaden", "members": ["Raghad Almurshidi", "Lamees Alanzi", "Sarah Alsaleem", "Shahad Mahzari", "Firas Bukhari", "Rana Althaqafi", "Mohammed Almutairi", "Lujain Alsulami", "Osama Alshehri", "Abrar Alasiri"]}];
+/* Announcements: newest first */
+const ANN = [
+  { tag:"Phases 1–3", date:"8 October 2026", title:"Phases 1–3 presentations and winners",
+    text:"Sixteen teams presented Business Understanding, Data Understanding and Data Preparation in one combined session.",
+    images:[ { src:"img/agenda.jpg", caption:"Presentation agenda" },
+             { src:"img/winning.jpg", caption:"3 Winning Teams" },
+             { src:"img/innovative.jpg", caption:"3 Innovative Teams" } ] }
+];
 /* Built-in results. The Google Form adds to these and can replace any of them. */
 const BASE = {
   3: { label:"Phases 1–3", name:"Business Understanding, Data Understanding & Data Preparation", date:"Presented 8 October 2026", rows:[
@@ -363,6 +406,27 @@ tAll.addEventListener("click", () => {
 document.getElementById("roster").addEventListener("toggle", () => {
   tAll.textContent = [...document.querySelectorAll(".team")].every(d => d.open) ? "Collapse all" : "Expand all";
 }, true);
+
+/* announcements + image viewer */
+document.getElementById("annList").innerHTML = ANN.map((a, ai) => `
+  <article class="post">
+    <header><span class="pill">${esc(a.tag)}</span><time>${esc(a.date)}</time></header>
+    <h3>${esc(a.title)}</h3><p>${esc(a.text)}</p>
+    <div class="shots">${a.images.map((im, ii) => `
+      <button type="button" class="shot" data-a="${ai}" data-i="${ii}" aria-label="Open ${esc(im.caption)}">
+        <img src="${im.src}" alt="${esc(im.caption)}" loading="lazy"><span>${esc(im.caption)}</span></button>`).join("")}</div>
+  </article>`).join("");
+const dlg = document.getElementById("viewer"); let cur = [0,0];
+function show(a, i){ const set = ANN[a].images; i = (i + set.length) % set.length; cur = [a, i];
+  document.getElementById("vImg").src = set[i].src; document.getElementById("vImg").alt = set[i].caption;
+  document.getElementById("vCap").textContent = `${set[i].caption} · ${ANN[a].tag} · ${ANN[a].date}`; }
+document.getElementById("annList").addEventListener("click", e => { const b = e.target.closest(".shot"); if (!b) return;
+  show(+b.dataset.a, +b.dataset.i); dlg.showModal(); });
+document.getElementById("vClose").onclick = () => dlg.close();
+document.getElementById("vPrev").onclick = () => show(cur[0], cur[1]-1);
+document.getElementById("vNext").onclick = () => show(cur[0], cur[1]+1);
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+dlg.addEventListener("keydown", e => { if (e.key === "ArrowLeft") show(cur[0], cur[1]-1); if (e.key === "ArrowRight") show(cur[0], cur[1]+1); });
 
 function route(){ const m = location.hash.match(/^#phase-(3|4)$/); render(m ? m[1] : "3"); }
 addEventListener("hashchange", route);
