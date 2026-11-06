@@ -57,8 +57,8 @@ h1{font-family:var(--display);font-weight:900;font-size:clamp(38px,7.4vw,84px);l
 .mainnav a:hover{color:var(--gold-hi)}
 .mainnav a[aria-current="page"]{color:#2a1a00;background:linear-gradient(180deg,var(--gold-hi),var(--gold));box-shadow:0 4px 16px rgba(232,182,74,.3)}
 .mainnav a:focus-visible{outline:2px solid var(--gold-hi);outline-offset:2px}
-.phasenav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;max-width:1000px;margin:36px auto 0;position:relative}
-.phasenav::before{content:"";position:absolute;left:8%;right:8%;top:35px;height:2px;background:linear-gradient(90deg,rgba(232,182,74,.15),rgba(232,182,74,.6),rgba(232,182,74,.15));z-index:0}
+.phasenav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:760px;margin:36px auto 0;position:relative}
+.phasenav::before{content:"";position:absolute;left:12%;right:12%;top:35px;height:2px;background:linear-gradient(90deg,rgba(232,182,74,.15),rgba(232,182,74,.6),rgba(232,182,74,.15));z-index:0}
 .pi{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;text-decoration:none;color:var(--ink);padding:0 4px 6px;border-radius:14px;min-width:0}
 .pi .ic{position:relative;width:70px;height:70px;border-radius:50%;display:grid;place-items:center;margin-bottom:8px;color:var(--gold-hi);
   background:radial-gradient(circle at 50% 35%,#1d2f6e,#08112f);box-shadow:0 0 0 2px var(--night),0 0 0 3.5px var(--gold),0 6px 18px rgba(0,0,0,.4);transition:transform .2s,box-shadow .2s}
@@ -252,7 +252,7 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
   .spot.r1{order:1} .spot.r2{order:2} .spot.r3{order:3}
   .plinth{min-height:0 !important}
   .awards{grid-template-columns:1fr;gap:34px}
-  .phasenav{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:22px} .phasenav::before{display:none} .pi .ic{width:58px;height:58px} .pi .ic svg{width:26px;height:26px}
+  .phasenav{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px} .phasenav::before{display:none} .pi .ic{width:58px;height:58px} .pi .ic svg{width:26px;height:26px}
   .top{flex-direction:column;align-items:flex-start} .mainnav{width:100%;justify-content:space-between} .mainnav a{padding:8px 12px;font-size:13px}
   .club{font-size:13px}
 }
@@ -326,10 +326,8 @@ const CO = {
 };
 const ROSTER = [{"order": "01", "group": "11", "name": "Tasnee", "logo": "tasnee", "members": ["Bandar Alzahrani", "Khaled Alqarni", "Bandar Alshammari"]}, {"order": "02", "group": "02", "name": "ACWA Power — Team 2", "logo": "acwa", "members": ["Mawaddah Alghamdi", "Najah Alsabei", "Fahad Alyami", "Ahmed Alsayed", "Laila Alarjani", "Sumaya Almusabi", "Lama Alqathami", "Mohammed Alsafari", "Raed Alaziri"]}, {"order": "03", "group": "05", "name": "Devoteam — Team 2", "logo": "devoteam", "members": ["Tala Fairaq", "Sultan Balharith", "Abdullah Alshahwan", "Afnan Alkhalidi", "Saud Alsuwaih", "Raghad Almutairi", "Abdulrahman Alraddadi", "Jouri Aljuaid", "Raneem Alsulami", "Ghaida Alqurashi"]}, {"order": "04", "group": "16", "name": "GIB", "logo": "gib", "members": ["Abeer Alakkoz", "Ziad Alzahrani"]}, {"order": "05", "group": "12", "name": "Vision Industries", "logo": "vision", "members": ["Afrah Alzahrani", "Rahaf Alqurashi", "Mohammed Alzuhair", "Faisal Alotaibi", "Abdulaziz Alrashidi", "Ibrahim Abu Musmar"]}, {"order": "06", "group": "04", "name": "Devoteam — Team 1", "logo": "devoteam", "members": ["Manal Washa", "Aljawhara Alharbi", "Salem Basfar", "Jood Alwajeeh", "Aseel Aljohani", "Yara Hakami", "Ghadah Aldhaheri", "Osama Alruwaithi", "Ebtehal Alshammari", "Abdullah Alghamdi"]}, {"order": "07", "group": "15", "name": "JIGPC", "logo": "jigpc", "members": ["Yahya Madkhali", "Maimona Jaafari", "Alwaleed Almutami"]}, {"order": "08", "group": "03", "name": "ACWA Power — Team 3", "logo": "acwa", "members": []}, {"order": "09", "group": "10", "name": "Saudi Tabreed", "logo": "tabreed", "members": ["Abdullah Althubaiti", "Sulaiman Alshammari", "Abdulrahman Alqusair", "Abdulaziz Alshammari"]}, {"order": "10", "group": "14", "name": "Panda", "logo": "panda", "members": ["Khaled Alharbi", "Sarah Alshamrani", "Shahad Marwi", "Rahaf Alhadrami", "Afnan Aljohani"]}, {"order": "11", "group": "09", "name": "DataVolt", "logo": "datavolt", "members": ["Reema Alotaibi", "Raghad Altarisi", "Badr Aldhaheri", "Abdullah Alshehri", "Taif Alharbi"]}, {"order": "12", "group": "01", "name": "ACWA Power — Team 1", "logo": "acwa", "members": ["Abdullah Al-Lajam", "Ameera Altalhi", "Ahmed Alzughaybi", "Raghad Asiri", "Raghad Albalawi", "Abdulrahman Hakim", "Rafa Almazroui", "Ayed Aldosari", "Ibrahim Alhaseel"]}, {"order": "13", "group": "08", "name": "Maaden — Team 3", "logo": "maaden", "members": ["Ahd Alfarsi", "Elaf Alsaedi", "Doaa Barnawi", "Atheer Alkhudair", "Marwan Aljohani", "Raghad Alghamdi", "Abdulrahman Qoutah", "Shouq Alsulami", "Ebtehal Alomrani"]}, {"order": "14", "group": "13", "name": "Miahona", "logo": "miahona", "members": ["Maria Alharbi", "Abdulaziz Alotaibi", "Abdulaziz Alolayani", "Khaled Alarki"]}, {"order": "15", "group": "06", "name": "Maaden — Team 1", "logo": "maaden", "members": ["Sarah Alwadhinani", "Rawan Alkhalidi", "Shumoukh Alotaibi", "Haitham Al-Marai", "Sarah Alsheikh", "Najla Qari", "Ibrahim Asiri", "Nada Alharbi", "Majd Albogami", "Abdulrahman Alkhalidi"]}, {"order": "16", "group": "07", "name": "Maaden — Team 2", "logo": "maaden", "members": ["Raghad Almurshidi", "Lamees Alanzi", "Sarah Alsaleem", "Shahad Mahzari", "Firas Bukhari", "Rana Althaqafi", "Mohammed Almutairi", "Lujain Alsulami", "Osama Alshehri", "Abrar Alasiri"]}];
 /* Phases and dates from the program schedule (EWA Association Degree, AI Diploma Cohort 1) */
-const ORDER = ["1","2","1-3","4","5","6"];
+const ORDER = ["1-3","4","5","6"];   // Phases 1 and 2 had no awards
 const BASE = {
-  "1":   { label:"Phase 1", name:"Business Understanding", sub:"Team Projects 1st Presentation · Framing the Business Problem", date:"2026-06-11", rows:[] },
-  "2":   { label:"Phase 2", name:"Data Understanding", sub:"Team Projects 2nd Presentation · Data Understanding & Data Visualization", date:"2026-07-16", rows:[] },
   "1-3": { label:"Phases 1–3", name:"Business Understanding, Data Understanding & Data Preparation", sub:"Team Projects 3rd Presentation · one combined session", date:"2026-10-08", rows:[
        ["1st Place","Maaden — Team 3"], ["2nd Place","Devoteam — Team 1"], ["3rd Place","Panda"],
        ["Most Innovative Project Video","Maaden — Team 1"], ["Most Innovative Website","Panda"], ["Best Dashboard","Maaden — Team 2"] ] },
@@ -339,8 +337,8 @@ const BASE = {
 };
 /* Team project presentations (program schedule) */
 const PRES = [
-  { n:1, date:"2026-06-11", phase:"1", tag:"Phase 1", title:"Business Understanding", text:"Framing the business problem." },
-  { n:2, date:"2026-07-16", phase:"2", tag:"Phase 2", title:"Data Understanding", text:"Data understanding and data visualization." },
+  { n:1, date:"2026-06-11", tag:"Phase 1", title:"Business Understanding", text:"Framing the business problem." },
+  { n:2, date:"2026-07-16", tag:"Phase 2", title:"Data Understanding", text:"Data understanding and data visualization." },
   { n:3, date:"2026-10-08", phase:"1-3", tag:"Phases 1–3", title:"Data Preparation · combined Phases 1–3", text:"Sixteen teams, 15 minutes each, covering the first three CRISP-DM phases.",
     images:[ { src:"img/agenda.jpg", caption:"Presentation agenda" } ] },
   { n:4, date:"2026-11-05", phase:"4", tag:"Phase 4", pending:true, title:"Modeling · AI Solution with Machine Learning", text:"Sixteen teams, 15 minutes each." },
@@ -562,7 +560,7 @@ function route(){
   document.getElementById("heroEye").textContent = HERO[view][0];
   document.getElementById("heroTitle").textContent = HERO[view][1];
   if (view === "awards") {
-    const m = h.match(/^#phase-(1-3|[1-6])$/);
+    const m = h.match(/^#phase-(1-3|[3-6])$/);
     let p = m ? (m[1] === "3" ? "1-3" : m[1]) : null;
     if (!p) p = [...ORDER].reverse().find(k => PHASES[k].announced) || "1-3";
     render(p);
