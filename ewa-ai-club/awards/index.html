@@ -51,19 +51,21 @@ h1{font-family:var(--display);font-weight:900;font-size:clamp(38px,7.4vw,84px);l
 .rule s{width:9px;height:9px;background:var(--gold);transform:rotate(45deg);text-decoration:none}
 
 /* CRISP-DM track */
-.track{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:820px;margin:30px auto 0;counter-reset:ph}
-.step{position:relative;padding:12px 10px 12px;border:1px solid rgba(163,174,208,.25);border-radius:10px;background:rgba(6,13,38,.45);text-align:left;min-width:0}
-.step small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
-.step strong{display:block;font-size:14px;line-height:1.25;margin-top:2px}
-.step em{display:inline-block;margin-top:8px;font-style:normal;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;padding:2px 7px;border-radius:99px;border:1px solid rgba(163,174,208,.3);color:var(--muted)}
-.step.won{border-color:var(--line)} .step.won em{color:var(--gold-hi);border-color:var(--line);background:rgba(232,182,74,.1)}
+.timeline{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:34px auto 0;max-width:1080px;position:relative}
+.timeline::before{content:"";position:absolute;left:4%;right:4%;top:50%;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);z-index:0}
+.step{position:relative;z-index:1;display:flex;flex-direction:column;gap:3px;padding:12px 12px 12px;border:1px solid rgba(163,174,208,.25);border-radius:12px;background:rgba(6,13,38,.7);text-align:left;min-width:0;text-decoration:none;color:var(--ink);transition:border-color .2s,transform .2s}
+.step:hover{border-color:var(--line);transform:translateY(-2px)}
+.step:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+.step small{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
+.step strong{font-size:14px;line-height:1.25}
+.step time{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.step em{align-self:flex-start;margin-top:6px;font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:2px 7px;border-radius:99px;border:1px solid rgba(163,174,208,.3);color:var(--muted);white-space:nowrap}
+.step.won em{color:var(--gold-hi);border-color:var(--line);background:rgba(232,182,74,.1)}
 .step.next{border-color:rgba(120,200,255,.55);box-shadow:0 0 22px rgba(80,170,255,.2)} .step.next em{color:#bfe6ff;border-color:rgba(120,200,255,.5)}
-
-/* tabs */
-.tabs{display:flex;justify-content:center;gap:8px;margin-top:34px;flex-wrap:wrap}
-.tabs a{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.08em;text-decoration:none;color:var(--muted);padding:11px 20px;border-radius:99px;border:1px solid rgba(163,174,208,.3);background:rgba(6,13,38,.5)}
-.tabs a[aria-current="page"]{color:#2a1a00;background:linear-gradient(180deg,var(--gold-hi),var(--gold));border-color:transparent;box-shadow:0 6px 22px rgba(232,182,74,.3)}
-.tabs a:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+.step.final strong::after{content:" ★";color:var(--gold)}
+.step[aria-current="page"]{border-color:transparent;background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#2a1a00;box-shadow:0 8px 24px rgba(232,182,74,.3)}
+.step[aria-current="page"] small,.step[aria-current="page"] time{color:#5a3d00}
+.step[aria-current="page"] em{color:#2a1a00;border-color:rgba(42,26,0,.35);background:rgba(255,255,255,.25)}
 
 /* sections */
 .panel{padding-block:44px 30px}
@@ -121,6 +123,26 @@ h1{font-family:var(--display);font-weight:900;font-size:clamp(38px,7.4vw,84px);l
 .co .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 12px;font-size:13px;font-weight:600}
 .co .meta span{font-family:var(--mono);font-size:11px;color:var(--gold-hi);white-space:nowrap}
 /* announcements */
+.ann-group{margin-top:26px}
+.ann-group > h3{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;font-weight:600}
+.ann-list{display:grid;gap:10px}
+.item{display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;align-items:start;padding:14px 16px;border:1px solid rgba(163,174,208,.2);border-radius:14px;background:rgba(11,26,72,.5)}
+.item .when{text-align:center;border-radius:10px;padding:8px 4px;background:rgba(6,13,38,.8);border:1px solid rgba(163,174,208,.2);font-variant-numeric:tabular-nums}
+.item .when b{display:block;font-family:var(--display);font-weight:800;font-size:26px;line-height:1;color:var(--gold-hi)}
+.item .when span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.item.up{border-color:rgba(120,200,255,.4)} .item.up .when b{color:#bfe6ff}
+.item.soon{border-color:rgba(120,200,255,.7);box-shadow:0 0 22px rgba(80,170,255,.15)}
+.item h4{margin:0;font-size:17px;font-weight:700;color:var(--ink)}
+.item p{margin:3px 0 0;color:var(--muted);font-size:14px}
+.item .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:5px}
+.tagx{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--gold-hi)}
+.tagx.exam{border-color:rgba(255,150,150,.45);color:#ffc2c2}
+.tagx.prog{border-color:rgba(163,174,208,.4);color:var(--muted)}
+.item .soonchip{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#04203f;background:#9fdcff;padding:2px 8px;border-radius:99px}
+.item .more{margin-top:8px;font-size:13px;font-weight:600;color:var(--gold-hi);text-decoration:none}
+.item .more:hover{text-decoration:underline}
+.item .shots{margin-top:12px}
+@media (max-width:560px){ .item{grid-template-columns:70px minmax(0,1fr);gap:12px;padding:12px} .item .when b{font-size:22px} }
 .ann{padding-block:20px 50px;border-top:1px solid rgba(163,174,208,.15)}
 .ann .sec-h{margin-top:30px}
 .post{border:1px solid var(--line);border-radius:18px;padding:22px;background:linear-gradient(180deg,rgba(23,52,137,.35),rgba(6,13,38,.7))}
@@ -204,9 +226,10 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
   .spot.r1{order:1} .spot.r2{order:2} .spot.r3{order:3}
   .plinth{min-height:0 !important}
   .awards{grid-template-columns:1fr;gap:34px}
-  .track{grid-template-columns:repeat(2,1fr)}
+  .timeline{grid-template-columns:repeat(2,minmax(0,1fr))} .timeline::before{display:none}
   .club{font-size:13px}
 }
+@media (min-width:721px) and (max-width:1000px){ .timeline{grid-template-columns:repeat(3,minmax(0,1fr))} .timeline::before{display:none} }
 @media (min-width:721px){ .spot.r2{order:1} .spot.r1{order:2} .spot.r3{order:3} }
 @media (prefers-reduced-motion:reduce){ #sparkle{display:none} }
 </style>
@@ -225,11 +248,7 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
       <h1>AI Projects Awards</h1>
       <div class="tag">Empowering Generations, Powering the Nation</div>
       <div class="rule"><i></i><s></s><i></i></div>
-      <div class="track" id="track"></div>
-      <nav class="tabs" aria-label="Phase">
-        <a href="#phase-3" data-phase="3">Phases 1–3 Winners</a>
-        <a href="#phase-4" data-phase="4">Phase 4 Winners</a>
-      </nav>
+      <nav class="timeline" id="track" aria-label="Project phases"></nav>
     </section>
   </div>
 </div>
@@ -237,7 +256,7 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
 <main class="wrap">
   <section class="panel" id="panel" aria-live="polite"></section>
   <section class="ann" id="announcements" aria-labelledby="ann-h">
-    <div class="sec-h"><h2 id="ann-h">Announcements</h2><p>News and posters for the AI batch.</p></div>
+    <div class="sec-h"><h2 id="ann-h">Announcements</h2><p>Presentations, exams and key dates for AI Diploma Cohort 1, from the program schedule.</p></div>
     <div id="annList"></div>
   </section>
   <section class="field">
@@ -271,21 +290,43 @@ const CO = {
   vision:"Vision Industries", jigpc:"JIGPC", tabreed:"Saudi Tabreed", datavolt:"DataVolt", miahona:"Miahona"
 };
 const ROSTER = [{"order": "01", "group": "11", "name": "Tasnee", "logo": "tasnee", "members": ["Bandar Alzahrani", "Khaled Alqarni", "Bandar Alshammari"]}, {"order": "02", "group": "02", "name": "ACWA Power — Team 2", "logo": "acwa", "members": ["Mawaddah Alghamdi", "Najah Alsabei", "Fahad Alyami", "Ahmed Alsayed", "Laila Alarjani", "Sumaya Almusabi", "Lama Alqathami", "Mohammed Alsafari", "Raed Alaziri"]}, {"order": "03", "group": "05", "name": "Devoteam — Team 2", "logo": "devoteam", "members": ["Tala Fairaq", "Sultan Balharith", "Abdullah Alshahwan", "Afnan Alkhalidi", "Saud Alsuwaih", "Raghad Almutairi", "Abdulrahman Alraddadi", "Jouri Aljuaid", "Raneem Alsulami", "Ghaida Alqurashi"]}, {"order": "04", "group": "16", "name": "GIB", "logo": "gib", "members": ["Abeer Alakkoz", "Ziad Alzahrani"]}, {"order": "05", "group": "12", "name": "Vision Industries", "logo": "vision", "members": ["Afrah Alzahrani", "Rahaf Alqurashi", "Mohammed Alzuhair", "Faisal Alotaibi", "Abdulaziz Alrashidi", "Ibrahim Abu Musmar"]}, {"order": "06", "group": "04", "name": "Devoteam — Team 1", "logo": "devoteam", "members": ["Manal Washa", "Aljawhara Alharbi", "Salem Basfar", "Jood Alwajeeh", "Aseel Aljohani", "Yara Hakami", "Ghadah Aldhaheri", "Osama Alruwaithi", "Ebtehal Alshammari", "Abdullah Alghamdi"]}, {"order": "07", "group": "15", "name": "JIGPC", "logo": "jigpc", "members": ["Yahya Madkhali", "Maimona Jaafari", "Alwaleed Almutami"]}, {"order": "08", "group": "03", "name": "ACWA Power — Team 3", "logo": "acwa", "members": []}, {"order": "09", "group": "10", "name": "Saudi Tabreed", "logo": "tabreed", "members": ["Abdullah Althubaiti", "Sulaiman Alshammari", "Abdulrahman Alqusair", "Abdulaziz Alshammari"]}, {"order": "10", "group": "14", "name": "Panda", "logo": "panda", "members": ["Khaled Alharbi", "Sarah Alshamrani", "Shahad Marwi", "Rahaf Alhadrami", "Afnan Aljohani"]}, {"order": "11", "group": "09", "name": "DataVolt", "logo": "datavolt", "members": ["Reema Alotaibi", "Raghad Altarisi", "Badr Aldhaheri", "Abdullah Alshehri", "Taif Alharbi"]}, {"order": "12", "group": "01", "name": "ACWA Power — Team 1", "logo": "acwa", "members": ["Abdullah Al-Lajam", "Ameera Altalhi", "Ahmed Alzughaybi", "Raghad Asiri", "Raghad Albalawi", "Abdulrahman Hakim", "Rafa Almazroui", "Ayed Aldosari", "Ibrahim Alhaseel"]}, {"order": "13", "group": "08", "name": "Maaden — Team 3", "logo": "maaden", "members": ["Ahd Alfarsi", "Elaf Alsaedi", "Doaa Barnawi", "Atheer Alkhudair", "Marwan Aljohani", "Raghad Alghamdi", "Abdulrahman Qoutah", "Shouq Alsulami", "Ebtehal Alomrani"]}, {"order": "14", "group": "13", "name": "Miahona", "logo": "miahona", "members": ["Maria Alharbi", "Abdulaziz Alotaibi", "Abdulaziz Alolayani", "Khaled Alarki"]}, {"order": "15", "group": "06", "name": "Maaden — Team 1", "logo": "maaden", "members": ["Sarah Alwadhinani", "Rawan Alkhalidi", "Shumoukh Alotaibi", "Haitham Al-Marai", "Sarah Alsheikh", "Najla Qari", "Ibrahim Asiri", "Nada Alharbi", "Majd Albogami", "Abdulrahman Alkhalidi"]}, {"order": "16", "group": "07", "name": "Maaden — Team 2", "logo": "maaden", "members": ["Raghad Almurshidi", "Lamees Alanzi", "Sarah Alsaleem", "Shahad Mahzari", "Firas Bukhari", "Rana Althaqafi", "Mohammed Almutairi", "Lujain Alsulami", "Osama Alshehri", "Abrar Alasiri"]}];
-/* Announcements: newest first */
+/* Phases and dates from the program schedule (EWA Association Degree, AI Diploma Cohort 1) */
+const ORDER = ["1","2","1-3","4","5","6"];
+const BASE = {
+  "1":   { label:"Phase 1", name:"Business Understanding", sub:"Team Projects 1st Presentation · Framing the Business Problem", date:"2026-06-11", rows:[] },
+  "2":   { label:"Phase 2", name:"Data Understanding", sub:"Team Projects 2nd Presentation · Data Understanding & Data Visualization", date:"2026-07-16", rows:[] },
+  "1-3": { label:"Phases 1–3", name:"Business Understanding, Data Understanding & Data Preparation", sub:"Team Projects 3rd Presentation · one combined session", date:"2026-10-08", rows:[
+       ["1st Place","Maaden — Team 3"], ["2nd Place","Devoteam — Team 1"], ["3rd Place","Panda"],
+       ["Most Innovative Project Video","Maaden — Team 1"], ["Most Innovative Website","Panda"], ["Best Dashboard","Maaden — Team 2"] ] },
+  "4":   { label:"Phase 4", name:"Modeling", sub:"Team Projects 4th Presentation · AI Solution, Machine Learning", date:"2026-11-05", pending:true, rows:[] },
+  "5":   { label:"Phase 5", name:"Deep Learning", sub:"Team Projects 5th Presentation · AI Solution, Deep Learning", date:"2026-12-24", rows:[] },
+  "6":   { label:"Phase 6", name:"Final Project", sub:"Team Projects 7th Presentation · Final Presentation & Action Plan", date:"2027-03-25", final:true, rows:[] }
+};
+/* Announcements (dates from the program schedule) */
 const ANN = [
-  { tag:"Phases 1–3", date:"8 October 2026", title:"Phases 1–3 presentations and winners",
+  { date:"2026-04-26", tag:"Program", kind:"prog", title:"Program orientation", text:"AI & Data Science Associate Diploma, Cohort 1 starts with orientation and an introduction to CRISP-DM." },
+  { date:"2026-06-11", tag:"Phase 1", phase:"1", title:"Team Projects 1st Presentation", text:"Business Understanding: framing the business problem." },
+  { date:"2026-07-16", tag:"Phase 2", phase:"2", title:"Team Projects 2nd Presentation", text:"Data Understanding and data visualization." },
+  { date:"2026-07-19", end:"2026-07-23", tag:"Exam", kind:"exam", title:"Exam 1", text:"Exam week, 19–23 July 2026." },
+  { date:"2026-10-08", tag:"Phases 1–3", phase:"1-3", title:"Team Projects 3rd Presentation and winners",
     text:"Sixteen teams presented Business Understanding, Data Understanding and Data Preparation in one combined session.",
     images:[ { src:"img/agenda.jpg", caption:"Presentation agenda" },
              { src:"img/winning.jpg", caption:"3 Winning Teams" },
-             { src:"img/innovative.jpg", caption:"3 Innovative Teams" } ] }
+             { src:"img/innovative.jpg", caption:"3 Innovative Teams" } ] },
+  { date:"2026-11-05", tag:"Phase 4", phase:"4", pending:true, title:"Team Projects 4th Presentation", text:"AI Solution with Machine Learning (Modeling)." },
+  { date:"2026-11-15", end:"2026-11-19", tag:"Exam", kind:"exam", title:"Exam 2", text:"Exam week, 15–19 November 2026. The first trimester ends on Thursday 19 November." },
+  { date:"2026-12-24", tag:"Phase 5", phase:"5", title:"Team Projects 5th Presentation", text:"AI Solution with Deep Learning." },
+  { date:"2027-02-04", tag:"Presentation", title:"Team Projects 6th Presentation", text:"AI Solution with Generative AI." },
+  { date:"2027-03-25", tag:"Phase 6", phase:"6", title:"Team Projects 7th Presentation", text:"Final Project: final presentation and action plan." },
+  { date:"2027-03-28", tag:"Capstone", title:"Capstone Project week", text:"One week dedicated to the capstone project." },
+  { date:"2027-04-04", end:"2027-04-08", tag:"Exam", kind:"exam", title:"Final Exam", text:"Final exam week, 4–8 April 2027." }
 ];
-/* Built-in results. The Google Form adds to these and can replace any of them. */
-const BASE = {
-  3: { label:"Phases 1–3", name:"Business Understanding, Data Understanding & Data Preparation", date:"Presented 8 October 2026", rows:[
-       ["1st Place","Maaden — Team 3"], ["2nd Place","Devoteam — Team 1"], ["3rd Place","Panda"],
-       ["Most Innovative Project Video","Maaden — Team 1"], ["Most Innovative Website","Panda"], ["Best Dashboard","Maaden — Team 2"] ] },
-  4: { label:"Phase 4", name:"Modeling", date:"", rows:[] }
-};
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const d8 = iso => new Date(iso + "T12:00:00");
+const fmt = iso => { const d = d8(iso); return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; };
+const fmtShort = iso => { const d = d8(iso); return `${d.getDate()} ${MONTHS[d.getMonth()].slice(0,3)} ${d.getFullYear()}`; };
+const TODAY = (() => { const t = new Date(); t.setHours(0,0,0,0); return t; })();
+const isUpcoming = x => x.pending || d8(x.end || x.date) >= TODAY;
 const BASE_LEADERS = {
   "Tasnee":"Bandar Alshammari", "ACWA Power — Team 1":"Raghad Asiri", "ACWA Power — Team 2":"Sumaya Almusabi",
   "Devoteam — Team 1":"Manal Washa", "Devoteam — Team 2":"Tala Fairaq", "GIB":"Abeer Alakkoz",
@@ -313,7 +354,7 @@ const medal = k => k ? `<div class="medal">${logo(k)}</div>` : `<div class="meda
 let PHASES = {}, LEADERS = {}, LIVE = false;
 function build(extra, live){
   PHASES = {};
-  for (const p of [3,4]) {
+  for (const p of ORDER) {
     const slots = new Map();
     const put = (award, teamName, title) => {
       const other = /other/i.test(award);
@@ -336,18 +377,23 @@ function build(extra, live){
   });
 }
 
-function track(){
-  const steps = ["Business Understanding","Data Understanding","Data Preparation","Modeling"];
-  document.getElementById("track").innerHTML = steps.map((s,i) => {
-    const n = i+1, P = PHASES[Math.max(n,3)], done = P.announced;
-    const cls = done ? "won" : (n === 4 ? "next" : "");
-    const em = n < 4 ? "Presented 8 Oct" : (done ? "Winners announced" : "Up next");
-    return `<div class="step ${cls}"><small>PHASE ${n}</small><strong>${s}</strong><em>${em}</em></div>`;
+function status(p){
+  const P = PHASES[p];
+  if (P.announced) return ["won", "Winners announced"];
+  if (isUpcoming(P)) return ORDER.find(k => !PHASES[k].announced && isUpcoming(PHASES[k])) === p ? ["next","Up next"] : ["", "Upcoming"];
+  return ["", "Presented"];
+}
+function track(cur){
+  document.getElementById("track").innerHTML = ORDER.map(p => {
+    const P = PHASES[p], [cls, em] = status(p);
+    return `<a class="step ${cls} ${P.final ? "final" : ""}" href="#phase-${p}" aria-current="${p === cur ? "page" : "false"}">
+      <small>${P.label.toUpperCase()}</small><strong>${P.name.length > 30 ? "Combined presentation" : P.name}</strong>
+      <time datetime="${P.date}">${fmtShort(P.date)}</time><em>${em}</em></a>`;
   }).join("");
 }
 
 function render(p){
-  const P = PHASES[p], el = document.getElementById("panel"), tba = !P.announced;
+  const P = PHASES[p], el = document.getElementById("panel"), tba = !P.announced, up = isUpcoming(P);
   const places = [1,2,3].map(r => {
     const w = P.top[r-1];
     return `<div class="spot r${r}">${CROWN}${medal(w && w.co)}
@@ -361,15 +407,14 @@ function render(p){
     ? `<div class="admin"><div><b>Organizers</b><span>Add or update winners and team leaders. An admin code is required.</span></div>
        <a class="ghost" href="${esc(CONFIG.formUrl)}" target="_blank" rel="noopener">Add winners</a></div>` : "";
   el.innerHTML = `
-    <div class="sec-h"><div class="eyebrow">${P.label}${P.date ? " · " + P.date : ""}</div><h2>${P.name}</h2><p>${tba ? "Three winning teams and three innovation awards, same as Phases 1–3." : (p == 3 ? "One combined presentation covering the first three CRISP-DM phases." : "Top three teams and innovation awards for this phase.")}</p>
+    <div class="sec-h"><div class="eyebrow">${P.label} · ${up ? "Scheduled" : "Presented"} ${fmt(P.date)}</div><h2>${P.name}</h2><p>${esc(P.sub)}</p>
       ${LIVE ? `<span class="live"><i></i>Live results</span>` : ""}</div>
-    ${tba ? `<div class="note">Winners will be announced after the ${P.label} presentations.</div>` : ""}
+    ${tba ? `<div class="note">${up ? `Winners will be announced after the ${P.label} presentations.` : `Awards for this presentation haven't been added yet.`}</div>` : ""}
     <div class="sec-h" style="margin-bottom:22px"><h2 style="font-size:22px;color:var(--ink)">3 Winning Teams</h2></div>
     <div class="podium">${places}</div>
     <div class="sec-h" style="margin:64px 0 -36px"><h2 style="font-size:22px;color:var(--ink)">${list.length} Innovative Teams</h2></div>
     <div class="awards">${awards}</div>${admin}`;
-  document.querySelectorAll(".tabs a").forEach(a => a.setAttribute("aria-current", a.dataset.phase == p ? "page" : "false"));
-  track();
+  track(p);
 }
 
 document.getElementById("logos").innerHTML = FIELD.map(([k,n]) =>
@@ -407,18 +452,32 @@ document.getElementById("roster").addEventListener("toggle", () => {
 }, true);
 
 /* announcements + image viewer */
-document.getElementById("annList").innerHTML = ANN.map((a, ai) => `
-  <article class="post">
-    <header><span class="pill">${esc(a.tag)}</span><time>${esc(a.date)}</time></header>
-    <h3>${esc(a.title)}</h3><p>${esc(a.text)}</p>
-    <div class="shots">${a.images.map((im, ii) => `
-      <button type="button" class="shot" data-a="${ai}" data-i="${ii}" aria-label="Open ${esc(im.caption)}">
-        <img src="${im.src}" alt="${esc(im.caption)}" loading="lazy"><span>${esc(im.caption)}</span></button>`).join("")}</div>
-  </article>`).join("");
+function annItem(x, i, soon){
+  const d = d8(x.date), up = isUpcoming(x);
+  const tagCls = x.kind === "exam" ? "exam" : (x.kind === "prog" ? "prog" : "");
+  const range = x.end ? `${fmtShort(x.date)} – ${fmtShort(x.end)}` : fmt(x.date);
+  return `<article class="item ${up ? "up" : ""} ${soon ? "soon" : ""}">
+    <div class="when"><b>${d.getDate()}</b><span>${MONTHS[d.getMonth()].slice(0,3)} ${String(d.getFullYear()).slice(2)}</span></div>
+    <div><div class="meta"><span class="tagx ${tagCls}">${esc(x.tag)}</span>${soon ? `<span class="soonchip">Next</span>` : ""}<time datetime="${x.date}" style="font-family:var(--mono);font-size:11px;color:var(--muted)">${range}</time></div>
+      <h4>${esc(x.title)}</h4><p>${esc(x.text)}</p>
+      ${x.phase ? `<a class="more" href="#phase-${x.phase}">View ${esc(x.tag)} awards →</a>` : ""}
+      ${x.images ? `<div class="shots">${x.images.map((im, ii) => `
+        <button type="button" class="shot" data-a="${i}" data-i="${ii}" aria-label="Open ${esc(im.caption)}">
+          <img src="${im.src}" alt="${esc(im.caption)}" loading="lazy"><span>${esc(im.caption)}</span></button>`).join("")}</div>` : ""}
+    </div></article>`;
+}
+(() => {
+  const withIdx = ANN.map((x, i) => [x, i]);
+  const up = withIdx.filter(([x]) => isUpcoming(x)).sort((a, b) => a[0].date.localeCompare(b[0].date));
+  const past = withIdx.filter(([x]) => !isUpcoming(x)).sort((a, b) => b[0].date.localeCompare(a[0].date));
+  document.getElementById("annList").innerHTML =
+    (up.length ? `<div class="ann-group"><h3>Upcoming</h3><div class="ann-list">${up.map(([x,i], n) => annItem(x, i, n === 0)).join("")}</div></div>` : "") +
+    (past.length ? `<div class="ann-group"><h3>Past</h3><div class="ann-list">${past.map(([x,i]) => annItem(x, i, false)).join("")}</div></div>` : "");
+})();
 const dlg = document.getElementById("viewer"); let cur = [0,0];
 function show(a, i){ const set = ANN[a].images; i = (i + set.length) % set.length; cur = [a, i];
   document.getElementById("vImg").src = set[i].src; document.getElementById("vImg").alt = set[i].caption;
-  document.getElementById("vCap").textContent = `${set[i].caption} · ${ANN[a].tag} · ${ANN[a].date}`; }
+  document.getElementById("vCap").textContent = `${set[i].caption} · ${ANN[a].tag} · ${fmt(ANN[a].date)}`; }
 document.getElementById("annList").addEventListener("click", e => { const b = e.target.closest(".shot"); if (!b) return;
   show(+b.dataset.a, +b.dataset.i); dlg.showModal(); });
 document.getElementById("vClose").onclick = () => dlg.close();
@@ -427,8 +486,13 @@ document.getElementById("vNext").onclick = () => show(cur[0], cur[1]+1);
 dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
 dlg.addEventListener("keydown", e => { if (e.key === "ArrowLeft") show(cur[0], cur[1]-1); if (e.key === "ArrowRight") show(cur[0], cur[1]+1); });
 
-function route(){ const m = location.hash.match(/^#phase-(3|4)$/); render(m ? m[1] : "3"); }
-addEventListener("hashchange", route);
+function route(){
+  const m = location.hash.match(/^#phase-(1-3|[1-6])$/);
+  let p = m ? (m[1] === "3" ? "1-3" : m[1]) : null;
+  if (!p) p = [...ORDER].reverse().find(k => PHASES[k].announced) || "1-3";
+  render(p);
+}
+addEventListener("hashchange", () => { route(); document.getElementById("panel").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); });
 build([], false); route(); renderRoster();
 
 /* Google Sheet results (from the organizers' form) */
@@ -446,7 +510,8 @@ if (CONFIG.sheetCsvUrl) {
     const [head, ...rows] = parseCSV(txt); if (!head) return;
     const col = n => head.findIndex(h => key(h) === n);
     const ci = { phase: col("phase"), award: col("award"), team: col("team"), title: col("title") };
-    const extra = rows.map(r => ({ phase: /4/.test(r[ci.phase] || "") ? 4 : 3, award: r[ci.award] || "", team: r[ci.team] || "", title: (r[ci.title] || "").trim() }))
+    const phaseKey = v => { v = String(v || ""); if (/1\s*[–—-]\s*3/.test(v)) return "1-3"; const d = (v.match(/[1-6]/) || [])[0]; return d === "3" ? "1-3" : (d || ""); };
+    const extra = rows.map(r => ({ phase: phaseKey(r[ci.phase]), award: r[ci.award] || "", team: r[ci.team] || "", title: (r[ci.title] || "").trim() }))
                       .filter(r => r.award && r.team);
     LIVE = true; build(extra, true); route(); renderRoster();
   }).catch(e => console.warn("Live results not loaded:", e));
