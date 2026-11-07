@@ -15,7 +15,7 @@
   --gold:#e8b64a; --gold-hi:#fde7a3; --silver:#cdd5e3; --bronze:#d68d5a;
   --ink:#eef1fb; --muted:#a3aed0; --tile:#ffffff; --tile-ink:#0b1a48;
   --display:"Cinzel","Trajan Pro",Georgia,serif;
-  --body:"Manrope","Segoe UI",system-ui,sans-serif;
+  --body:"Manrope","Segoe UI",Inter,Roboto,Arial,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
   color-scheme:dark;
 }
@@ -199,6 +199,19 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
 .admin span{font-size:14px;color:var(--muted)}
 .live{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9ff0c0}
 .live i{width:8px;height:8px;border-radius:50%;background:#5ee39a;box-shadow:0 0 8px #5ee39a}
+/* credit */
+.credit{display:flex;align-items:center;gap:18px;text-decoration:none;color:var(--ink);padding:6px 10px 6px 0;border-radius:14px}
+.credit .bar{align-self:stretch;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--gold-hi),var(--gold),#7fd3ff)}
+.credit .qr{width:92px;height:92px;flex:none;background:#f4f6ff;border-radius:14px;padding:9px;display:block;transition:transform .2s,box-shadow .2s}
+.credit .qr svg{width:100%;height:100%;display:block}
+.credit:hover .qr{transform:translateY(-2px);box-shadow:0 8px 22px rgba(232,182,74,.25)}
+.credit:focus-visible{outline:2px solid var(--gold-hi);outline-offset:4px}
+.credit .who{display:flex;flex-direction:column;gap:3px}
+.credit small{font-family:var(--mono);font-size:12px;letter-spacing:.24em;color:var(--muted);font-weight:600}
+.credit strong{font-size:20px;font-weight:700;color:#fff}
+.credit .who > span{font-size:14px;color:var(--muted)}
+.credit em{font-style:normal;font-size:12px;color:var(--gold-hi);margin-top:2px}
+.foot .org{text-align:right;color:var(--muted);font-size:13px}
 /* roster */
 .roster-h{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:46px 0 16px}
 .roster-h h3{font-family:var(--display);font-weight:800;font-size:24px;margin:0;color:var(--gold-hi)}
@@ -245,7 +258,7 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
   .members{padding:4px 14px 14px 14px;grid-template-columns:1fr 1fr}
 }
 @media (prefers-reduced-motion:reduce){.chev{transition:none}}
-.foot{text-align:center;padding-block:22px 34px;color:var(--muted);font-size:13px;border-top:1px solid rgba(163,174,208,.12)}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;text-align:left !important;padding-block:22px 34px;color:var(--muted);font-size:13px;border-top:1px solid rgba(163,174,208,.12)}
 .foot b{font-family:var(--mono);font-weight:600;letter-spacing:.14em;color:var(--gold-hi);font-size:12px}
 
 @media (max-width:720px){
@@ -271,6 +284,8 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
 }
 @media (min-width:721px){ .spot.r2{order:1} .spot.r1{order:2} .spot.r3{order:3} }
 @media (prefers-reduced-motion:reduce){ #sparkle{display:none} }
+.credit,.credit *{font-family:var(--body)} .credit small{font-family:var(--mono)}
+@media (max-width:560px){ .foot{flex-direction:column;align-items:flex-start} .foot .org{text-align:left} .credit .qr{width:80px;height:80px} }
 </style>
 </head>
 <body>
@@ -317,7 +332,15 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
   <section class="ann" id="annList"></section>
  </div>
 </main>
-<footer class="foot wrap"><b>ENERGY &amp; WATER ACADEMY</b><br>AI &amp; Data Science Diploma</footer>
+<footer class="foot wrap">
+  <a class="credit" href="https://www.linkedin.com/in/afnan-aljohani-0b5a70315/" target="_blank" rel="noopener" aria-label="Designed by Afnan Aljohani, open LinkedIn profile">
+    <span class="bar" aria-hidden="true"></span>
+    <span class="qr"><svg aria-hidden="true" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" class="segno"><path class="qrline" stroke="#0b1a48" d="M0 0.5h7m5 0h2m2 0h6m1 0h1m2 0h7m-33 1h1m5 0h1m3 0h1m1 0h6m6 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h3m2 0h1m1 0h1m3 0h3m4 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m2 0h3m1 0h2m3 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h3m1 0h1m2 0h1m2 0h2m2 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h11m1 0h2m2 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m1 0h1m4 0h1m4 0h3m1 0h1m-25 1h1m1 0h5m3 0h6m1 0h1m4 0h1m1 0h1m1 0h5m-28 1h1m4 0h1m1 0h1m5 0h1m1 0h2m1 0h1m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h1m2 0h1m2 0h1m5 0h2m1 0h1m2 0h2m1 0h1m1 0h1m1 0h1m1 0h1m-29 1h1m1 0h1m2 0h1m6 0h1m1 0h1m1 0h6m4 0h3m1 0h1m-32 1h4m1 0h1m1 0h1m1 0h2m6 0h3m1 0h2m1 0h1m1 0h3m1 0h2m-33 1h1m1 0h1m1 0h1m5 0h2m1 0h7m3 0h2m1 0h1m2 0h1m1 0h2m-32 1h3m2 0h1m1 0h1m4 0h1m3 0h1m2 0h1m1 0h1m2 0h2m1 0h4m-30 1h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m4 0h1m3 0h2m1 0h3m-27 1h3m1 0h5m1 0h1m2 0h1m4 0h4m1 0h2m3 0h1m-33 1h1m2 0h1m1 0h1m2 0h3m1 0h2m3 0h5m1 0h5m1 0h2m1 0h1m-31 1h5m2 0h1m1 0h3m1 0h1m1 0h1m2 0h2m5 0h2m1 0h2m-32 1h2m2 0h1m6 0h2m3 0h3m2 0h3m1 0h1m1 0h5m-32 1h3m1 0h3m1 0h5m3 0h1m2 0h2m3 0h2m1 0h3m-30 1h1m2 0h1m1 0h1m2 0h1m5 0h2m1 0h3m2 0h3m1 0h1m3 0h1m1 0h1m-33 1h1m2 0h1m2 0h4m1 0h1m2 0h3m3 0h1m4 0h1m1 0h5m-32 1h1m3 0h1m3 0h1m1 0h2m1 0h1m1 0h1m3 0h1m1 0h2m1 0h8m-32 1h1m2 0h2m1 0h1m2 0h1m5 0h1m1 0h2m3 0h7m2 0h1m-24 1h1m3 0h3m1 0h1m1 0h4m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m4 0h2m2 0h2m1 0h1m3 0h3m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h2m1 0h2m2 0h1m4 0h5m3 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h3m4 0h1m1 0h1m3 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h4m2 0h4m1 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h6m3 0h1m3 0h7m2 0h1m-31 1h1m5 0h1m4 0h4m1 0h1m4 0h2m2 0h2m1 0h3m-31 1h7m1 0h1m2 0h4m2 0h1m4 0h3m1 0h2m3 0h1"/></svg>
+</span>
+    <span class="who"><small>DESIGN BY</small><strong>Afnan Aljohani</strong><span>AI &amp; Data Science Engineer</span><em>Scan or tap for LinkedIn ↗</em></span>
+  </a>
+  <div class="org"><b>ENERGY &amp; WATER ACADEMY</b><br>AI &amp; Data Science Diploma</div>
+</footer>
 
 <dialog id="viewer" aria-label="Announcement image">
   <button type="button" class="vclose" id="vClose" aria-label="Close">×</button>
