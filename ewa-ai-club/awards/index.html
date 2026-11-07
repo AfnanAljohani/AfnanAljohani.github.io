@@ -253,6 +253,16 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
   .ksa{align-items:flex-start;border-right:none;padding-left:0}
   .top-r{width:100%}
 }
+/* batch video */
+.batch{max-width:1000px;margin:40px auto 60px;display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:28px;align-items:start}
+.vframe{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 20px 40px rgba(0,0,0,.35),0 0 0 6px rgba(232,182,74,.08)}
+.vframe iframe{display:block;width:100%;height:720px;border:0}
+.vmeta{padding-top:8px}
+.vmeta h3{font-family:var(--display);font-weight:800;font-size:26px;margin:12px 0 0;color:var(--gold-hi)}
+.vmeta p{color:var(--muted);margin:8px 0 0;max-width:40ch}
+.vbtn{display:inline-block;margin-top:18px;text-decoration:none;font-size:14px}
+@media (max-width:860px){ .batch{grid-template-columns:1fr;gap:18px;margin-top:28px} .vmeta{order:-1;padding-top:0} .vframe iframe{height:640px} }
+@media (max-width:380px){ .mainnav{display:grid;grid-template-columns:1fr 1fr;border-radius:18px} .mainnav a{text-align:center} }
 /* credit */
 .credit{display:flex;align-items:center;gap:18px;text-decoration:none;color:var(--ink);padding:6px 10px 6px 0;border-radius:14px}
 .credit .bar{align-self:stretch;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--gold-hi),var(--gold),#7fd3ff)}
@@ -333,7 +343,7 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
   .award p{grid-area:p;margin:0;align-self:start;font-size:14px}
   .award .medal.tba::after{font-size:30px}
   .phasenav{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px} .phasenav::before{display:none} .pi .ic{width:58px;height:58px} .pi .ic svg{width:26px;height:26px}
-  .top{flex-direction:column;align-items:flex-start} .mainnav{width:100%;justify-content:space-between} .mainnav a{padding:8px 12px;font-size:13px}
+  .top{flex-direction:column;align-items:flex-start} .mainnav{width:100%;justify-content:space-between;gap:2px} .mainnav a{padding:8px 10px;font-size:12.5px;letter-spacing:.02em}
   .club{font-size:13px}
 }
 @media (min-width:721px){ .spot.r2{order:1} .spot.r1{order:2} .spot.r3{order:3} }
@@ -355,6 +365,7 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
         <a href="#awards" data-view="awards">Awards</a>
         <a href="#presentations" data-view="presentations">Presentations</a>
         <a href="#announcements" data-view="announcements">Announcements</a>
+        <a href="#batch" data-view="batch">AI Batch</a>
       </nav>
       </div>
     </header>
@@ -393,6 +404,17 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
     <ol class="slots" id="slots"></ol>
   </section>
   <section class="ann"><ol class="ptl" id="presList"></ol></section>
+ </div>
+ <div class="view" data-view="batch" hidden>
+  <section class="batch">
+    <div class="vframe"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7515032263013826561" title="AI Batch 2026–2027 video from the Energy &amp; Water Academy on LinkedIn" loading="lazy" allowfullscreen></iframe></div>
+    <div class="vmeta">
+      <span class="tagx">AI Batch 2026–2027</span>
+      <h3>Energy &amp; Water Academy on LinkedIn</h3>
+      <p>A video from the academy about the AI &amp; Data Science Diploma batch. If the video doesn't load here, open it on LinkedIn.</p>
+      <a class="ghost vbtn" href="https://www.linkedin.com/posts/ewaksa_aelaeraepaexaeyaetaeyaerabraepaesaefaepaeqaerabraewaepaesaetaeyaepaev-activity-7515032263013826561-4QP9" target="_blank" rel="noopener">Watch on LinkedIn ↗</a>
+    </div>
+  </section>
  </div>
  <div class="view" data-view="announcements" hidden>
   <section class="ann" id="annList"></section>
@@ -652,12 +674,13 @@ dlg.addEventListener("keydown", e => { if (e.key === "ArrowLeft") show(cur[0], c
 const HERO = {
   awards:["Capstone projects · CRISP-DM","AI Projects Awards"],
   presentations:["Team projects · 7 presentations","Project Presentations"],
-  announcements:["AI Diploma · Cohort 1","Announcements"]
+  announcements:["AI Diploma · Cohort 1","Announcements"],
+  batch:["Energy & Water Academy","AI Batch 2026–2027"]
 };
 let lastView = "";
 function route(){
   const h = location.hash;
-  const view = h === "#presentations" ? "presentations" : (h === "#announcements" ? "announcements" : "awards");
+  const view = h === "#presentations" ? "presentations" : (h === "#announcements" ? "announcements" : (h === "#batch" ? "batch" : "awards"));
   document.querySelectorAll(".view").forEach(v => v.hidden = v.dataset.view !== view);
   document.querySelectorAll(".mainnav a").forEach(a => a.setAttribute("aria-current", a.dataset.view === view ? "page" : "false"));
   document.getElementById("track").hidden = view !== "awards";
