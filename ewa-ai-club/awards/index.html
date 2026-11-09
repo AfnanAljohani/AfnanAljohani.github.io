@@ -857,7 +857,8 @@ const GAP_MS = 3 * 60 * 1000;                            // break between teams
 const DAY_FIX = {
   0: { end: KT(8, 35) },                 // Tasnee
   1: { start: KT(8, 35), end: KT(8, 46) },   // ACWA Power Team 2
-  2: { start: KT(9, 0), end: KT(9, 15) }     // Devoteam Team 2 (moved after a technical issue)
+  2: { start: KT(9, 0), end: KT(9, 15) },    // Devoteam Team 2 (moved after a technical issue)
+  3: { start: KT(9, 20) }                    // GIB
 };
 const LIVE_IDX = ROSTER.findIndex((t, i) => !(DAY_FIX[i] && DAY_FIX[i].end));   // first team not confirmed finished
 let SLOTS = [];
