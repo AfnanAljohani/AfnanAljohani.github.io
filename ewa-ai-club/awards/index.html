@@ -253,6 +253,15 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
   .ksa{align-items:flex-start;border-right:none;padding-left:0}
   .top-r{width:100%}
 }
+/* evaluation */
+.evalx{max-width:900px;margin:36px auto 60px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:rgba(6,13,38,.75);box-shadow:0 20px 40px rgba(0,0,0,.35)}
+.ebanner{display:block;width:100%;height:auto}
+.ebody{padding:24px}
+.ebody h3{font-family:var(--display);font-weight:800;font-size:clamp(20px,2.6vw,26px);margin:12px 0 0;color:var(--gold-hi)}
+.ebody p{color:var(--muted);margin:8px 0 0;max-width:62ch}
+.ebtn{display:inline-block;margin-top:18px;padding:13px 22px;border-radius:99px;text-decoration:none;font-weight:700;color:#2a1a00;background:linear-gradient(180deg,var(--gold-hi),var(--gold));box-shadow:0 8px 22px rgba(232,182,74,.3)}
+.ebtn:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+.esoon{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:#9fdcff !important;margin-top:16px !important}
 /* batch videos */
 .batch{max-width:1100px;margin:36px auto 60px}
 .vintro{text-align:center;margin-bottom:22px}
@@ -272,7 +281,7 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
 .vfoot time{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--gold-hi)}
 .vfoot .more{margin-top:0}
 @media (max-width:860px){ .vgrid{grid-template-columns:1fr} }
-@media (max-width:380px){ .mainnav{display:grid;grid-template-columns:1fr 1fr;border-radius:18px} .mainnav a{text-align:center} }
+@media (max-width:560px){ .mainnav{display:flex;flex-wrap:wrap;justify-content:center !important;border-radius:18px;row-gap:4px;column-gap:4px !important} .mainnav a{text-align:center} }
 .posts-h{text-align:center;margin:48px 0 18px}
 .posts-h h3{font-family:var(--display);font-weight:800;font-size:24px;margin:0;color:var(--gold-hi)}
 .posts-h p{color:var(--muted);margin:6px auto 0;max-width:60ch;font-size:14px}
@@ -385,6 +394,7 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
         <a href="#awards" data-view="awards">Awards</a>
         <a href="#presentations" data-view="presentations">Presentations</a>
         <a href="#announcements" data-view="announcements">Announcements</a>
+        <a href="#evaluation" data-view="evaluation">Evaluation</a>
         <a href="#batch" data-view="batch">AI Batch</a>
       </nav>
       </div>
@@ -417,13 +427,25 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
   <section class="ltimer" aria-labelledby="live-h">
     <div class="live-head">
       <div><div class="eyebrow">Phase 4 · Modeling · Monday 9 November 2026</div><h2 id="live-h">Live presentation timer</h2>
-        <p>16 teams, 15 minutes each. The timer follows Saudi Arabia time and starts at 08:20.</p></div>
+        <p>16 teams, 15 minutes each. The timer follows Saudi Arabia time and starts at 08:25.</p></div>
       <div class="clock"><small>Saudi Arabia time</small><b id="bigClock">--:--:--</b><span id="bigDate"></span></div>
     </div>
     <div class="now" id="nowCard" aria-live="polite"></div>
     <ol class="slots" id="slots"></ol>
   </section>
   <section class="ann"><ol class="ptl" id="presList"></ol></section>
+ </div>
+ <div class="view" data-view="evaluation" hidden>
+  <section class="evalx">
+    <img class="ebanner" src="img/evalform.jpg" alt="Project Presentation Evaluation Form, Phase 4: Modeling">
+    <div class="ebody">
+      <span class="tagx">Phase 4 · Modeling</span>
+      <h3>AI &amp; Data Science Projects – Peer Evaluation 2026</h3>
+      <p>Rate the team presentations using the evaluation form. Sign in with your name and school email address, then score each team.</p>
+      <a class="ebtn" id="evalBtn" href="#" target="_blank" rel="noopener" hidden>Open the evaluation form ↗</a>
+      <p class="esoon" id="evalSoon">The form link will be added here shortly.</p>
+    </div>
+  </section>
  </div>
  <div class="view" data-view="batch" hidden>
   <section class="batch">
@@ -513,7 +535,7 @@ const PRES = [
   { n:2, date:"2026-07-16", tag:"Phase 2", title:"Data Understanding", text:"Data understanding and data visualization." },
   { n:3, date:"2026-10-08", phase:"1-3", tag:"Phases 1–3", title:"Data Preparation · combined Phases 1–3", text:"15 teams, 10 minutes each, 08:10–10:40, covering the first three CRISP-DM phases.",
     images:[ { src:"img/agenda13.jpg", caption:"Phases 1–3 agenda" } ] },
-  { n:4, date:"2026-11-09", phase:"4", tag:"Phase 4", title:"Modeling · AI Solution with Machine Learning", text:"Monday, 16 teams, 15 minutes each, 08:20–12:20.",
+  { n:4, date:"2026-11-09", phase:"4", tag:"Phase 4", title:"Modeling · AI Solution with Machine Learning", text:"Monday, 16 teams, 15 minutes each, 08:25–12:25.",
     images:[ { src:"img/agenda4.jpg", caption:"Phase 4 agenda" } ] },
   { n:5, date:"2026-12-24", phase:"5", tag:"Phase 5", title:"AI Solution with Deep Learning", text:"" },
   { n:6, date:"2027-02-04", tag:"Presentation", title:"AI Solution with Generative AI", text:"" },
@@ -562,6 +584,8 @@ const TEAM = Object.fromEntries(ROSTER.map(t => [key(t.name), t]));
 const logo = k => L[k] ? `<img src="${L[k]}" alt="${CO[k]} logo">` : `<span class="vtext">${esc(CO[k]||"")}</span>`;
 const medal = k => k ? `<div class="medal">${logo(k)}</div>` : `<div class="medal tba" role="img" aria-label="To be announced"></div>`;
 
+const EVAL_FORM_URL = "";   // paste the evaluation form link here
+if (EVAL_FORM_URL) { const eb = document.getElementById("evalBtn"); eb.href = EVAL_FORM_URL; eb.hidden = false; document.getElementById("evalSoon").hidden = true; }
 const RENAMED = { "Sarah Alwadhinani":"Sarah Alwithinani" };   // corrected spellings for names already in the sheet
 let PHASES = {}, LEADERS = {}, LIVE = false;
 function build(extra, live){
@@ -724,12 +748,13 @@ const HERO = {
   awards:["Capstone projects · CRISP-DM","AI Projects Awards"],
   presentations:["Team projects · 7 presentations","Project Presentations"],
   announcements:["AI Diploma · Cohort 1","Announcements"],
-  batch:["Energy & Water Academy","AI Batch 2026–2027"]
+  batch:["Energy & Water Academy","AI Batch 2026–2027"],
+  evaluation:["Phase 4 · Modeling","Peer Evaluation"]
 };
 let lastView = "";
 function route(){
   const h = location.hash;
-  const view = h === "#presentations" ? "presentations" : (h === "#announcements" ? "announcements" : (h === "#batch" ? "batch" : "awards"));
+  const view = h === "#presentations" ? "presentations" : (h === "#announcements" ? "announcements" : (h === "#batch" ? "batch" : (h === "#evaluation" ? "evaluation" : "awards")));
   document.querySelectorAll(".view").forEach(v => v.hidden = v.dataset.view !== view);
   document.querySelectorAll(".mainnav a").forEach(a => a.setAttribute("aria-current", a.dataset.view === view ? "page" : "false"));
   document.getElementById("track").hidden = view !== "awards";
@@ -751,7 +776,7 @@ addEventListener("hashchange", () => {
   else if (changed) window.scrollTo({ top: 0, behavior: smooth });
 });
 /* ===== Phase 4 live timer (Saudi Arabia time) ===== */
-const P4_START = Date.UTC(2026, 10, 9, 5, 20);      // Monday 9 Nov 2026, 08:20 in Riyadh (UTC+3)
+const P4_START = Date.UTC(2026, 10, 9, 5, 25);      // Monday 9 Nov 2026, 08:25 in Riyadh (UTC+3)
 const SLOT_MS = 15 * 60 * 1000;
 const KSA = { timeZone: "Asia/Riyadh" };
 const fmtClock = new Intl.DateTimeFormat("en-GB", { ...KSA, hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" });
@@ -798,7 +823,7 @@ function tick(){
       <div class="bar"><i style="width:${((now - t.start) / SLOT_MS) * 100}%"></i></div>`;
   } else if (now < P4_START) {
     html = `<div class="nlogo idle">${CLOCK_ICON}</div>
-      <div><small>Presentations start</small><h3>Monday 9 November · 08:20</h3><p>First team: ${esc(SLOTS[0].name)} · Group ${SLOTS[0].group}</p></div>
+      <div><small>Presentations start</small><h3>Monday 9 November · 08:25</h3><p>First team: ${esc(SLOTS[0].name)} · Group ${SLOTS[0].group}</p></div>
       <div class="big"><b>${dur(P4_START - now)}</b><span>until start</span></div>`;
   } else {
     html = `<div class="nlogo idle">${CLOCK_ICON}</div>
