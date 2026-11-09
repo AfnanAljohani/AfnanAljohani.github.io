@@ -438,7 +438,7 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
  </div>
  <div class="view" data-view="evaluation" hidden>
   <section class="evalx">
-    <img class="ebanner" src="img/evalform.jpg" alt="Project Presentation Evaluation Form, Phase 4: Modeling">
+    <a href="https://form.jotform.com/mo.medwani/ai--ds-projects--peer-evaluation" target="_blank" rel="noopener" aria-label="Open the evaluation form"><img class="ebanner" src="img/evalform.jpg" alt="Project Presentation Evaluation Form, Phase 4: Modeling"></a>
     <div class="ebody">
       <span class="tagx">Phase 4 · Modeling</span>
       <h3>AI &amp; Data Science Projects – Peer Evaluation 2026</h3>
@@ -580,7 +580,7 @@ const TEAM = Object.fromEntries(ROSTER.map(t => [key(t.name), t]));
 const logo = k => L[k] ? `<img src="${L[k]}" alt="${CO[k]} logo">` : `<span class="vtext">${esc(CO[k]||"")}</span>`;
 const medal = k => k ? `<div class="medal">${logo(k)}</div>` : `<div class="medal tba" role="img" aria-label="To be announced"></div>`;
 
-const EVAL_FORM_URL = "";   // paste the evaluation form link here
+const EVAL_FORM_URL = "https://form.jotform.com/mo.medwani/ai--ds-projects--peer-evaluation";   // paste the evaluation form link here
 if (EVAL_FORM_URL) { const eb = document.getElementById("evalBtn"); eb.href = EVAL_FORM_URL; eb.hidden = false; document.getElementById("evalSoon").hidden = true; }
 const RENAMED = { "Sarah Alwadhinani":"Sarah Alwithinani" };   // corrected spellings for names already in the sheet
 let PHASES = {}, LEADERS = {}, LIVE = false;
