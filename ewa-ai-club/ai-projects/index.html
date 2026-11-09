@@ -454,7 +454,7 @@ html[lang="ar"] .slot time, html[lang="ar"] .now .big b, html[lang="ar"] .clock 
   <section class="ltimer" aria-labelledby="live-h">
     <div class="live-head">
       <div><div class="eyebrow" data-ar="المرحلة 4 · النمذجة · الإثنين 9 نوفمبر 2026">Phase 4 · Modeling · Monday 9 November 2026</div><h2 id="live-h" data-ar="مؤقت العروض المباشر">Live presentation timer</h2>
-        <p data-ar="16 فريقًا، 10 دقائق لكل فريق. يتبع المؤقت توقيت السعودية ويبدأ الساعة 08:25.">16 teams, 10 minutes each. The timer follows Saudi Arabia time and starts at 08:25.</p></div>
+        <p data-ar="16 فريقًا، 10 دقائق لكل فريق مع استراحة 3 دقائق بين كل فريق. الأوقات بتوقيت السعودية، والأوقات القادمة تقديرية (~) وتتحدث بعد انتهاء كل فريق.">16 teams, 10 minutes each with a 3-minute break between teams. Times follow Saudi Arabia time; later times are estimates (~) and update as each team finishes.</p></div>
       <div class="clock"><small data-ar="توقيت السعودية">Saudi Arabia time</small><b id="bigClock">--:--:--</b><span id="bigDate"></span></div>
     </div>
     <div class="now" id="nowCard" aria-live="polite"></div>
@@ -852,67 +852,91 @@ function dur(ms){
   return d ? `${d}${tr("d"," يوم")} ${pad(h)}:${pad(m)}:${pad(x)}` : (h ? `${pad(h)}:${pad(m)}:${pad(x)}` : `${pad(m)}:${pad(x)}`);
 }
 const KT = (h, m) => Date.UTC(2026, 10, 9, h - 3, m);   // Riyadh clock time on 9 Nov
-/* Changes made on the day: slot index → actual start / end */
-const DAY_FIX = { 1: { end: KT(8, 46) }, 2: { start: KT(9, 0) } };   // Devoteam Team 2 moved to 09:00 (technical issue)
-let _t = P4_START;
-const SLOTS = ROSTER.map((t, i) => {
-  const fx = DAY_FIX[i] || {};
-  const start = fx.start ?? _t, end = fx.end ?? start + SLOT_MS;
-  _t = end;
-  return { ...t, start, end };
-});
-const slotLen = t => t.end - t.start;
-const P4_END = SLOTS[SLOTS.length - 1].end;
+const GAP_MS = 3 * 60 * 1000;                            // break between teams
+/* Live log for the day: slot index → actual start / confirmed end.
+   A team is finished only when it has an `end` here; until then it stays "presenting now". */
+const DAY_FIX = {
+  0: { end: KT(8, 35) },                 // Tasnee
+  1: { start: KT(8, 35), end: KT(8, 46) },   // ACWA Power Team 2
+  2: { start: KT(9, 0), end: KT(9, 15) }     // Devoteam Team 2 (moved after a technical issue)
+};
+const LIVE_IDX = ROSTER.findIndex((t, i) => !(DAY_FIX[i] && DAY_FIX[i].end));   // first team not confirmed finished
+let SLOTS = [];
+function schedule(now){
+  let prevEnd = null;
+  SLOTS = ROSTER.map((t, i) => {
+    const fx = DAY_FIX[i] || {};
+    const start = fx.start ?? (prevEnd === null ? P4_START : prevEnd + GAP_MS);
+    const planned = start + SLOT_MS;
+    let end, live = false, est = false;
+    if (fx.end) end = fx.end;
+    else if (i === LIVE_IDX) { live = now >= start; end = live ? Math.max(planned, now + 1000) : planned; }
+    else { est = true; end = planned; }
+    prevEnd = fx.end ? fx.end : (i === LIVE_IDX ? end : planned);
+    return { ...t, start, end, planned, live, est, confirmed: !!fx.end };
+  });
+}
+schedule(Date.now());
 document.getElementById("slots").innerHTML = SLOTS.map((t, i) => `
   <li class="slot" id="slot${i}"><span class="o">${t.order}</span>
     <span class="lg">${L[t.logo] ? `<img src="${L[t.logo]}" alt="">` : ""}</span>
-    <div><b>${esc(t.name)}</b><span><time dir="ltr">${fmtHM.format(t.start)}–${fmtHM.format(t.end)}</time><em id="st${i}"></em></span></div><i id="pb${i}"></i></li>`).join("");
+    <div><b>${esc(t.name)}</b><span><time dir="ltr" id="tm${i}"></time><em id="st${i}"></em></span></div><i id="pb${i}"></i></li>`).join("");
 const CLOCK_ICON = '<svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
 let lastNow = "";
 function tick(){
   const now = Date.now();
+  schedule(now);
   const clock = fmtClock.format(now);
   document.getElementById("ksaClock").textContent = clock;
   document.getElementById("bigClock").textContent = clock;
   document.getElementById("bigDate").textContent = fmtDay.format(now);
-  const cur = SLOTS.findIndex(t => now >= t.start && now < t.end);
-  const nxt = SLOTS.findIndex(t => now < t.start);
+  const cur = SLOTS.findIndex(t => t.live);
+  const allDone = LIVE_IDX === -1;
+  const nxt = cur === -1 && !allDone ? LIVE_IDX : -1;
   SLOTS.forEach((t, i) => {
     const el = document.getElementById("slot" + i), st = document.getElementById("st" + i), pb = document.getElementById("pb" + i);
-    const state = i === cur ? "now-s" : (now >= t.end ? "done" : (i === nxt && cur === -1 ? "next-s" : ""));
-    el.className = "slot " + state;
-    st.textContent = i === cur ? tr(`${dur(t.end - now)} left`, `باقي ${dur(t.end - now)}`) : (now >= t.end ? tr("Done ✓","انتهى ✓") : tr(`in ${dur(t.start - now)}`, `بعد ${dur(t.start - now)}`));
-    pb.style.width = i === cur ? `${((now - t.start) / slotLen(t)) * 100}%` : (now >= t.end ? "100%" : "0");
+    const done = t.confirmed;
+    el.className = "slot " + (i === cur ? "now-s" : (done ? "done" : (i === nxt ? "next-s" : "")));
+    document.getElementById("tm" + i).textContent = `${t.est ? "~" : ""}${fmtHM.format(t.start)}–${fmtHM.format(i === cur ? t.planned : t.end)}`;
+    if (i === cur) {
+      const left = t.planned - now;
+      st.textContent = left >= 0 ? tr(`${dur(left)} left`, `باقي ${dur(left)}`) : tr(`+${dur(-left)} over`, `+${dur(-left)} إضافي`);
+    } else st.textContent = done ? tr("Done ✓","انتهى ✓") : tr(`in ~${dur(t.start - now)}`, `بعد ~${dur(t.start - now)}`);
+    pb.style.width = i === cur ? `${Math.min(100, ((now - t.start) / SLOT_MS) * 100)}%` : (done ? "100%" : "0");
   });
   const card = document.getElementById("nowCard");
-  let html, cls = "now";
+  let html, cls = "now", big = "";
   if (cur >= 0) {
-    const t = SLOTS[cur], left = t.end - now, next = SLOTS[cur + 1];
+    const t = SLOTS[cur], left = t.planned - now, next = SLOTS[cur + 1], over = left < 0;
     if (left <= 2 * 60 * 1000) cls += " warn";
+    big = over ? "+" + dur(-left) : dur(left);
     html = `<div class="nlogo">${L[t.logo] ? `<img src="${L[t.logo]}" alt="">` : ""}</div>
       <div><small>${tr("Now presenting","يعرض الآن")} · ${cur + 1} ${tr("of","من")} ${SLOTS.length}</small><h3>${esc(t.name)}</h3>
-      <p>${tr("Group","المجموعة")} ${t.group} · <span class="ltr">${fmtHM.format(t.start)}–${fmtHM.format(t.end)}</span>${next ? ` · ${tr("Up next:","التالي:")} ${esc(next.name)}` : tr(" · Last team"," · آخر فريق")}</p></div>
-      <div class="big"><b>${dur(left)}</b><span>${tr("remaining","متبقي")}</span></div>
-      <div class="bar"><i style="width:${((now - t.start) / slotLen(t)) * 100}%"></i></div>`;
+      <p>${tr("Group","المجموعة")} ${t.group} · ${tr("started","بدأ")} <span class="ltr">${fmtHM.format(t.start)}</span>${next ? ` · ${tr("Up next:","التالي:")} ${esc(next.name)}` : tr(" · Last team"," · آخر فريق")}</p></div>
+      <div class="big"><b>${big}</b><span>${over ? tr("over time","وقت إضافي") : tr("remaining","متبقي")}</span></div>
+      <div class="bar"><i style="width:${Math.min(100, ((now - t.start) / SLOT_MS) * 100)}%"></i></div>`;
   } else if (now < P4_START) {
+    big = dur(P4_START - now);
     html = `<div class="nlogo idle">${CLOCK_ICON}</div>
       <div><small>${tr("Presentations start","تبدأ العروض")}</small><h3>${tr("Monday 9 November · 08:25","الإثنين 9 نوفمبر · 08:25")}</h3><p>${tr("First team:","الفريق الأول:")} ${esc(SLOTS[0].name)} · ${tr("Group","المجموعة")} ${SLOTS[0].group}</p></div>
-      <div class="big"><b>${dur(P4_START - now)}</b><span>${tr("until start","على البداية")}</span></div>`;
+      <div class="big"><b>${big}</b><span>${tr("until start","على البداية")}</span></div>`;
   } else if (nxt >= 0) {
-    const t = SLOTS[nxt];
+    const t = SLOTS[nxt]; big = dur(t.start - now);
     html = `<div class="nlogo">${L[t.logo] ? `<img src="${L[t.logo]}" alt="">` : ""}</div>
-      <div><small>${tr("Up next","التالي")} · ${nxt + 1} ${tr("of","من")} ${SLOTS.length}</small><h3>${esc(t.name)}</h3><p>${tr("Group","المجموعة")} ${t.group} · ${tr("starts at","يبدأ الساعة")} ${fmtHM.format(t.start)}</p></div>
-      <div class="big"><b>${dur(t.start - now)}</b><span>${tr("until start","على البداية")}</span></div>`;
+      <div><small>${tr("Short break · up next","استراحة قصيرة · التالي")} · ${nxt + 1} ${tr("of","من")} ${SLOTS.length}</small><h3>${esc(t.name)}</h3><p>${tr("Group","المجموعة")} ${t.group} · ${tr("starts at","يبدأ الساعة")} ${fmtHM.format(t.start)}</p></div>
+      <div class="big"><b>${big}</b><span>${tr("until start","على البداية")}</span></div>`;
   } else {
+    const endT = SLOTS[SLOTS.length - 1].end;
     html = `<div class="nlogo idle">${CLOCK_ICON}</div>
-      <div><small>${tr("Phase 4 presentations","عروض المرحلة 4")}</small><h3>${tr(`All ${SLOTS.length} teams have presented`, `قدّمت جميع الفرق الـ ${SLOTS.length}`)}</h3><p>${tr("Finished at","انتهت الساعة")} ${fmtHM.format(P4_END)}. <a class="more" href="#phase-4">${tr("See Phase 4 awards →","عرض جوائز المرحلة 4 ←")}</a></p></div>
+      <div><small>${tr("Phase 4 presentations","عروض المرحلة 4")}</small><h3>${tr(`All ${SLOTS.length} teams have presented`, `قدّمت جميع الفرق الـ ${SLOTS.length}`)}</h3><p>${tr("Finished at","انتهت الساعة")} ${fmtHM.format(endT)}. <a class="more" href="#phase-4">${tr("See Phase 4 awards →","عرض جوائز المرحلة 4 ←")}</a></p></div>
       <div class="big"><b>✓</b><span>${tr("complete","اكتملت")}</span></div>`;
   }
-  const key2 = LANG + cls + cur + '|' + nxt + (now < P4_START) + (now >= P4_END);
+  const over = cur >= 0 && SLOTS[cur].planned < now;
+  const key2 = LANG + cls + cur + '|' + nxt + over + allDone + (now < P4_START);
   if (key2 !== lastNow) { card.innerHTML = html; lastNow = key2; }
   else {
-    const b = card.querySelector(".big b"); if (b && !(now >= P4_END)) b.textContent = cur >= 0 ? dur(SLOTS[cur].end - now) : (nxt >= 0 ? dur(SLOTS[nxt].start - now) : '');
-    const bar = card.querySelector(".bar i"); if (bar && cur >= 0) bar.style.width = `${((now - SLOTS[cur].start) / slotLen(SLOTS[cur])) * 100}%`;
+    const b = card.querySelector(".big b"); if (b && big) b.textContent = big;
+    const bar = card.querySelector(".bar i"); if (bar && cur >= 0) bar.style.width = `${Math.min(100, ((now - SLOTS[cur].start) / SLOT_MS) * 100)}%`;
   }
   card.className = cls;
 }
