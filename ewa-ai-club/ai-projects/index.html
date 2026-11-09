@@ -531,7 +531,7 @@ const PRES = [
   { n:2, date:"2026-07-16", tag:"Phase 2", title:"Data Understanding", text:"Data understanding and data visualization." },
   { n:3, date:"2026-10-08", phase:"1-3", tag:"Phases 1–3", title:"Data Preparation · combined Phases 1–3", text:"15 teams, 10 minutes each, 08:10–10:40, covering the first three CRISP-DM phases.",
     images:[ { src:"../awards/img/agenda13.jpg", caption:"Phases 1–3 agenda" } ] },
-  { n:4, date:"2026-11-09", phase:"4", tag:"Phase 4", title:"Modeling · AI Solution with Machine Learning", text:"Monday, 16 teams, 10 minutes each, 08:25–11:05.",
+  { n:4, date:"2026-11-09", phase:"4", tag:"Phase 4", title:"Modeling · AI Solution with Machine Learning", text:"Monday, 16 teams, 10 minutes each, 08:25–11:10.",
     images:[ { src:"../awards/img/agenda4.jpg", caption:"Phase 4 agenda" } ] },
   { n:5, date:"2026-12-24", phase:"5", tag:"Phase 5", title:"AI Solution with Deep Learning", text:"" },
   { n:6, date:"2027-02-04", tag:"Presentation", title:"AI Solution with Generative AI", text:"" },
@@ -784,7 +784,17 @@ function dur(ms){
   const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60;
   return d ? `${d}d ${pad(h)}:${pad(m)}:${pad(x)}` : (h ? `${pad(h)}:${pad(m)}:${pad(x)}` : `${pad(m)}:${pad(x)}`);
 }
-const SLOTS = ROSTER.map((t, i) => ({ ...t, start: P4_START + i * SLOT_MS, end: P4_START + (i + 1) * SLOT_MS }));
+const KT = (h, m) => Date.UTC(2026, 10, 9, h - 3, m);   // Riyadh clock time on 9 Nov
+/* Changes made on the day: slot index → actual start / end */
+const DAY_FIX = { 1: { end: KT(8, 46) }, 2: { start: KT(8, 50) } };
+let _t = P4_START;
+const SLOTS = ROSTER.map((t, i) => {
+  const fx = DAY_FIX[i] || {};
+  const start = fx.start ?? _t, end = fx.end ?? start + SLOT_MS;
+  _t = end;
+  return { ...t, start, end };
+});
+const slotLen = t => t.end - t.start;
 const P4_END = SLOTS[SLOTS.length - 1].end;
 document.getElementById("slots").innerHTML = SLOTS.map((t, i) => `
   <li class="slot" id="slot${i}"><span class="o">${t.order}</span>
@@ -805,7 +815,7 @@ function tick(){
     const state = i === cur ? "now-s" : (now >= t.end ? "done" : (i === nxt && cur === -1 ? "next-s" : ""));
     el.className = "slot " + state;
     st.textContent = i === cur ? `${dur(t.end - now)} left` : (now >= t.end ? "Done ✓" : `in ${dur(t.start - now)}`);
-    pb.style.width = i === cur ? `${((now - t.start) / SLOT_MS) * 100}%` : (now >= t.end ? "100%" : "0");
+    pb.style.width = i === cur ? `${((now - t.start) / slotLen(t)) * 100}%` : (now >= t.end ? "100%" : "0");
   });
   const card = document.getElementById("nowCard");
   let html, cls = "now";
@@ -816,21 +826,26 @@ function tick(){
       <div><small>Now presenting · ${cur + 1} of ${SLOTS.length}</small><h3>${esc(t.name)}</h3>
       <p>Group ${t.group} · ${fmtHM.format(t.start)}–${fmtHM.format(t.end)}${next ? ` · Up next: ${esc(next.name)}` : " · Last team"}</p></div>
       <div class="big"><b>${dur(left)}</b><span>remaining</span></div>
-      <div class="bar"><i style="width:${((now - t.start) / SLOT_MS) * 100}%"></i></div>`;
+      <div class="bar"><i style="width:${((now - t.start) / slotLen(t)) * 100}%"></i></div>`;
   } else if (now < P4_START) {
     html = `<div class="nlogo idle">${CLOCK_ICON}</div>
       <div><small>Presentations start</small><h3>Monday 9 November · 08:25</h3><p>First team: ${esc(SLOTS[0].name)} · Group ${SLOTS[0].group}</p></div>
       <div class="big"><b>${dur(P4_START - now)}</b><span>until start</span></div>`;
+  } else if (nxt >= 0) {
+    const t = SLOTS[nxt];
+    html = `<div class="nlogo">${L[t.logo] ? `<img src="${L[t.logo]}" alt="">` : ""}</div>
+      <div><small>Up next · ${nxt + 1} of ${SLOTS.length}</small><h3>${esc(t.name)}</h3><p>Group ${t.group} · starts at ${fmtHM.format(t.start)}</p></div>
+      <div class="big"><b>${dur(t.start - now)}</b><span>until start</span></div>`;
   } else {
     html = `<div class="nlogo idle">${CLOCK_ICON}</div>
       <div><small>Phase 4 presentations</small><h3>All ${SLOTS.length} teams have presented</h3><p>Finished at ${fmtHM.format(P4_END)}. <a class="more" href="#phase-4">See Phase 4 awards →</a></p></div>
       <div class="big"><b>✓</b><span>complete</span></div>`;
   }
-  const key2 = cls + cur + (now < P4_START) + (now >= P4_END);
+  const key2 = cls + cur + '|' + nxt + (now < P4_START) + (now >= P4_END);
   if (key2 !== lastNow) { card.innerHTML = html; lastNow = key2; }
   else {
-    const b = card.querySelector(".big b"); if (b && !(now >= P4_END)) b.textContent = cur >= 0 ? dur(SLOTS[cur].end - now) : dur(P4_START - now);
-    const bar = card.querySelector(".bar i"); if (bar && cur >= 0) bar.style.width = `${((now - SLOTS[cur].start) / SLOT_MS) * 100}%`;
+    const b = card.querySelector(".big b"); if (b && !(now >= P4_END)) b.textContent = cur >= 0 ? dur(SLOTS[cur].end - now) : (nxt >= 0 ? dur(SLOTS[nxt].start - now) : '');
+    const bar = card.querySelector(".bar i"); if (bar && cur >= 0) bar.style.width = `${((now - SLOTS[cur].start) / slotLen(SLOTS[cur])) * 100}%`;
   }
   card.className = cls;
 }
