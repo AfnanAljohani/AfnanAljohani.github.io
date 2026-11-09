@@ -531,7 +531,7 @@ const PRES = [
   { n:2, date:"2026-07-16", tag:"Phase 2", title:"Data Understanding", text:"Data understanding and data visualization." },
   { n:3, date:"2026-10-08", phase:"1-3", tag:"Phases 1–3", title:"Data Preparation · combined Phases 1–3", text:"15 teams, 10 minutes each, 08:10–10:40, covering the first three CRISP-DM phases.",
     images:[ { src:"img/agenda13.jpg", caption:"Phases 1–3 agenda" } ] },
-  { n:4, date:"2026-11-09", phase:"4", tag:"Phase 4", title:"Modeling · AI Solution with Machine Learning", text:"Monday, 16 teams, 10 minutes each, 08:25–11:10.",
+  { n:4, date:"2026-11-09", phase:"4", tag:"Phase 4", title:"Modeling · AI Solution with Machine Learning", text:"Monday, 16 teams, 10 minutes each, 08:25–11:20.",
     images:[ { src:"img/agenda4.jpg", caption:"Phase 4 agenda" } ] },
   { n:5, date:"2026-12-24", phase:"5", tag:"Phase 5", title:"AI Solution with Deep Learning", text:"" },
   { n:6, date:"2027-02-04", tag:"Presentation", title:"AI Solution with Generative AI", text:"" },
@@ -786,7 +786,7 @@ function dur(ms){
 }
 const KT = (h, m) => Date.UTC(2026, 10, 9, h - 3, m);   // Riyadh clock time on 9 Nov
 /* Changes made on the day: slot index → actual start / end */
-const DAY_FIX = { 1: { end: KT(8, 46) }, 2: { start: KT(8, 50) } };
+const DAY_FIX = { 1: { end: KT(8, 46) }, 2: { start: KT(9, 0) } };   // Devoteam Team 2 moved to 09:00 (technical issue)
 let _t = P4_START;
 const SLOTS = ROSTER.map((t, i) => {
   const fx = DAY_FIX[i] || {};
