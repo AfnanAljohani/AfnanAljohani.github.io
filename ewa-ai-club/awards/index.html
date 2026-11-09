@@ -865,10 +865,9 @@ const DAY_FIX = {
   5: { start: KT(9, 53) },                   // Devoteam Team 1
   6: { start: KT(10, 8) },                   // JIGPC
   7: { start: KT(10, 28) },                  // ACWA Power Team 3, after a 10-minute break
-  13: { start: KT(11, 49), end: KT(12, 2) }  // Maaden Team 3 (swapped with Miahona) + 3 extra minutes
+  13: { start: KT(11, 49), end: KT(12, 2) }  // Miahona (finished 12:02)
 };
-/* Presentation-day order: Miahona presented before Maaden Team 3 */
-const DAY_ROSTER = (() => { const r = ROSTER.slice(); const a = r.findIndex(t => t.name === "Miahona"), b = r.findIndex(t => t.name === "Maaden — Team 3"); [r[a], r[b]] = [r[b], r[a]]; return r; })();
+const DAY_ROSTER = ROSTER.slice();   // presentation-day order
 let SLOTS = [];
 function schedule(now){
   let prevEnd = null;
