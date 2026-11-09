@@ -242,6 +242,8 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
 .slot.done{opacity:.55} .slot.done em{color:#9ff0c0}
 .slot.brk{background:rgba(232,182,74,.06);border-style:dashed}
 .slot.brk .o{font-size:16px}
+.now.vote{background:radial-gradient(120% 140% at 0% 0%,rgba(232,182,74,.28),transparent 60%),rgba(6,13,38,.75);border-color:var(--gold)}
+.slot.vote.now-s{border-style:solid}
 .slot.next-s{border-color:rgba(127,211,255,.6)} .slot.next-s em{color:#bfe9ff}
 @media (max-width:640px){
   .ltimer{padding:16px;border-radius:16px}
@@ -860,6 +862,7 @@ function dur(ms){
 const KT = (h, m) => Date.UTC(2026, 10, 9, h - 3, m);   // Riyadh clock time on 9 Nov
 const GAP_MS = 3 * 60 * 1000;                            // break between teams
 const BREAK_AFTER = { 6: "10-minute break" };             // slot index → long break shown after that team
+const VOTE_MS = 10 * 60 * 1000;                          // voting window after the last team
 /* Live log for the day: slot index → actual start / confirmed end.
    A team is finished only when it has an `end` here; until then it stays "presenting now". */
 const DAY_FIX = {
@@ -890,7 +893,8 @@ document.getElementById("slots").innerHTML = SLOTS.map((t, i) => `
   <li class="slot" id="slot${i}"><span class="o">${String(i + 1).padStart(2, "0")}</span>
     <span class="lg">${L[t.logo] ? `<img src="${L[t.logo]}" alt="">` : ""}</span>
     <div><b>${esc(t.name)}</b><span><time dir="ltr" id="tm${i}"></time><em id="st${i}"></em></span></div><i id="pb${i}"></i></li>${BREAK_AFTER[i] ? `
-  <li class="slot brk" id="brk${i}"><span class="o">☕</span><span></span><div><b id="brkl${i}"></b><span><time dir="ltr" id="brkt${i}"></time><em id="brks${i}"></em></span></div></li>` : ""}`).join("");
+  <li class="slot brk" id="brk${i}"><span class="o">☕</span><span></span><div><b id="brkl${i}"></b><span><time dir="ltr" id="brkt${i}"></time><em id="brks${i}"></em></span></div></li>` : ""}`).join("") + `
+  <li class="slot brk vote" id="voteRow"><span class="o">✨</span><span></span><div><b id="voteL"></b><span><time dir="ltr" id="voteT"></time><em id="voteS"></em></span></div></li>`;
 const CLOCK_ICON = '<svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
 let lastNow = "";
 function tick(){
@@ -921,6 +925,12 @@ function tick(){
     document.getElementById("brks" + i).textContent = now >= b ? tr("Done ✓","انتهت ✓") : (now >= a ? tr(`${dur(b - now)} left`, `باقي ${dur(b - now)}`) : "");
     el.className = "slot brk" + (now >= a && now < b ? " now-s" : (now >= b ? " done" : ""));
   });
+  const lastEnd = SLOTS[SLOTS.length - 1].end, voteEnd = lastEnd + VOTE_MS;
+  const voting = now >= lastEnd && now < voteEnd;
+  document.getElementById("voteL").textContent = tr("Voting · 10 minutes ✨", "التصويت · 10 دقائق ✨");
+  document.getElementById("voteT").textContent = `${fmtHM.format(lastEnd)}–${fmtHM.format(voteEnd)}`;
+  document.getElementById("voteS").textContent = now >= voteEnd ? tr("Done ✓","انتهى ✓") : (voting ? tr(`${dur(voteEnd - now)} left`, `باقي ${dur(voteEnd - now)}`) : "");
+  document.getElementById("voteRow").className = "slot brk vote" + (voting ? " now-s" : (now >= voteEnd ? " done" : ""));
   const card = document.getElementById("nowCard");
   let html, cls = "now", big = "";
   if (cur >= 0) {
@@ -942,6 +952,13 @@ function tick(){
     html = `<div class="nlogo">${L[t.logo] ? `<img src="${L[t.logo]}" alt="">` : ""}</div>
       <div><small>${(t.start - SLOTS[nxt - 1].end) > 5 * 60 * 1000 ? tr("Break · up next","استراحة · التالي") : tr("Short break · up next","استراحة قصيرة · التالي")} · ${nxt + 1} ${tr("of","من")} ${SLOTS.length}</small><h3>${esc(t.name)}</h3><p>${tr("Group","المجموعة")} ${t.group} · ${tr("starts at","يبدأ الساعة")} ${fmtHM.format(t.start)}</p></div>
       <div class="big"><b>${big}</b><span>${tr("until start","على البداية")}</span></div>`;
+  } else if (voting) {
+    big = dur(voteEnd - now); cls += " vote";
+    html = `<div class="nlogo idle"><span style="font-size:40px;line-height:1">✨</span></div>
+      <div><small>${tr("All 16 teams have presented","قدّمت جميع الفرق الـ 16")}</small><h3>${tr("Now waiting for the vote · 10 minutes ✨","الآن في انتظار التصويت · 10 دقائق ✨")}</h3>
+      <p>${tr("Rate the teams in the evaluation form.","قيّم الفرق من خلال نموذج التقييم.")} <a class="more" href="#evaluation">${tr("Open the evaluation →","افتح التقييم ←")}</a></p></div>
+      <div class="big"><b>${big}</b><span>${tr("until voting closes","على نهاية التصويت")}</span></div>
+      <div class="bar"><i style="width:${Math.min(100, ((now - lastEnd) / VOTE_MS) * 100)}%"></i></div>`;
   } else {
     const endT = SLOTS[SLOTS.length - 1].end;
     html = `<div class="nlogo idle">${CLOCK_ICON}</div>
@@ -949,10 +966,11 @@ function tick(){
       <div class="big"><b>✓</b><span>${tr("complete","اكتملت")}</span></div>`;
   }
   const over = cur >= 0 && SLOTS[cur].planned < now;
-  const key2 = LANG + cls + cur + '|' + nxt + over + allDone + (now < P4_START);
+  const key2 = LANG + cls + cur + '|' + nxt + over + allDone + voting + (now < P4_START);
   if (key2 !== lastNow) { card.innerHTML = html; lastNow = key2; }
   else {
     const b = card.querySelector(".big b"); if (b && big) b.textContent = big;
+    if (voting) { const vb = card.querySelector(".bar i"); if (vb) vb.style.width = `${Math.min(100, ((now - lastEnd) / VOTE_MS) * 100)}%`; }
     const bar = card.querySelector(".bar i"); if (bar && cur >= 0) bar.style.width = `${Math.min(100, ((now - SLOTS[cur].start) / SLOT_MS) * 100)}%`;
   }
   card.className = cls;
