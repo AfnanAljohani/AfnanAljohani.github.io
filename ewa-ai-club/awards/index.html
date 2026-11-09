@@ -862,7 +862,7 @@ function dur(ms){
 const KT = (h, m) => Date.UTC(2026, 10, 9, h - 3, m);   // Riyadh clock time on 9 Nov
 const GAP_MS = 3 * 60 * 1000;                            // break between teams
 const BREAK_AFTER = { 6: "10-minute break" };             // slot index → long break shown after that team
-const VOTE_MS = 10 * 60 * 1000;                          // voting window after the last team
+const VOTE_MS = 15 * 60 * 1000;                          // voting window after the last team
 /* Live log for the day: slot index → actual start / confirmed end.
    A team is finished only when it has an `end` here; until then it stays "presenting now". */
 const DAY_FIX = {
@@ -927,7 +927,7 @@ function tick(){
   });
   const lastEnd = SLOTS[SLOTS.length - 1].end, voteEnd = lastEnd + VOTE_MS;
   const voting = now >= lastEnd && now < voteEnd;
-  document.getElementById("voteL").textContent = tr("Voting · 10 minutes ✨", "التصويت · 10 دقائق ✨");
+  document.getElementById("voteL").textContent = tr("Voting · 15 minutes ✨", "التصويت · 15 دقيقة ✨");
   document.getElementById("voteT").textContent = `${fmtHM.format(lastEnd)}–${fmtHM.format(voteEnd)}`;
   document.getElementById("voteS").textContent = now >= voteEnd ? tr("Done ✓","انتهى ✓") : (voting ? tr(`${dur(voteEnd - now)} left`, `باقي ${dur(voteEnd - now)}`) : "");
   document.getElementById("voteRow").className = "slot brk vote" + (voting ? " now-s" : (now >= voteEnd ? " done" : ""));
@@ -955,7 +955,7 @@ function tick(){
   } else if (voting) {
     big = dur(voteEnd - now); cls += " vote";
     html = `<div class="nlogo idle"><span style="font-size:40px;line-height:1">✨</span></div>
-      <div><small>${tr("All 16 teams have presented","قدّمت جميع الفرق الـ 16")}</small><h3>${tr("Now waiting for the vote · 10 minutes ✨","الآن في انتظار التصويت · 10 دقائق ✨")}</h3>
+      <div><small>${tr("All 16 teams have presented","قدّمت جميع الفرق الـ 16")}</small><h3>${tr("Now waiting for the vote · 15 minutes ✨","الآن في انتظار التصويت · 15 دقيقة ✨")}</h3>
       <p>${tr("Rate the teams in the evaluation form.","قيّم الفرق من خلال نموذج التقييم.")} <a class="more" href="#evaluation">${tr("Open the evaluation →","افتح التقييم ←")}</a></p></div>
       <div class="big"><b>${big}</b><span>${tr("until voting closes","على نهاية التصويت")}</span></div>
       <div class="bar"><i style="width:${Math.min(100, ((now - lastEnd) / VOTE_MS) * 100)}%"></i></div>`;
