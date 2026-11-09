@@ -561,7 +561,7 @@ const AR = {
     { tag:"المرحلة 1", title:"فهم الأعمال", text:"صياغة مشكلة العمل." },
     { tag:"المرحلة 2", title:"فهم البيانات", text:"فهم البيانات وتصويرها." },
     { tag:"المراحل 1–3", title:"تجهيز البيانات · المراحل 1–3 مجمّعة", text:"15 فريقًا، 10 دقائق لكل فريق، 08:10–10:40، تغطي أول ثلاث مراحل من CRISP-DM.", caps:["أجندة المراحل 1–3"] },
-    { tag:"المرحلة 4", title:"النمذجة · حل ذكاء اصطناعي بتعلّم الآلة", text:"الإثنين، 16 فريقًا، 10 دقائق لكل فريق مع استراحة 3 دقائق، 08:25–12:22.", caps:["أجندة المرحلة 4"] },
+    { tag:"المرحلة 4", title:"النمذجة · حل ذكاء اصطناعي بتعلّم الآلة", text:"الإثنين، 16 فريقًا، 10 دقائق لكل فريق مع استراحة 3 دقائق، 08:25–12:25.", caps:["أجندة المرحلة 4"] },
     { tag:"المرحلة 5", title:"حل ذكاء اصطناعي بالتعلّم العميق", text:"" },
     { tag:"عرض", title:"حل ذكاء اصطناعي بالذكاء الاصطناعي التوليدي", text:"" },
     { tag:"المرحلة 6 · المشروع النهائي", title:"العرض النهائي وخطة العمل", text:"يليه أسبوع مشروع التخرج في 28 مارس 2027." }
@@ -591,7 +591,7 @@ const PRES = [
   { n:2, date:"2026-07-16", tag:"Phase 2", title:"Data Understanding", text:"Data understanding and data visualization." },
   { n:3, date:"2026-10-08", phase:"1-3", tag:"Phases 1–3", title:"Data Preparation · combined Phases 1–3", text:"15 teams, 10 minutes each, 08:10–10:40, covering the first three CRISP-DM phases.",
     images:[ { src:"../awards/img/agenda13.jpg", caption:"Phases 1–3 agenda" } ] },
-  { n:4, date:"2026-11-09", phase:"4", tag:"Phase 4", title:"Modeling · AI Solution with Machine Learning", text:"Monday, 16 teams, 10 minutes each with 3-minute breaks, 08:25–12:22.",
+  { n:4, date:"2026-11-09", phase:"4", tag:"Phase 4", title:"Modeling · AI Solution with Machine Learning", text:"Monday, 16 teams, 10 minutes each with 3-minute breaks, 08:25–12:25.",
     images:[ { src:"../awards/img/agenda4.jpg", caption:"Phase 4 agenda" } ] },
   { n:5, date:"2026-12-24", phase:"5", tag:"Phase 5", title:"AI Solution with Deep Learning", text:"" },
   { n:6, date:"2027-02-04", tag:"Presentation", title:"AI Solution with Generative AI", text:"" },
@@ -865,12 +865,15 @@ const DAY_FIX = {
   3: { start: KT(9, 20), end: KT(9, 30) },   // GIB · every later team: 10 min + 3 min break
   5: { start: KT(9, 53) },                   // Devoteam Team 1
   6: { start: KT(10, 8) },                   // JIGPC
-  7: { start: KT(10, 28) }                   // ACWA Power Team 3, after a 10-minute break
+  7: { start: KT(10, 28) },                  // ACWA Power Team 3, after a 10-minute break
+  13: { start: KT(11, 49) }                  // Maaden Team 1 (swapped with Miahona)
 };
+/* Presentation-day order: Miahona and Maaden Team 1 swapped */
+const DAY_ROSTER = (() => { const r = ROSTER.slice(); const a = r.findIndex(t => t.name === "Miahona"), b = r.findIndex(t => t.name === "Maaden — Team 1"); [r[a], r[b]] = [r[b], r[a]]; return r; })();
 let SLOTS = [];
 function schedule(now){
   let prevEnd = null;
-  SLOTS = ROSTER.map((t, i) => {
+  SLOTS = DAY_ROSTER.map((t, i) => {
     const fx = DAY_FIX[i] || {};
     const start = fx.start ?? (prevEnd === null ? P4_START : prevEnd + GAP_MS);
     const end = fx.end ?? start + SLOT_MS;
@@ -880,7 +883,7 @@ function schedule(now){
 }
 schedule(Date.now());
 document.getElementById("slots").innerHTML = SLOTS.map((t, i) => `
-  <li class="slot" id="slot${i}"><span class="o">${t.order}</span>
+  <li class="slot" id="slot${i}"><span class="o">${String(i + 1).padStart(2, "0")}</span>
     <span class="lg">${L[t.logo] ? `<img src="${L[t.logo]}" alt="">` : ""}</span>
     <div><b>${esc(t.name)}</b><span><time dir="ltr" id="tm${i}"></time><em id="st${i}"></em></span></div><i id="pb${i}"></i></li>${BREAK_AFTER[i] ? `
   <li class="slot brk" id="brk${i}"><span class="o">☕</span><span></span><div><b id="brkl${i}"></b><span><time dir="ltr" id="brkt${i}"></time><em id="brks${i}"></em></span></div></li>` : ""}`).join("");
