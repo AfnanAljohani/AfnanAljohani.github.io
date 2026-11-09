@@ -428,7 +428,7 @@ dialog#viewer::backdrop{background:rgba(2,6,20,.88)}
   <section class="ltimer" aria-labelledby="live-h">
     <div class="live-head">
       <div><div class="eyebrow">Phase 4 · Modeling · Monday 9 November 2026</div><h2 id="live-h">Live presentation timer</h2>
-        <p>16 teams, 15 minutes each. The timer follows Saudi Arabia time and starts at 08:25.</p></div>
+        <p>16 teams, 10 minutes each. The timer follows Saudi Arabia time and starts at 08:25.</p></div>
       <div class="clock"><small>Saudi Arabia time</small><b id="bigClock">--:--:--</b><span id="bigDate"></span></div>
     </div>
     <div class="now" id="nowCard" aria-live="polite"></div>
@@ -531,7 +531,7 @@ const PRES = [
   { n:2, date:"2026-07-16", tag:"Phase 2", title:"Data Understanding", text:"Data understanding and data visualization." },
   { n:3, date:"2026-10-08", phase:"1-3", tag:"Phases 1–3", title:"Data Preparation · combined Phases 1–3", text:"15 teams, 10 minutes each, 08:10–10:40, covering the first three CRISP-DM phases.",
     images:[ { src:"img/agenda13.jpg", caption:"Phases 1–3 agenda" } ] },
-  { n:4, date:"2026-11-09", phase:"4", tag:"Phase 4", title:"Modeling · AI Solution with Machine Learning", text:"Monday, 16 teams, 15 minutes each, 08:25–12:25.",
+  { n:4, date:"2026-11-09", phase:"4", tag:"Phase 4", title:"Modeling · AI Solution with Machine Learning", text:"Monday, 16 teams, 10 minutes each, 08:25–11:05.",
     images:[ { src:"img/agenda4.jpg", caption:"Phase 4 agenda" } ] },
   { n:5, date:"2026-12-24", phase:"5", tag:"Phase 5", title:"AI Solution with Deep Learning", text:"" },
   { n:6, date:"2027-02-04", tag:"Presentation", title:"AI Solution with Generative AI", text:"" },
@@ -773,7 +773,7 @@ addEventListener("hashchange", () => {
 });
 /* ===== Phase 4 live timer (Saudi Arabia time) ===== */
 const P4_START = Date.UTC(2026, 10, 9, 5, 25);      // Monday 9 Nov 2026, 08:25 in Riyadh (UTC+3)
-const SLOT_MS = 15 * 60 * 1000;
+const SLOT_MS = 10 * 60 * 1000;
 const KSA = { timeZone: "Asia/Riyadh" };
 const fmtClock = new Intl.DateTimeFormat("en-GB", { ...KSA, hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23" });
 const fmtDay = new Intl.DateTimeFormat("en-GB", { ...KSA, weekday: "long", day: "numeric", month: "long", year: "numeric" });
