@@ -454,7 +454,7 @@ html[lang="ar"] .slot time, html[lang="ar"] .now .big b, html[lang="ar"] .clock 
   <section class="ltimer" aria-labelledby="live-h">
     <div class="live-head">
       <div><div class="eyebrow" data-ar="المرحلة 4 · النمذجة · الإثنين 9 نوفمبر 2026">Phase 4 · Modeling · Monday 9 November 2026</div><h2 id="live-h" data-ar="مؤقت العروض المباشر">Live presentation timer</h2>
-        <p data-ar="16 فريقًا، 10 دقائق لكل فريق مع استراحة 3 دقائق بين كل فريق. الأوقات بتوقيت السعودية، والأوقات القادمة تقديرية (~) وتتحدث بعد انتهاء كل فريق.">16 teams, 10 minutes each with a 3-minute break between teams. Times follow Saudi Arabia time; later times are estimates (~) and update as each team finishes.</p></div>
+        <p data-ar="16 فريقًا، 10 دقائق لكل فريق مع استراحة 3 دقائق بين كل فريق. الأوقات بتوقيت السعودية.">16 teams, 10 minutes each with a 3-minute break between teams. Times follow Saudi Arabia time.</p></div>
       <div class="clock"><small data-ar="توقيت السعودية">Saudi Arabia time</small><b id="bigClock">--:--:--</b><span id="bigDate"></span></div>
     </div>
     <div class="now" id="nowCard" aria-live="polite"></div>
@@ -559,7 +559,7 @@ const AR = {
     { tag:"المرحلة 1", title:"فهم الأعمال", text:"صياغة مشكلة العمل." },
     { tag:"المرحلة 2", title:"فهم البيانات", text:"فهم البيانات وتصويرها." },
     { tag:"المراحل 1–3", title:"تجهيز البيانات · المراحل 1–3 مجمّعة", text:"15 فريقًا، 10 دقائق لكل فريق، 08:10–10:40، تغطي أول ثلاث مراحل من CRISP-DM.", caps:["أجندة المراحل 1–3"] },
-    { tag:"المرحلة 4", title:"النمذجة · حل ذكاء اصطناعي بتعلّم الآلة", text:"الإثنين، 16 فريقًا، 10 دقائق لكل فريق، 08:25–11:20.", caps:["أجندة المرحلة 4"] },
+    { tag:"المرحلة 4", title:"النمذجة · حل ذكاء اصطناعي بتعلّم الآلة", text:"الإثنين، 16 فريقًا، 10 دقائق لكل فريق مع استراحة 3 دقائق، 08:25–12:06.", caps:["أجندة المرحلة 4"] },
     { tag:"المرحلة 5", title:"حل ذكاء اصطناعي بالتعلّم العميق", text:"" },
     { tag:"عرض", title:"حل ذكاء اصطناعي بالذكاء الاصطناعي التوليدي", text:"" },
     { tag:"المرحلة 6 · المشروع النهائي", title:"العرض النهائي وخطة العمل", text:"يليه أسبوع مشروع التخرج في 28 مارس 2027." }
@@ -589,7 +589,7 @@ const PRES = [
   { n:2, date:"2026-07-16", tag:"Phase 2", title:"Data Understanding", text:"Data understanding and data visualization." },
   { n:3, date:"2026-10-08", phase:"1-3", tag:"Phases 1–3", title:"Data Preparation · combined Phases 1–3", text:"15 teams, 10 minutes each, 08:10–10:40, covering the first three CRISP-DM phases.",
     images:[ { src:"../awards/img/agenda13.jpg", caption:"Phases 1–3 agenda" } ] },
-  { n:4, date:"2026-11-09", phase:"4", tag:"Phase 4", title:"Modeling · AI Solution with Machine Learning", text:"Monday, 16 teams, 10 minutes each, 08:25–11:20.",
+  { n:4, date:"2026-11-09", phase:"4", tag:"Phase 4", title:"Modeling · AI Solution with Machine Learning", text:"Monday, 16 teams, 10 minutes each with 3-minute breaks, 08:25–12:06.",
     images:[ { src:"../awards/img/agenda4.jpg", caption:"Phase 4 agenda" } ] },
   { n:5, date:"2026-12-24", phase:"5", tag:"Phase 5", title:"AI Solution with Deep Learning", text:"" },
   { n:6, date:"2027-02-04", tag:"Presentation", title:"AI Solution with Generative AI", text:"" },
@@ -859,22 +859,17 @@ const DAY_FIX = {
   0: { end: KT(8, 35) },                 // Tasnee
   1: { start: KT(8, 35), end: KT(8, 46) },   // ACWA Power Team 2
   2: { start: KT(9, 0), end: KT(9, 15) },    // Devoteam Team 2 (moved after a technical issue)
-  3: { start: KT(9, 20) }                    // GIB
+  3: { start: KT(9, 20), end: KT(9, 30) }    // GIB · every later team: 10 min + 3 min break
 };
-const LIVE_IDX = ROSTER.findIndex((t, i) => !(DAY_FIX[i] && DAY_FIX[i].end));   // first team not confirmed finished
 let SLOTS = [];
 function schedule(now){
   let prevEnd = null;
   SLOTS = ROSTER.map((t, i) => {
     const fx = DAY_FIX[i] || {};
     const start = fx.start ?? (prevEnd === null ? P4_START : prevEnd + GAP_MS);
-    const planned = start + SLOT_MS;
-    let end, live = false, est = false;
-    if (fx.end) end = fx.end;
-    else if (i === LIVE_IDX) { live = now >= start; end = live ? Math.max(planned, now + 1000) : planned; }
-    else { est = true; end = planned; }
-    prevEnd = fx.end ? fx.end : (i === LIVE_IDX ? end : planned);
-    return { ...t, start, end, planned, live, est, confirmed: !!fx.end };
+    const end = fx.end ?? start + SLOT_MS;
+    prevEnd = end;
+    return { ...t, start, end, planned: end, live: now >= start && now < end, confirmed: now >= end, est: false };
   });
 }
 schedule(Date.now());
@@ -892,8 +887,8 @@ function tick(){
   document.getElementById("bigClock").textContent = clock;
   document.getElementById("bigDate").textContent = fmtDay.format(now);
   const cur = SLOTS.findIndex(t => t.live);
-  const allDone = LIVE_IDX === -1;
-  const nxt = cur === -1 && !allDone ? LIVE_IDX : -1;
+  const allDone = now >= SLOTS[SLOTS.length - 1].end;
+  const nxt = cur === -1 && !allDone ? SLOTS.findIndex(t => now < t.start) : -1;
   SLOTS.forEach((t, i) => {
     const el = document.getElementById("slot" + i), st = document.getElementById("st" + i), pb = document.getElementById("pb" + i);
     const done = t.confirmed;
@@ -902,7 +897,7 @@ function tick(){
     if (i === cur) {
       const left = t.planned - now;
       st.textContent = left >= 0 ? tr(`${dur(left)} left`, `باقي ${dur(left)}`) : tr(`+${dur(-left)} over`, `+${dur(-left)} إضافي`);
-    } else st.textContent = done ? tr("Done ✓","انتهى ✓") : tr(`in ~${dur(t.start - now)}`, `بعد ~${dur(t.start - now)}`);
+    } else st.textContent = done ? tr("Done ✓","انتهى ✓") : tr(`in ${dur(t.start - now)}`, `بعد ${dur(t.start - now)}`);
     pb.style.width = i === cur ? `${Math.min(100, ((now - t.start) / SLOT_MS) * 100)}%` : (done ? "100%" : "0");
   });
   const card = document.getElementById("nowCard");
