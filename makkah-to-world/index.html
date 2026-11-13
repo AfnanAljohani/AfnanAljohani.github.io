@@ -309,7 +309,12 @@ function say(t,done){bot.classList.add('talk');let fin=false;const end=()=>{if(f
 const intro=document.getElementById('intro'),iv=document.getElementById('iv'),snd=document.getElementById('snd');
 const WELCOME='هلا والله وغلا، ويا حيّ الله من جانا! أنا روبوت خدّام الحرم، وبوريكم وش سوّت السعودية في حج ألفين وستة وعشرين بالأرقام. خلّونا نبدأ بهالمقطع، تابعوا معي!';
 document.getElementById('go').onclick=()=>{document.getElementById('gate').style.display='none';bub.textContent='هلا والله وغلا… حيّاكم الله! 👋';
- say(WELCOME,playIntro)};
+ playWelcome()};
+/* لو فيه تسجيل صوتي media/welcome.m4a يشغّله، وإلا يرجع لصوت المتصفح */
+function playWelcome(){const a=new Audio('media/welcome.m4a');let done=false;
+ const tts=()=>{if(done)return;done=true;say(WELCOME,playIntro)};
+ a.onerror=tts;a.onended=()=>{done=true;bot.classList.remove('talk');playIntro()};
+ a.onplaying=()=>{done=true;bot.classList.add('talk')};a.play().catch(tts)}
 function playIntro(){intro.classList.add('v');iv.muted=false;iv.play().catch(()=>{iv.muted=true;snd.hidden=false;iv.play()})}
 snd.onclick=()=>{iv.muted=false;snd.hidden=true};
 iv.onended=finishIntro;document.getElementById('skip').onclick=finishIntro;
