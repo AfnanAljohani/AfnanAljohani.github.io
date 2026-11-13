@@ -271,9 +271,9 @@ footer a:hover{border-color:var(--gold)}
 <a href="https://www.linkedin.com/in/afnan-aljohani-0b5a70315/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13M7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0"/></svg>LinkedIn · أفنان الجهني</a>
 </footer>
 
-<!-- ====== Eng Afnan Chatbot ====== -->
-<div id="chat" role="dialog" aria-label="Eng Afnan">
-<header><span style="font-size:26px">🤖</span><div><b>Eng Afnan</b><small>اسألني عن أرقام الحج والعمرة 2026</small></div><button id="vo" title="الصوت">🔊</button><button id="cx" aria-label="إغلاق">✕</button></header>
+<!-- ====== رشيد Chatbot ====== -->
+<div id="chat" role="dialog" aria-label="رشيد">
+<header><span style="font-size:26px">🤖</span><div><b>رشيد</b><small>مرشدك في أرقام الحج والعمرة 2026</small></div><button id="vo" title="الصوت">🔊</button><button id="cx" aria-label="إغلاق">✕</button></header>
 <div id="log"></div>
 <div id="chips"></div>
 <form id="cf"><input id="q" placeholder="اكتب سؤالك…" autocomplete="off"><button>إرسال</button></form>
@@ -318,13 +318,13 @@ function playIntro(){intro.classList.add('v');iv.muted=false;iv.play().catch(()=
 snd.onclick=()=>{iv.muted=false;snd.hidden=true};
 iv.onended=finishIntro;document.getElementById('skip').onclick=finishIntro;
 function finishIntro(){iv.pause();intro.classList.add('out');document.body.classList.remove('lock');
- setTimeout(()=>{document.body.appendChild(bot);bot.classList.add('dock');bub.textContent='عندك سؤال؟ اسأل Eng Afnan 💬';intro.remove();
+ setTimeout(()=>{document.body.appendChild(bot);bot.classList.add('dock');bub.textContent='عندك سؤال؟ اسأل رشيد 💬';intro.remove();
  setTimeout(()=>bub.classList.add('hide'),6000)},800)}
 
-/* ---------- Eng Afnan ---------- */
+/* ---------- رشيد ---------- */
 const LI='https://www.linkedin.com/in/afnan-aljohani-0b5a70315/';
 const KB=[
-[['السلام','هلا','مرحب','اهلين','هاي'],'وعليكم السلام وهلا والله! أنا Eng Afnan 🤖 اسألني عن أرقام حج 1447هـ، العمرة، أو تقنيات الذكاء الاصطناعي في الحج.'],
+[['السلام','هلا','مرحب','اهلين','هاي'],'وعليكم السلام وهلا والله! أنا رشيد 🤖 مرشدك الذكي، اسألني عن أرقام حج 1447هـ، العمرة، أو تقنيات الذكاء الاصطناعي في الحج.'],
 [['كم حاج','عدد الحجاج','الحجاج','حجاج','حاج'],'بلغ عدد حجاج موسم 1447هـ (2026م) 1,707,301 حاج وحاجّة، بحسب الهيئة العامة للإحصاء 🕋'],
 [['خارج','الخارج','داخل','الداخل','مقيم','مواطن'],'منهم 1,546,655 قدموا من خارج المملكة، و160,646 من حجاج الداخل (مواطنين ومقيمين).'],
 [[' جو ','طيران','مطار',' بر',' بحر','منافذ','منفذ','وصلوا'],'طرق وصول حجاج الخارج: جوًا 1,485,729 ✈️ · برًا 54,429 🚌 · بحرًا 6,497 🚢'],
@@ -346,6 +346,7 @@ const KB=[
 [['حراره','حراري','اجهاد','شمس',' حر '],'مراقبة الإجهاد الحراري: ابتكارات قيد التطوير للإنذار المبكر وحماية الحجاج من ضربات الشمس ☀️'],
 [['ذكاء','تقنيه','تقنيات','ابتكار',' ai '],'أبرز تقنيات الحج 2026: منصة سواهر وبصير، نسك AI بـ180+ لغة، بطاقة نسك الذكية، الدرون، المطوّف الرقمي، روبوت الإرشاد، جهاز وجيب، ومراقبة الإجهاد الحراري. اسألني عن أي وحدة منها!'],
 [['مصدر','مصادر','موثوق','صحيح','تاكد'],'كل الأرقام من مصادر رسمية: الهيئة العامة للإحصاء (تقرير الحج 1447هـ)، وزارة الحج والعمرة، سدايا، ووزارة الداخلية. أرقام «نسك AI» من عرض شركة علم.'],
+[['انت مين','وش اسمك','اسمك','رشيد'],'أنا رشيد 🤖 — اسمي من «الرُّشد والإرشاد»، ومهمتي أرشدك لأرقام الحج والعمرة وتقنيات خدمة ضيوف الرحمن. صمّمتني م. أفنان الجهني 💛'],
 [['مين','من سوا','صمم','سوي','افنان','المطور','المصمم','الموقع'],'الموقع من تصميم م. أفنان الجهني 💛 — مهندسة ذكاء اصطناعي وعلوم بيانات.\nحسابها في لينكدإن: '+LI],
 [['شكرا','يعطيك','مشكور','تسلم'],'العفو، حيّاك الله! 🌷'],
 ];
@@ -361,7 +362,7 @@ function ask(q){if(!q.trim())return;add(q,'u');const a=answer(q);setTimeout(()=>
 CH.forEach(c=>{const b=document.createElement('button');b.textContent=c;b.onclick=()=>ask(c);document.getElementById('chips').appendChild(b)});
 document.getElementById('cf').onsubmit=e=>{e.preventDefault();ask(qi.value);qi.value=''};
 bot.onclick=()=>{if(!bot.classList.contains('dock'))return;chat.classList.toggle('on');bub.classList.add('hide');
- if(!log.children.length)add('هلا والله! أنا Eng Afnan 🤖\nاسألني أي شي عن أرقام الحج والعمرة 2026 أو تقنيات الذكاء الاصطناعي في الموسم.','b');if(chat.classList.contains('on'))qi.focus()};
+ if(!log.children.length)add('هلا والله! أنا رشيد 🤖 مرشدك الذكي في الموقع\nاسألني أي شي عن أرقام الحج والعمرة 2026 أو تقنيات الذكاء الاصطناعي في الموسم.','b');if(chat.classList.contains('on'))qi.focus()};
 document.getElementById('cx').onclick=()=>chat.classList.remove('on');
 document.getElementById('vo').onclick=e=>{voiceOn=!voiceOn;e.target.textContent=voiceOn?'🔊':'🔇';if(!voiceOn&&'speechSynthesis' in window)speechSynthesis.cancel()};
 </script>
