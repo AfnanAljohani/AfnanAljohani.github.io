@@ -256,7 +256,6 @@ footer a:hover{border-color:var(--gold)}
 <div class="vc"><video controls playsinline preload="none" poster="media/v5.jpg" src="media/v5.mp4"></video><div>الأمن والتقنية لسلامة الحجاج<small>إدارة الحشود لحظة بلحظة</small></div></div>
 <div class="vc"><video controls playsinline preload="none" poster="media/v6.jpg" src="media/v6.mp4"></video><div>البيانات خلف موسم الحج<small>تقرير مصوّر</small></div></div>
 </div>
-<div class="au r"><span>🎧 مقطع صوتي</span><audio controls preload="none" src="media/voice.m4a"></audio></div>
 </section>
 
 <section>
@@ -294,7 +293,7 @@ el.textContent=pre+v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFrac
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const n=e.target;n.classList.add('in');(n.dataset.to?[n]:[...n.querySelectorAll('[data-to]')]).forEach(count);io.unobserve(n)}}),{threshold:.25});
 document.querySelectorAll('.r').forEach(n=>io.observe(n));
 /* تشغيل مقطع واحد في كل مرة */
-document.querySelectorAll('#efforts video,#efforts audio').forEach(m=>m.addEventListener('play',()=>document.querySelectorAll('#efforts video,#efforts audio').forEach(o=>o!==m&&o.pause())));
+document.querySelectorAll('#efforts video').forEach(m=>m.addEventListener('play',()=>document.querySelectorAll('#efforts video').forEach(o=>o!==m&&o.pause())));
 
 /* ---------- الصوت السعودي ---------- */
 let voiceOn=true,arVoice=null;
