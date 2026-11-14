@@ -51,7 +51,7 @@ h2{font-size:clamp(30px,8vw,56px);line-height:1.3}
 .quote{font:500 clamp(24px,6.5vw,44px)/1.7 "Reem Kufi",Tajawal,serif;max-width:22ch}
 .umrah{background:linear-gradient(180deg,var(--bg),rgba(5,8,22,.72) 18%,rgba(5,8,22,.72) 82%,var(--bg)),url(media/umrah.jpg) center/cover}
 /* innovations */
-.ig{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;width:min(100%,1080px);margin-top:32px}
+.ig{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;width:min(100%,1180px);margin-top:32px}
 .inv{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:rgba(10,14,34,.7);text-align:right;transition:transform .3s,border-color .3s}
 .inv:hover{transform:translateY(-6px);border-color:var(--gold)}
 .inv svg{display:block;width:100%;height:auto;background:radial-gradient(circle at 50% 40%,rgba(67,214,205,.18),rgba(138,108,255,.12) 50%,transparent 75%),#0a1030}
@@ -65,6 +65,15 @@ h2{font-size:clamp(30px,8vw,56px);line-height:1.3}
 .pulse{animation:pl 2s ease-in-out infinite}@keyframes pl{50%{opacity:.25}}
 .rot{transform-box:fill-box;transform-origin:center;animation:spin 1s linear infinite}
 .orbt{transform-origin:60px 46px;animation:spin 6s linear infinite}
+/* expo gallery */
+.gal{columns:4 230px;column-gap:14px;width:min(100%,1180px);margin-top:30px}
+.gal figure{break-inside:avoid;margin:0 0 14px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(10,14,34,.75);cursor:zoom-in;transition:transform .3s,border-color .3s}
+.gal figure:hover{transform:translateY(-4px);border-color:var(--gold)}
+.gal img{display:block;width:100%;height:auto}
+.gal figcaption{padding:8px 12px 10px;font-size:14px;line-height:1.5;text-align:right;font-weight:700}
+.gal figcaption small{display:block;color:var(--mut);font-weight:400;font-size:12px}
+#lb{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.92);display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+#lb.on{display:flex}#lb img{max-width:100%;max-height:82svh;border-radius:12px}#lb p{color:var(--ink);margin:10px 0 0;text-align:center}
 /* videos */
 .vg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:min(100%,1080px);margin-top:32px}
 .vc{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:rgba(10,14,34,.75);text-align:right}
@@ -126,7 +135,7 @@ footer a:hover{border-color:var(--gold)}
 #chat form{display:flex;gap:6px;padding:10px;border-top:1px solid var(--line)}
 #chat input{flex:1;font:15px Tajawal,sans-serif;background:rgba(255,255,255,.07);color:var(--ink);border:1px solid var(--line);border-radius:99px;padding:8px 14px;outline:none}
 #chat form button{font:700 15px Tajawal,sans-serif;background:var(--gold);color:#12382d;border:0;border-radius:99px;padding:0 16px;cursor:pointer}
-@media (max-width:860px){.ig{grid-template-columns:repeat(2,1fr)}.vg{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}nav{font-size:12.5px;gap:0}nav a{padding:4px 7px}}
+@media (max-width:860px){.ig{grid-template-columns:repeat(2,1fr)}.gal{columns:2 140px}.vg{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}nav{font-size:12.5px;gap:0}nav a{padding:4px 7px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r{opacity:1;transform:none}}
 </style>
 </head>
@@ -166,7 +175,7 @@ footer a:hover{border-color:var(--gold)}
   </div>
 </div>
 
-<nav><a href="#hajj">الحج</a><a href="#umrah">العمرة</a><a href="#ai">الذكاء الاصطناعي</a><a href="#ideas">الابتكارات</a><a href="#efforts">المجهودات</a></nav>
+<nav><a href="#hajj">الحج</a><a href="#umrah">العمرة</a><a href="#ai">الذكاء الاصطناعي</a><a href="#ideas">الابتكارات</a><a href="#expo">المؤتمر</a><a href="#efforts">المجهودات</a></nav>
 
 <section class="hero" id="top">
 <div class="k">حج 1447هـ · عمرة 1448هـ</div>
@@ -225,6 +234,9 @@ footer a:hover{border-color:var(--gold)}
 <div class="g g3 r">
 <div class="c"><b data-to="180" data-suf="+">180+</b><span>لغة في «نسك AI»</span></div>
 <div class="c"><b data-to="155" data-suf="K+">155K+</b><span>سؤال أجاب عنه «نسك AI» في موسم الحج</span></div>
+<div class="c"><b>≈9K</b><span>سؤال يوميًا في وقت الذروة</span></div>
+<div class="c"><b data-to="70" data-suf="%">70%</b><span>من المحادثات تُحل من أول رسالة</span></div>
+<div class="c"><b data-to="24" data-pre="+" data-suf="%">+24%</b><span>نمو الاستخدام اليومي منذ موسم الحج الماضي</span></div>
 <div class="c"><b data-to="3.4" data-dec="1" data-suf=" M+">3.4 M+</b><span>عملية قراءة لبطاقة «نسك» عند نقاط التحقق</span></div>
 </div>
 </section>
@@ -238,11 +250,39 @@ footer a:hover{border-color:var(--gold)}
 <article class="inv"><svg viewBox="0 0 120 90"><rect x="22" y="30" width="40" height="36" rx="12" class="s"/><rect x="29" y="38" width="26" height="18" rx="6" fill="#0d1b2a"/><circle cx="37" cy="47" r="2.5" class="ft pulse"/><circle cx="47" cy="47" r="2.5" class="ft pulse"/><path class="s" d="M42 30v-8"/><circle cx="42" cy="20" r="3" class="fg"/><path class="t" d="M70 22h34a6 6 0 0 1 6 6v14a6 6 0 0 1-6 6H82l-8 7v-7h-4a6 6 0 0 1-6-6V28a6 6 0 0 1 6-6z"/><text x="87" y="40" text-anchor="middle" font-size="14" fill="#f7e3a1" font-family="Tajawal">؟</text></svg><div><h3>روبوت الإرشاد الديني</h3><p>يجيب على الاستفسارات الشرعية بعدة لغات.</p></div></article>
 <article class="inv"><svg viewBox="0 0 120 90"><rect x="42" y="26" width="36" height="40" rx="10" class="s"/><path class="s" d="M50 26l3-12h14l3 12M50 66l3 12h14l3-12"/><path class="t pulse" d="M46 46h8l4-9 5 17 4-8h7"/><path class="s" d="M92 30v10M87 35h10"/></svg><div><h3>جهاز وجيب الطبي</h3><p>قياس 5 علامات حيوية عبر الإصبع خلال ثوانٍ.</p></div></article>
 <article class="inv"><svg viewBox="0 0 120 90"><path class="s" d="M38 50v-6a22 22 0 0 1 44 0v6"/><rect x="32" y="48" width="10" height="18" rx="4" class="s"/><rect x="78" y="48" width="10" height="18" rx="4" class="s"/><text x="60" y="52" text-anchor="middle" font-size="15" font-weight="700" fill="#43d6cd" font-family="Tajawal">AI</text><g class="t pulse"><path d="M96 46q6 8 0 16M102 42q10 12 0 24"/></g><text x="60" y="80" text-anchor="middle" font-size="9" fill="#f7e3a1" font-family="Tajawal">+180 لغة</text></svg><div><h3>مساعد «نسك AI»</h3><p>إرشاد صوتي ونصي بأكثر من 180 لغة.</p></div></article>
-<article class="inv"><svg viewBox="0 0 120 90"><path class="s" d="M14 20h22l6 6-6 6H14z"/><path class="s" d="M24 32v8"/><path d="M40 28 108 50v28H40z" fill="rgba(67,214,205,.1)" class="pulse"/><g class="fg"><circle cx="58" cy="62" r="2"/><circle cx="66" cy="58" r="2"/><circle cx="72" cy="66" r="2"/><circle cx="84" cy="62" r="2"/><circle cx="92" cy="70" r="2"/></g><circle cx="78" cy="64" r="10" fill="rgba(217,90,90,.3)"/><path class="t" d="M50 50h50M50 70h50M70 40v36M90 46v32"/></svg><div><h3>أنظمة «بصير» و«سواهر»</h3><p>تحليل حركة الحشود لحظيًا والتنبؤ بالازدحام.</p></div></article>
+<article class="inv"><svg viewBox="0 0 120 90"><path class="s" d="M14 20h22l6 6-6 6H14z"/><path class="s" d="M24 32v8"/><path d="M40 28 108 50v28H40z" fill="rgba(67,214,205,.1)" class="pulse"/><g class="fg"><circle cx="58" cy="62" r="2"/><circle cx="66" cy="58" r="2"/><circle cx="72" cy="66" r="2"/><circle cx="84" cy="62" r="2"/><circle cx="92" cy="70" r="2"/></g><circle cx="78" cy="64" r="10" fill="rgba(217,90,90,.3)"/><path class="t" d="M50 50h50M50 70h50M70 40v36M90 46v32"/></svg><div><h3>أنظمة «بصير» و«سواهر»</h3><p>شراكة الأمن العام وسدايا: رصد سلوكيات الحشود وبوابات افتراضية لمراقبة العبور.</p></div></article>
 <article class="inv"><svg viewBox="0 0 120 90"><rect x="22" y="26" width="60" height="40" rx="6" class="s"/><rect x="30" y="38" width="12" height="10" rx="2" class="fg"/><path class="t" d="M30 56h28"/><g class="t pulse"><path d="M90 38q5 8 0 16M96 33q9 13 0 26"/></g></svg><div><h3>بطاقة «نسك» الذكية</h3><p>تسهيل التحقق من هوية الحاج وتصريحه.</p></div></article>
 <article class="inv"><svg viewBox="0 0 120 90"><circle cx="82" cy="32" r="10" class="fg pulse"/><g class="s"><path d="M82 14v-4M82 54v-4M64 32h-4M104 32h-4M69 19l-3-3M98 48l-3-3M95 19l3-3M66 48l3-3"/></g><path class="s" d="M38 20a6 6 0 0 1 12 0v32a11 11 0 1 1-12 0z"/><path d="M44 30v26" stroke="#e35b5b" stroke-width="4" stroke-linecap="round"/><circle cx="44" cy="62" r="6" fill="#e35b5b"/></svg><div><h3>مراقبة الإجهاد الحراري</h3><p>ابتكارات قيد التطوير للإنذار المبكر وحماية الحجاج.</p></div></article>
+<article class="inv"><svg viewBox="0 0 120 90"><path class="s" d="M48 72V40a5 5 0 0 1 10 0v-6a5 5 0 0 1 10 0v4a5 5 0 0 1 10 0v4a5 5 0 0 1 10 0v18c0 10-8 18-18 18h-4c-8 0-12-4-16-10l-8-12a5 5 0 0 1 8-6z"/><path class="t pulse" d="M36 50h60" stroke-width="3"/><g class="t"><path d="M22 20h10M22 20v10M98 20H88M98 20v10"/></g></svg><div><h3>العبور الذكي بكف اليد</h3><p>بوابات تتحقق من الهوية بقراءة كف اليد بدل الإجراءات التقليدية.</p></div></article>
+<article class="inv"><svg viewBox="0 0 120 90"><rect x="16" y="22" width="40" height="26" rx="3" class="s"/><rect x="64" y="22" width="40" height="26" rx="3" class="s"/><path class="t pulse" d="M22 42l8-8 6 5 12-11M70 40h6v-8h6v12h6v-6h8"/><path class="s" d="M30 60h60M60 48v12M44 70h32"/><circle cx="60" cy="60" r="3" class="fg"/></svg><div><h3>مركز «مكة الذكي»</h3><p>غرفة عمليات تجمع الكاميرات ولوحات البيانات لاتخاذ القرار لحظيًا.</p></div></article>
 </div>
 <p class="src r">الابتكارات من إنفوجرافيك «الوئام» وتغطيات موسم حج 1447هـ.</p>
+</section>
+
+<section id="expo">
+<div class="k r">من مؤتمر ومعرض الحج 2026</div>
+<h2 class="gold r">مستقبلٌ يرسمه الابتكار</h2>
+<p class="sub r">النسخة السادسة · 9–11 نوفمبر 2026 · تنظمها وزارة الحج والعمرة بالشراكة مع برنامج خدمة ضيوف الرحمن</p>
+<a class="btn r" href="https://youtu.be/340O8gykqTs" target="_blank" rel="noopener">🎬 شاهد فيلم «المد البشري»</a>
+<div class="gal r">
+<figure><img loading="lazy" src="media/expo/expo.jpg" alt="أجنحة المعرض وجناح وزارة الحج والعمرة"><figcaption>أجنحة المعرض وجناح وزارة الحج والعمرة<small>مؤتمر ومعرض الحج 2026</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/tide-poster.jpg" alt="فيلم Human Tide «المد البشري»"><figcaption>فيلم Human Tide «المد البشري»<small>عُرض في مؤتمر ومعرض الحج 2026</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/tide-still.jpg" alt="من فيلم «المد البشري»"><figcaption>من فيلم «المد البشري»<small>رحلة الشوق إلى مكة</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/elm-nusuk.jpg" alt="«نسك AI» بالأرقام"><figcaption>«نسك AI» بالأرقام<small>جناح شركة علم</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/baseer.jpg" alt="منظومة «بصير»"><figcaption>منظومة «بصير»<small>الأمن العام وسدايا</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/ops.jpg" alt="مركز العمليات: 5 آلاف كاميرا و16 خوارزمية"><figcaption>مركز العمليات: 5 آلاف كاميرا و16 خوارزمية<small>واس</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/palm.jpg" alt="عبور ذكي بقراءة كف اليد"><figcaption>عبور ذكي بقراءة كف اليد<small>القوات الخاصة لأمن الحج والعمرة</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/drone.jpg" alt="درون الأمن العام"><figcaption>درون الأمن العام<small>واس</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/robot.jpg" alt="روبوت إرشاد في المعرض"><figcaption>روبوت إرشاد في المعرض<small>واس</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/innovation.jpg" alt="مستقبل يرسم الابتكار ملامحه"><figcaption>مستقبل يرسم الابتكار ملامحه<small>مؤتمر ومعرض الحج 2026</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/award.jpg" alt="جائزة الابتكار في الحج"><figcaption>جائزة الابتكار في الحج<small>وزارة الحج والعمرة</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/tawaf.jpg" alt="تحليل الحشود في صحن الطواف"><figcaption>تحليل الحشود في صحن الطواف<small>العربية</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/future.jpg" alt="تقنيات المستقبل في خدمة الحاج"><figcaption>تقنيات المستقبل في خدمة الحاج<small>تصوّر توضيحي</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/kaaba.jpg" alt="المسجد الحرام في موسم الحج"><figcaption>المسجد الحرام في موسم الحج<small></small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/gastat.jpg" alt="إحصاءات الحج 1447هـ"><figcaption>إحصاءات الحج 1447هـ<small>الهيئة العامة للإحصاء</small></figcaption></figure>
+<figure><img loading="lazy" src="media/expo/weeam.jpg" alt="تقنيات ذكية تغيّر تجربة الحج"><figcaption>تقنيات ذكية تغيّر تجربة الحج<small>الوئام</small></figcaption></figure>
+</div>
+<p class="src r">الصور من حسابات مؤتمر ومعرض الحج، وكالة الأنباء السعودية (واس)، العربية، الوئام، والهيئة العامة للإحصاء.</p>
 </section>
 
 <section id="efforts">
@@ -272,6 +312,7 @@ footer a:hover{border-color:var(--gold)}
 </footer>
 
 <!-- ====== رشيد Chatbot ====== -->
+<div id="lb"><img alt=""><p></p></div>
 <div id="chat" role="dialog" aria-label="رشيد">
 <header><span style="font-size:26px">🤖</span><div><b>رشيد</b><small>مرشدك في أرقام الحج والعمرة 2026</small></div><button id="vo" title="الصوت">🔊</button><button id="cx" aria-label="إغلاق">✕</button></header>
 <div id="log"></div>
@@ -295,6 +336,9 @@ document.querySelectorAll('.r').forEach(n=>io.observe(n));
 /* تشغيل مقطع واحد في كل مرة */
 document.querySelectorAll('#efforts video').forEach(m=>m.addEventListener('play',()=>document.querySelectorAll('#efforts video').forEach(o=>o!==m&&o.pause())));
 
+const lb=document.getElementById('lb');
+document.querySelectorAll('.gal figure').forEach(f=>f.onclick=()=>{lb.querySelector('img').src=f.querySelector('img').src;lb.querySelector('p').textContent=f.querySelector('figcaption').firstChild.textContent;lb.classList.add('on')});
+lb.onclick=()=>lb.classList.remove('on');
 /* ---------- الصوت السعودي ---------- */
 let voiceOn=true,arVoice=null;
 function pickVoice(){const v=speechSynthesis.getVoices();arVoice=v.find(a=>/ar[-_]SA/i.test(a.lang))||v.find(a=>/^ar/i.test(a.lang))||null}
@@ -336,8 +380,13 @@ const KB=[
 [['1448','موسم جديد','الموسم الجديد','باكستان','اندونيسيا'],'من 15 ذي الحجة إلى نهاية محرم 1448هـ (نحو 45 يومًا) وصل أكثر من 1.27 مليون معتمر من الخارج، والقادمون بتأشيرات العمرة 931.5 ألف بنمو 22.5%. الأولى باكستان (200 ألف) ثم إندونيسيا (170 ألف) ثم العراق (130 ألف).'],
 [['عمره','معتمر','معتمرين','تاشيره','تاشيرات'],'في عام 1447هـ دخل المملكة 10,614,665 معتمر، وصدرت نحو 11.4 مليون تأشيرة عمرة (وزارة الحج والعمرة). وتقدر تسألني عن «الموسم الجديد 1448».'],
 [['سواهر','كاميرا','كاميرات','حشود','ازدحام'],'منصة «سواهر» من سدايا ووزارة الداخلية: أكثر من 5,000 كاميرا في 80 موقعًا، مع 31 لوحة بيانات و16 خوارزمية ذكاء اصطناعي، وأكثر من 600 مستخدم — لإدارة الحشود وتعزيز الجاهزية الأمنية 👁️'],
-[['بصير'],'نظام «بصير» يحلل حركة الحشود لحظيًا، ويشتغل جنب «سواهر» عشان تتخذ الجهات قراراتها بسرعة.'],
-[['نسك ai','نسك','لغه','لغات','مساعد'],'«نسك AI» مساعد ذكي يرشد الحاج صوتيًا بأكثر من 180 لغة، وأجاب عن أكثر من 155 ألف سؤال في موسم الحج 🗣️'],
+[['بصير'],'منظومة «بصير» شراكة بين الأمن العام وسدايا، تعتمد على خوارزميات لتحليل الحشود: ترصد السلوكيات وتحللها، وتستخدم بوابات افتراضية لتحديد ومراقبة العبور عبر نقاط افتراضية 👁️'],
+[['كف','بوابه','بوابات','عبور','بصمه'],'العبور الذكي بقراءة كف اليد: بوابات تتحقق من هوية الشخص بكف يده بدل الإجراءات التقليدية — عُرضت في جناح القوات الخاصة لأمن الحج والعمرة ✋'],
+[['فيلم','المد البشري','human tide','tide'],'فيلم Human Tide «المد البشري» عُرض في مؤتمر ومعرض الحج 2026، ويحكي الشوق إلى مكة وقصص الحجاج 🎬\nشاهده: https://youtu.be/340O8gykqTs'],
+[['مؤتمر','معرض'],'مؤتمر ومعرض الحج 2026 هو النسخة السادسة، أُقيم من 9 إلى 11 نوفمبر 2026 برعاية خادم الحرمين الشريفين، وتنظمه وزارة الحج والعمرة بالشراكة مع برنامج خدمة ضيوف الرحمن.'],
+[['جائزه','جائزه الابتكار','الابتكار في الحج'],'جائزة الابتكار في الحج تدعم الحلول ذات الأثر القابل للقياس. مساراتها: التميز التشغيلي في المنشآت، التميز الحكومي والتشغيل، وإبداع البعثات في رعاية حجاجها. ومجالاتها: النقل والتفويج، الإعاشة والسكن، الخدمات الأساسية، والتجارب الإثرائية 🏆'],
+[['مكه الذكي','مركز العمليات','غرفه'],'مركز عمليات «مكة الذكي» من ركائز سدايا في الموسم: يجمع الكاميرات ولوحات البيانات في مكان واحد لاتخاذ القرار لحظيًا 🖥️'],
+[['نسك ai','نسك','لغه','لغات','مساعد'],'«نسك AI» من شركة علم: يرشد الحاج بأكثر من 180 لغة، وأجاب عن أكثر من 155 ألف سؤال في موسم الحج، بنحو 9 آلاف سؤال يوميًا وقت الذروة، و70% من المحادثات تنحل من أول رسالة، ونما الاستخدام اليومي 24% عن الموسم الماضي 🗣️'],
 [['بطاقه','هويه','تصريح'],'بطاقة «نسك» الذكية تسهّل التحقق من هوية الحاج وتصريحه، وسجّلت أكثر من 3.4 مليون عملية قراءة عند نقاط التحقق (1 ذي القعدة – 6 ذي الحجة).'],
 [['درون','طائره','مسيره','جوي'],'الدرون الذكي يراقب الحشود من الجو، وفيه رؤية ليلية تساعد على رصد المخالفات والازدحام 🚁'],
 [['روبوت','فتوي','شرعي','ديني'],'روبوت الإرشاد الديني يجاوب على الاستفسارات الشرعية للحجاج بعدة لغات 🤖'],
@@ -350,13 +399,13 @@ const KB=[
 [['مين','من سوا','صمم','سوي','افنان','المطور','المصمم','الموقع'],'الموقع من تصميم م. أفنان الجهني 💛 — مهندسة ذكاء اصطناعي وعلوم بيانات.\nحسابها في لينكدإن: '+LI],
 [['شكرا','يعطيك','مشكور','تسلم'],'العفو، حيّاك الله! 🌷'],
 ];
-const CH=['كم عدد الحجاج؟','كم جنسية؟','وش هي سواهر؟','نسك AI','العمرة 1448','المتطوعين','مين سوّى الموقع؟'];
+const CH=['كم عدد الحجاج؟','كم جنسية؟','وش هي سواهر؟','نسك AI','فيلم المد البشري','بوابة كف اليد','العمرة 1448','المتطوعين','مين سوّى الموقع؟'];
 const nz=s=>(' '+s+' ').toLowerCase().replace(/[ً-ْـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/ؤ/g,'و').replace(/ئ/g,'ي').replace(/[؟?!.,،]/g,' ');
 function answer(q){const n=nz(q);let best=null,sc=0;for(const [ks,a] of KB){let s=0;for(const k of ks){const kk=nz(k).slice(1,-1);if(n.includes(kk))s+=kk.length}if(s>sc){sc=s;best=a}}
  return best||'ما لقيت جواب دقيق لسؤالك 🙏 جرّب تسألني عن: عدد الحجاج، الجنسيات، المتطوعين، العمرة، سواهر، نسك AI، أو الدرون.'}
 const chat=document.getElementById('chat'),log=document.getElementById('log'),qi=document.getElementById('q');
 function add(t,c){const d=document.createElement('div');d.className='m '+c;
- if(c==='b'&&t.includes(LI)){const [a,b]=t.split(LI);d.textContent=a;const l=document.createElement('a');l.href=LI;l.target='_blank';l.rel='noopener';l.textContent='linkedin.com/in/afnan-aljohani';l.style.color='#f7e3a1';d.append(l,b)}else d.textContent=t;
+ const mm=c==='b'&&t.match(/https?:\/\/\S+/);if(mm){const [a,b]=t.split(mm[0]);d.textContent=a;const l=document.createElement('a');l.href=mm[0];l.target='_blank';l.rel='noopener';l.textContent=mm[0]===LI?'linkedin.com/in/afnan-aljohani':'▶ youtu.be/340O8gykqTs';l.style.color='#f7e3a1';d.append(l,b)}else d.textContent=t;
  log.appendChild(d);log.scrollTop=log.scrollHeight}
 function ask(q){if(!q.trim())return;add(q,'u');const a=answer(q);setTimeout(()=>{add(a,'b');if(voiceOn)say(a.split('\n')[0].replace(/[^؀-ۿ0-9a-zA-Z.,%\s«»]/g,''))},350)}
 CH.forEach(c=>{const b=document.createElement('button');b.textContent=c;b.onclick=()=>ask(c);document.getElementById('chips').appendChild(b)});
