@@ -1,6 +1,6 @@
 # أفنان فهد الجهني · Afnan Aljohani
 
-AI Engineer | Data Science | Creative Technology
+AI & Data Science Specialist | Founder, Bnan AI | Creative Technology
 
 🔗 **https://afnanaljohani.github.io/**
 
