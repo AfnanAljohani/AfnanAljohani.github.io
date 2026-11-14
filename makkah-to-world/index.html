@@ -308,7 +308,7 @@ footer a:hover{border-color:var(--gold)}
 <footer>
 <div>صُنع بحب ❤️ <b>Afnan Aljohani</b></div>
 <div>Made with love · AI &amp; Data Science Engineer</div>
-<a href="https://www.linkedin.com/in/afnan-aljohani-0b5a70315/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13M7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0"/></svg>LinkedIn · أفنان الجهني</a>
+<a href="https://www.linkedin.com/in/afnan-fahad-aljohani-0b5a70315/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13M7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0"/></svg>LinkedIn · أفنان الجهني</a>
 </footer>
 
 <!-- ====== رشيد Chatbot ====== -->
@@ -366,7 +366,7 @@ function finishIntro(){iv.pause();intro.classList.add('out');document.body.class
  setTimeout(()=>bub.classList.add('hide'),6000)},800)}
 
 /* ---------- رشيد ---------- */
-const LI='https://www.linkedin.com/in/afnan-aljohani-0b5a70315/';
+const LI='https://www.linkedin.com/in/afnan-fahad-aljohani-0b5a70315/';
 const KB=[
 [['السلام','هلا','مرحب','اهلين','هاي'],'وعليكم السلام وهلا والله! أنا رشيد 🤖 مرشدك الذكي، اسألني عن أرقام حج 1447هـ، العمرة، أو تقنيات الذكاء الاصطناعي في الحج.'],
 [['كم حاج','عدد الحجاج','الحجاج','حجاج','حاج'],'بلغ عدد حجاج موسم 1447هـ (2026م) 1,707,301 حاج وحاجّة، بحسب الهيئة العامة للإحصاء 🕋'],
@@ -405,7 +405,7 @@ function answer(q){const n=nz(q);let best=null,sc=0;for(const [ks,a] of KB){let 
  return best||'ما لقيت جواب دقيق لسؤالك 🙏 جرّب تسألني عن: عدد الحجاج، الجنسيات، المتطوعين، العمرة، سواهر، نسك AI، أو الدرون.'}
 const chat=document.getElementById('chat'),log=document.getElementById('log'),qi=document.getElementById('q');
 function add(t,c){const d=document.createElement('div');d.className='m '+c;
- const mm=c==='b'&&t.match(/https?:\/\/\S+/);if(mm){const [a,b]=t.split(mm[0]);d.textContent=a;const l=document.createElement('a');l.href=mm[0];l.target='_blank';l.rel='noopener';l.textContent=mm[0]===LI?'linkedin.com/in/afnan-aljohani':'▶ youtu.be/340O8gykqTs';l.style.color='#f7e3a1';d.append(l,b)}else d.textContent=t;
+ const mm=c==='b'&&t.match(/https?:\/\/\S+/);if(mm){const [a,b]=t.split(mm[0]);d.textContent=a;const l=document.createElement('a');l.href=mm[0];l.target='_blank';l.rel='noopener';l.textContent=mm[0]===LI?'linkedin.com/in/afnan-fahad-aljohani':'▶ youtu.be/340O8gykqTs';l.style.color='#f7e3a1';d.append(l,b)}else d.textContent=t;
  log.appendChild(d);log.scrollTop=log.scrollHeight}
 function ask(q){if(!q.trim())return;add(q,'u');const a=answer(q);setTimeout(()=>{add(a,'b');if(voiceOn)say(a.split('\n')[0].replace(/[^؀-ۿ0-9a-zA-Z.,%\s«»]/g,''))},350)}
 CH.forEach(c=>{const b=document.createElement('button');b.textContent=c;b.onclick=()=>ask(c);document.getElementById('chips').appendChild(b)});
