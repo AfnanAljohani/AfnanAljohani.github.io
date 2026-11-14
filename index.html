@@ -267,6 +267,10 @@ section{padding:var(--space-9) 0;border-top:1px solid var(--line)}
 .shot{display:block;border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;background:var(--surface-sunk);transition:border-color .15s}
 .shot:hover{border-color:var(--brand)}
 .shot.wide{grid-column:1/-1}
+.shots.strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:var(--space-3);padding-bottom:6px;margin-top:var(--space-5)}
+.shots.strip .shot{flex:0 0 210px;scroll-snap-align:start}
+.shots.strip .shot img{aspect-ratio:4/5;object-fit:cover}
+@media (max-width:720px){.shots.strip .shot{flex-basis:62%}}
 .shots.three{grid-template-columns:repeat(3,1fr)}
 .shot img{display:block;width:100%;height:100%;aspect-ratio:16/9;object-fit:cover}
 .shot.wide img{aspect-ratio:2/1}
@@ -545,6 +549,13 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
             <a role="listitem" class="shot" href="assets/nibras/calendar-dark.webp" target="_blank" rel="noopener"><img src="assets/nibras/calendar-dark.webp" width="1280" height="860" loading="lazy" alt="2026 calendar with Hijri months, dark mode"></a>
             <a role="listitem" class="shot" href="assets/nibras/assistant-welcome.webp" target="_blank" rel="noopener"><img src="assets/nibras/assistant-welcome.webp" width="1280" height="764" loading="lazy" alt="Nibras robot assistant welcome card"></a>
           </div>
+          <div data-en-aria="Project gallery" class="shots strip" role="list" aria-label="معرض صور المشروع">
+            <a role="listitem" class="shot" href="assets/nibras/slide-1.webp" target="_blank" rel="noopener"><img src="assets/nibras/slide-1.webp" width="800" height="1000" loading="lazy" alt="Nibras: an AI study agent that plans your study"></a>
+            <a role="listitem" class="shot" href="assets/nibras/slide-2.webp" target="_blank" rel="noopener"><img src="assets/nibras/slide-2.webp" width="800" height="1000" loading="lazy" alt="Smart schedule: subjects and exam dates become a plan"></a>
+            <a role="listitem" class="shot" href="assets/nibras/slide-3.webp" target="_blank" rel="noopener"><img src="assets/nibras/slide-3.webp" width="800" height="1000" loading="lazy" alt="AI agent: every step shown in plain words"></a>
+            <a role="listitem" class="shot" href="assets/nibras/slide-4.webp" target="_blank" rel="noopener"><img src="assets/nibras/slide-4.webp" width="800" height="1000" loading="lazy" alt="Calendar, focus timer and daily quiz"></a>
+            <a role="listitem" class="shot" href="assets/nibras/slide-5.webp" target="_blank" rel="noopener"><img src="assets/nibras/slide-5.webp" width="800" height="1000" loading="lazy" alt="Try Nibras free, no sign-up"></a>
+          </div>
           <div class="proj-links">
             <a class="btn btn-primary" href="https://afnanaljohani.github.io/Afnan/nibras/" target="_blank" rel="noopener"><span data-en="Open Nibras">افتح نبراس</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
             <a class="btn" href="https://afnanaljohani.github.io/Afnan/nibras/assets/nibras-teaser.mp4" target="_blank" rel="noopener"><span data-en="Watch the teaser">شاهد العرض</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4z"/></svg></a>
@@ -571,6 +582,13 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
             <a role="listitem" class="shot" href="assets/makkah/site-03.webp" target="_blank" rel="noopener"><img src="assets/makkah/site-03.webp" width="864" height="1080" loading="lazy" alt="Hajj 2026 in numbers: 1,707,301 pilgrims"></a>
             <a role="listitem" class="shot" href="assets/makkah/site-06.webp" target="_blank" rel="noopener"><img src="assets/makkah/site-06.webp" width="864" height="1080" loading="lazy" alt="AI in the Hajj season, in numbers"></a>
             <a role="listitem" class="shot" href="assets/makkah/site-11.webp" target="_blank" rel="noopener"><img src="assets/makkah/site-11.webp" width="864" height="1080" loading="lazy" alt="Ask Rasheed: the chatbot answering about Nusuk AI"></a>
+          </div>
+          <div data-en-aria="Project gallery" class="shots strip" role="list" aria-label="معرض صور المشروع">
+            <a role="listitem" class="shot" href="assets/makkah/slide-3.webp" target="_blank" rel="noopener"><img src="assets/makkah/slide-3.webp" width="800" height="1000" loading="lazy" alt="Human Tide film at the Hajj Expo"></a>
+            <a role="listitem" class="shot" href="assets/makkah/slide-4.webp" target="_blank" rel="noopener"><img src="assets/makkah/slide-4.webp" width="800" height="1000" loading="lazy" alt="Nusuk AI in numbers"></a>
+            <a role="listitem" class="shot" href="assets/makkah/slide-5.webp" target="_blank" rel="noopener"><img src="assets/makkah/slide-5.webp" width="800" height="1000" loading="lazy" alt="Operations centre: 5,000 cameras and 16 algorithms"></a>
+            <a role="listitem" class="shot" href="assets/makkah/slide-6.webp" target="_blank" rel="noopener"><img src="assets/makkah/slide-6.webp" width="800" height="1000" loading="lazy" alt="10 technologies changing Hajj"></a>
+            <a role="listitem" class="shot" href="assets/makkah/slide-8.webp" target="_blank" rel="noopener"><img src="assets/makkah/slide-8.webp" width="800" height="1000" loading="lazy" alt="Try the interactive site"></a>
           </div>
           <div class="proj-links">
             <a class="btn btn-primary" href="makkah-to-world/" target="_blank" rel="noopener"><span data-en="Visit the site">زُر الموقع</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
@@ -617,9 +635,12 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
           </ul>
           <div data-en-aria="Project slides" class="shots three" role="list" aria-label="شرائح المشروع">
             <a role="listitem" class="shot wide" href="assets/leap-ar/lens-bridge.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/lens-bridge.webp" width="1280" height="638" loading="lazy" alt="Engineering mutual understanding: robot and human linked by the AR lens"></a>
+            <a role="listitem" class="shot" href="assets/leap-ar/portrait.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/portrait.webp" width="1120" height="1120" loading="lazy" alt="Human or AI? The LEAP 2026 lens identity"></a>
+            <a role="listitem" class="shot" href="assets/leap-ar/eye.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/eye.webp" width="1222" height="766" loading="lazy" alt="AR lens experience: where human meets robot"></a>
             <a role="listitem" class="shot" href="assets/leap-ar/colors.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/colors.webp" width="1273" height="669" loading="lazy" alt="Color identity: Saudi Green and Lavender"></a>
             <a role="listitem" class="shot" href="assets/leap-ar/innovation.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/innovation.webp" width="1194" height="615" loading="lazy" alt="The innovation engine slide"></a>
             <a role="listitem" class="shot" href="assets/leap-ar/vision-2017.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/vision-2017.webp" width="1280" height="675" loading="lazy" alt="2017: Saudi Arabia leading the future"></a>
+            <a role="listitem" class="shot" href="https://leap-ar-lens-ungxfdkc.manus.space/" target="_blank" rel="noopener"><img src="assets/leap-ar/scan.webp" width="1280" height="720" loading="lazy" alt="Scan to open the LEAP AR lens project"></a>
           </div>
           <div class="proj-links">
             <a class="btn btn-primary" href="https://leap-ar-lens-ungxfdkc.manus.space/" target="_blank" rel="noopener"><span data-en="Project website">موقع المشروع</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
