@@ -169,6 +169,7 @@ footer a:hover{border-color:var(--gold)}
     <p class="st">الحج والعمرة 2026 بالأرقام 🇸🇦</p>
     <button class="btn" id="go">▶ ادخل</button>
   </div>
+  <button class="btn" id="skip0" hidden style="position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px))">تخطّي ⏭</button>
   <div id="vid">
     <video id="iv" playsinline preload="auto" poster="media/intro.jpg" src="media/intro.mp4"></video>
     <div class="ctl"><button class="btn" id="snd" hidden>🔊 شغّل الصوت</button><button class="btn" id="skip">تخطّي ⏭</button></div>
@@ -190,11 +191,13 @@ footer a:hover{border-color:var(--gold)}
 <div class="big gold r" data-to="1707301">1,707,301</div>
 <h2 class="r">حاج وحاجّة</h2>
 <p class="sub r">من داخل المملكة وخارجها، بحسب الهيئة العامة للإحصاء</p>
-<div class="g r">
+<div class="g g3 r">
 <div class="c"><b data-to="1546655">1,546,655</b><span>قدموا من الخارج</span></div>
 <div class="c"><b data-to="160646">160,646</b><span>حجاج الداخل</span></div>
-<div class="c"><b data-to="165">165</b><span>جنسية</span></div>
-<div class="c"><b data-to="1485729">1,485,729</b><span>وصلوا عبر المنافذ الجوية</span></div>
+<div class="c"><b data-to="165">165</b><span>جنسية لحجاج الخارج</span></div>
+<div class="c"><b data-to="1485729">1,485,729</b><span>✈️ عبر المنافذ الجوية</span></div>
+<div class="c"><b data-to="54429">54,429</b><span>🚌 عبر المنافذ البرية</span></div>
+<div class="c"><b data-to="6497">6,497</b><span>🚢 عبر المنافذ البحرية</span></div>
 </div>
 <div class="bar r"><i></i><i></i></div>
 <div class="lg r"><span>ذكور 893,396</span><span>إناث 813,905</span></div>
@@ -329,7 +332,7 @@ rs();addEventListener('resize',rs);
 const pg=document.getElementById('pg');
 addEventListener('scroll',()=>{pg.style.transform='scaleX('+Math.min(1,scrollY/(document.body.scrollHeight-innerHeight||1))+')'},{passive:true});
 function count(el){const to=+el.dataset.to,d=+el.dataset.dec||0,pre=el.dataset.pre||'',suf=el.dataset.suf||'',t0=performance.now();
-(function s(t){const p=Math.min(1,(t-t0)/2200),v=to*(1-Math.pow(2,-10*p));
+(function s(t){const p=Math.min(1,(t-t0)/2200),v=p>=1?to:to*(1-Math.pow(2,-10*p));
 el.textContent=pre+v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d})+suf;if(p<1)requestAnimationFrame(s)})(t0)}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const n=e.target;n.classList.add('in');(n.dataset.to?[n]:[...n.querySelectorAll('[data-to]')]).forEach(count);io.unobserve(n)}}),{threshold:.25});
 document.querySelectorAll('.r').forEach(n=>io.observe(n));
@@ -352,16 +355,17 @@ function say(t,done){bot.classList.add('talk');let fin=false;const end=()=>{if(f
 const intro=document.getElementById('intro'),iv=document.getElementById('iv'),snd=document.getElementById('snd');
 const WELCOME='هلا والله وغلا، ويا حيّ الله من جانا! أنا روبوت خدّام الحرم، وبوريكم وش سوّت السعودية في حج ألفين وستة وعشرين بالأرقام. خلّونا نبدأ بهالمقطع، تابعوا معي!';
 document.getElementById('go').onclick=()=>{document.getElementById('gate').style.display='none';bub.textContent='هلا والله وغلا… حيّاكم الله! 👋';
- playWelcome()};
+ document.getElementById('skip0').hidden=false;playWelcome()};
+document.getElementById('skip0').onclick=finishIntro;let introDone=false,wa=null;
 /* لو فيه تسجيل صوتي media/welcome.m4a يشغّله، وإلا يرجع لصوت المتصفح */
-function playWelcome(){const a=new Audio('media/welcome.m4a');let done=false;
+function playWelcome(){const a=wa=new Audio('media/welcome.m4a');let done=false;
  const tts=()=>{if(done)return;done=true;say(WELCOME,playIntro)};
  a.onerror=tts;a.onended=()=>{done=true;bot.classList.remove('talk');playIntro()};
  a.onplaying=()=>{done=true;bot.classList.add('talk')};a.play().catch(tts)}
-function playIntro(){intro.classList.add('v');iv.muted=false;iv.play().catch(()=>{iv.muted=true;snd.hidden=false;iv.play()})}
+function playIntro(){if(introDone)return;document.getElementById('skip0').hidden=true;intro.classList.add('v');iv.muted=false;iv.play().catch(()=>{iv.muted=true;snd.hidden=false;iv.play()})}
 snd.onclick=()=>{iv.muted=false;snd.hidden=true};
 iv.onended=finishIntro;document.getElementById('skip').onclick=finishIntro;
-function finishIntro(){iv.pause();intro.classList.add('out');document.body.classList.remove('lock');
+function finishIntro(){if(introDone)return;introDone=true;iv.pause();if(wa)wa.pause();if('speechSynthesis' in window)speechSynthesis.cancel();bot.classList.remove('talk');intro.classList.add('out');document.body.classList.remove('lock');
  setTimeout(()=>{document.body.appendChild(bot);bot.classList.add('dock');bub.textContent='عندك سؤال؟ اسأل رشيد 💬';intro.remove();
  setTimeout(()=>bub.classList.add('hide'),6000)},800)}
 
