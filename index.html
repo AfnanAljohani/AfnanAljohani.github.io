@@ -14,7 +14,8 @@
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="theme-color" content="#030814" />
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23030814'/%3E%3Cpath d='M14 46 27 16h7l13 30h-7l-3-7H24l-3 7h-7Zm12-13h9l-4.5-11L26 33Z' fill='%234da3ff'/%3E%3Crect x='44' y='42' width='8' height='4' fill='%233ddc97'/%3E%3C/svg%3E" />
+<link rel="icon" type="image/png" sizes="64x64" href="assets/brand/favicon-64.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png" />
 <script>
 /* saved theme, else dark (the brand's home theme) */
 (function(){var t;try{t=localStorage.getItem('theme')}catch(e){}
@@ -117,6 +118,9 @@ img{display:block;max-width:100%}
 .nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;gap:var(--space-5);height:64px}
 .brand{display:flex;align-items:center;gap:10px;font:600 15px var(--font-mono);direction:ltr}
+.brand .logo{height:34px;width:auto;border-radius:9px;border:1px solid var(--line-strong);box-shadow:0 0 18px -6px rgba(77,163,255,.55);transition:transform .25s ease}
+.brand:hover .logo{transform:translateY(-1px) scale(1.03)}
+@media (max-width:420px){.brand .logo{height:30px}}
 .brand .mark{width:30px;height:30px;border:1px solid var(--line-strong);border-radius:var(--radius-md);display:grid;place-items:center;color:var(--brand);font-weight:700}
 .brand .cursor{display:inline-block;width:8px;height:15px;background:var(--signal);margin-inline-start:2px;vertical-align:-2px;animation:blink 1.1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
@@ -265,6 +269,7 @@ section{padding:var(--space-9) 0;border-top:1px solid var(--line)}
 .shot.wide{grid-column:1/-1}
 .shot img{display:block;width:100%;height:100%;aspect-ratio:16/9;object-fit:cover}
 .shot.wide img{aspect-ratio:2/1}
+.shots.tall .shot img{aspect-ratio:4/5}
 .shot.doc{background:#fff}.shot.doc img{object-fit:contain}
 .proj-links{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-5)}
 @media (max-width:720px){.shots{grid-template-columns:repeat(2,1fr)}}
@@ -387,7 +392,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
 
 <header class="nav" id="nav">
   <div class="wrap nav-in">
-    <a data-en-aria="Afnan Aljohani — home" href="#top" class="brand" aria-label="أفنان الجهني — الرئيسية"><span class="mark">A</span>afnan.aljohani<span class="cursor" aria-hidden="true"></span></a>
+    <a data-en-aria="Afnan Aljohani — home" href="#top" class="brand" aria-label="أفنان الجهني — الرئيسية"><img class="logo" src="assets/brand/logo-pill.png" width="104" height="34" alt="" />afnan.aljohani<span class="cursor" aria-hidden="true"></span></a>
     <nav data-en-aria="Main navigation" class="links" id="links" aria-label="التنقل الرئيسي">
       <a href="#about"><span>01.</span>about</a>
       <a href="#work"><span>02.</span>projects</a>
@@ -525,10 +530,26 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
         <div class="card-body">
           <span class="tag" data-en="Bilingual · AI-assisted build">ثنائي اللغة · بناء مدعوم بالذكاء الاصطناعي</span>
           <h3 data-en="Nibras — AI Study Agent">نبراس — وكيل دراسي ذكي</h3>
-          <p data-en="A bilingual (Arabic / English) AI study agent that helps learners plan multi-subject study schedules around a 2026 calendar.">وكيل دراسي ذكي ثنائي اللغة (عربي / إنجليزي) يساعد المتعلمين على تخطيط جداول مذاكرة لعدة مواد وفق تقويم 2026.</p>
-          <div class="csr"><div><h4 data-en="Problem &lt;small&gt;التحدي&lt;/small&gt;">التحدي <small>PROBLEM</small></h4><p data-en="Students juggle several subjects with no simple, Arabic-friendly way to plan their study time.">الطلاب يوازنون بين عدة مواد بدون أداة بسيطة تدعم العربية لتنظيم وقت المذاكرة.</p></div><div><h4 data-en="Approach &lt;small&gt;الحل&lt;/small&gt;">الحل <small>APPROACH</small></h4><p data-en="An AI agent that builds a study plan per subject, mapped onto a general 2026 calendar with holidays.">وكيل ذكي يبني خطة مذاكرة لكل مادة على تقويم عام لـ 2026 يشمل الإجازات.</p></div><div><h4 data-en="Role &lt;small&gt;دوري&lt;/small&gt;">دوري <small>ROLE</small></h4><p data-en="Idea, design and build — end to end.">الفكرة والتصميم والبناء — من البداية للنهاية.</p></div></div>
-          <div class="proj-links"><a class="btn btn-primary" href="https://afnanaljohani.github.io/Afnan/nibras/" target="_blank" rel="noopener"><span data-en="Open Nibras">افتح نبراس</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div>
-          <div class="chips"><span class="chip">AI Agent</span><span class="chip">Bilingual UX</span><span class="chip">AI-assisted coding</span><span class="chip">JavaScript</span></div>
+          <p data-en="A bilingual (Arabic / English) AI study agent that turns subjects and exam dates into a daily study plan, with a focus timer, a daily quiz and a 2026 calendar.">وكيل دراسي ذكي ثنائي اللغة (عربي / إنجليزي) يحوّل المواد وتواريخ الاختبارات إلى خطة مذاكرة يومية، مع مؤقت تركيز وتحدٍّ يومي وتقويم 2026.</p>
+          <div class="csr"><div><h4 data-en="Problem &lt;small&gt;التحدي&lt;/small&gt;">التحدي <small>PROBLEM</small></h4><p data-en="Students juggle several subjects with no simple, Arabic-friendly way to plan their study time.">الطلاب يوازنون بين عدة مواد بدون أداة بسيطة تدعم العربية لتنظيم وقت المذاكرة.</p></div><div><h4 data-en="Approach &lt;small&gt;الحل&lt;/small&gt;">الحل <small>APPROACH</small></h4><p data-en="An agent with nine tools that gives harder subjects and closer exams more sessions, and saves the day before each exam for review.">وكيل بتسع أدوات يعطي المادة الأصعب والأقرب جلسات أكثر، ويخصص اليوم اللي قبل كل اختبار للمراجعة.</p></div><div><h4 data-en="Role &lt;small&gt;دوري&lt;/small&gt;">دوري <small>ROLE</small></h4><p data-en="Idea, design and build — end to end.">الفكرة والتصميم والبناء — من البداية للنهاية.</p></div></div>
+          <ul class="outcomes">
+            <li data-en="Every step the agent takes is shown in plain words, never as code">كل خطوة يسويها الوكيل تطلع بكلام واضح، بدون أكواد</li>
+            <li data-en="Instant mode with zero setup, plus an optional AI mode using LLM function calling (Gemini, Groq or FreeLLMAPI)">وضع سريع بدون إعداد، ووضع ذكاء اصطناعي اختياري عبر Function Calling (Gemini أو Groq أو FreeLLMAPI)</li>
+            <li data-en="Input validation on every tool, prompt-injection defenses and 18 automated tests">فحص مدخلات كل أداة، وحماية من Prompt Injection، و18 اختبارًا تلقائيًا</li>
+          </ul>
+          <div data-en-aria="Nibras screenshots" class="shots" role="list" aria-label="صور من نبراس">
+            <a role="listitem" class="shot wide" href="assets/nibras/hero.webp" target="_blank" rel="noopener"><img src="assets/nibras/hero.webp" width="1600" height="956" loading="lazy" alt="Nibras landing page with the agent at work"></a>
+            <a role="listitem" class="shot" href="assets/nibras/desktop-ar.webp" target="_blank" rel="noopener"><img src="assets/nibras/desktop-ar.webp" width="1280" height="860" loading="lazy" alt="Subjects and the day-by-day study plan"></a>
+            <a role="listitem" class="shot" href="assets/nibras/agent-trace.webp" target="_blank" rel="noopener"><img src="assets/nibras/agent-trace.webp" width="1280" height="860" loading="lazy" alt="The agent explaining each step in plain words"></a>
+            <a role="listitem" class="shot" href="assets/nibras/calendar-dark.webp" target="_blank" rel="noopener"><img src="assets/nibras/calendar-dark.webp" width="1280" height="860" loading="lazy" alt="2026 calendar with Hijri months, dark mode"></a>
+            <a role="listitem" class="shot" href="assets/nibras/assistant-welcome.webp" target="_blank" rel="noopener"><img src="assets/nibras/assistant-welcome.webp" width="1280" height="764" loading="lazy" alt="Nibras robot assistant welcome card"></a>
+          </div>
+          <div class="proj-links">
+            <a class="btn btn-primary" href="https://afnanaljohani.github.io/Afnan/nibras/" target="_blank" rel="noopener"><span data-en="Open Nibras">افتح نبراس</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+            <a class="btn" href="https://afnanaljohani.github.io/Afnan/nibras/assets/nibras-teaser.mp4" target="_blank" rel="noopener"><span data-en="Watch the teaser">شاهد العرض</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4z"/></svg></a>
+            <a class="btn" href="https://github.com/AfnanAljohani/Afnan/tree/gh-pages/nibras" target="_blank" rel="noopener"><span data-en="Source code">الكود المصدري</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg></a>
+          </div>
+          <div class="chips"><span class="chip">AI Agent</span><span class="chip">Function Calling</span><span class="chip">Bilingual UX</span><span class="chip">JavaScript</span><span class="chip">Automated Testing</span></div>
         </div>
       </article>
 
@@ -539,8 +560,22 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
           <h3 data-en="Makkah to World">من مكة إلى العالم</h3>
           <p data-en="An interactive site on Saudi Hajj &amp; Umrah 2026 efforts — key numbers, the AI and technology behind the season, and an AI guide named Rasheed.">موقع تفاعلي عن جهود المملكة في موسم الحج والعمرة 2026 — أهم الأرقام، والتقنيات والذكاء الاصطناعي في الموسم، ومرشد ذكي اسمه «رشيد».</p>
           <div class="csr"><div><h4 data-en="Problem &lt;small&gt;التحدي&lt;/small&gt;">التحدي <small>PROBLEM</small></h4><p data-en="Hajj &amp; Umrah figures and innovations are scattered and hard to explore in one place.">أرقام وابتكارات الحج والعمرة متفرقة ويصعب استكشافها في مكان واحد.</p></div><div><h4 data-en="Approach &lt;small&gt;الحل&lt;/small&gt;">الحل <small>APPROACH</small></h4><p data-en="A visual, interactive story with live counters and a chatbot that answers visitors&#x27; questions.">قصة بصرية تفاعلية بعدّادات حية ومساعد محادثة يجاوب على أسئلة الزوار.</p></div><div><h4 data-en="Role &lt;small&gt;دوري&lt;/small&gt;">دوري <small>ROLE</small></h4><p data-en="Research, design, build and visual identity.">البحث والتصميم والبناء والهوية البصرية.</p></div></div>
-          <div class="proj-links"><a class="btn btn-primary" href="makkah-to-world/" target="_blank" rel="noopener"><span data-en="Visit the site">زُر الموقع</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div>
-          <div class="chips"><span class="chip">Chatbot</span><span class="chip">Data Storytelling</span><span class="chip">AI-assisted coding</span><span class="chip">UI Design</span></div>
+          <ul class="outcomes">
+            <li data-en="Rasheed, a robot in a shemagh who welcomes visitors in Saudi dialect and answers questions about the season&#x27;s numbers">«رشيد»: روبوت بالشماغ يرحّب بالزوار باللهجة السعودية ويجاوب عن أرقام الموسم</li>
+            <li data-en="Hajj and Umrah 2026 in numbers, from official sources">الحج والعمرة 2026 بالأرقام، من مصادر رسمية</li>
+            <li data-en="Ten technologies used this season, from smart cameras to the Nusuk card">عشر تقنيات استُخدمت هذا الموسم، من الكاميرات الذكية إلى بطاقة نسك</li>
+          </ul>
+          <div data-en-aria="Makkah to World screenshots" class="shots tall" role="list" aria-label="صور من الموقع">
+            <a role="listitem" class="shot" href="assets/makkah/site-01.webp" target="_blank" rel="noopener"><img src="assets/makkah/site-01.webp" width="864" height="1080" loading="lazy" alt="Rasheed the robot welcoming visitors"></a>
+            <a role="listitem" class="shot" href="assets/makkah/site-03.webp" target="_blank" rel="noopener"><img src="assets/makkah/site-03.webp" width="864" height="1080" loading="lazy" alt="Hajj 2026 in numbers: 1,707,301 pilgrims"></a>
+            <a role="listitem" class="shot" href="assets/makkah/site-06.webp" target="_blank" rel="noopener"><img src="assets/makkah/site-06.webp" width="864" height="1080" loading="lazy" alt="AI in the Hajj season, in numbers"></a>
+            <a role="listitem" class="shot" href="assets/makkah/site-11.webp" target="_blank" rel="noopener"><img src="assets/makkah/site-11.webp" width="864" height="1080" loading="lazy" alt="Ask Rasheed: the chatbot answering about Nusuk AI"></a>
+          </div>
+          <div class="proj-links">
+            <a class="btn btn-primary" href="makkah-to-world/" target="_blank" rel="noopener"><span data-en="Visit the site">زُر الموقع</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+            <a class="btn" href="assets/makkah/makkah-to-world-Afnan.pdf" target="_blank" rel="noopener"><span data-en="Slides (PDF)">الشرائح (PDF)</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></a>
+          </div>
+          <div class="chips"><span class="chip">Chatbot</span><span class="chip">Data Storytelling</span><span class="chip">Data Visualization</span><span class="chip">AI-assisted coding</span><span class="chip">UI Design</span></div>
         </div>
       </article>
 
