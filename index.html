@@ -251,6 +251,8 @@ section{padding:var(--space-9) 0;border-top:1px solid var(--line)}
 .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-5)}
 
 /* studio */
+.design-feature{border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface-card);overflow:hidden;margin-bottom:var(--space-6)}
+.design-feature .shots{margin:var(--space-4) 0 0;grid-template-columns:repeat(3,1fr)}
 .studio{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
 .shots{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);margin-bottom:var(--space-5)}
 .shot{display:block;border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;background:var(--surface-sunk);transition:border-color .15s}
@@ -384,10 +386,11 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
     <nav data-en-aria="Main navigation" class="links" id="links" aria-label="التنقل الرئيسي">
       <a href="#about"><span>01.</span>about</a>
       <a href="#work"><span>02.</span>projects</a>
-      <a href="#journey"><span>03.</span>experience</a>
-      <a href="#stack"><span>04.</span>stack</a>
-      <a href="#credentials"><span>05.</span>certs</a>
-      <a href="#contact"><span>06.</span>contact</a>
+      <a href="#designs"><span>03.</span>designs</a>
+      <a href="#journey"><span>04.</span>experience</a>
+      <a href="#stack"><span>05.</span>stack</a>
+      <a href="#credentials"><span>06.</span>certs</a>
+      <a href="#contact"><span>07.</span>contact</a>
     </nav>
     <div class="nav-actions">
       <button class="icon-btn lang-btn" id="langToggle" type="button" aria-label="Switch to English" lang="en">EN</button>
@@ -429,7 +432,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
 
       <div data-en-aria="Profile written as code: Afnan, AI and data science specialist, University of Jeddah, EWA AI cohort, KAUST Academy, founder of Bnan AI" class="code frame" role="img" aria-label="ملف تعريفي بصيغة كود: أفنان، أخصائية ذكاء اصطناعي وعلوم بيانات، جامعة جدة، أول دفعة ذكاء اصطناعي في الأكاديمية، أكاديمية كاوست، مؤسِّسة بنان">
         <div class="code-bar"><span class="file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>profile.py</span><span>Python 3</span></div>
-<pre><span class="l"><span class="k">class</span> <span class="n">Afnan</span><span class="p">(</span><span class="f">AISpecialist</span>, <span class="f">Builder</span><span class="p">):</span></span><span class="l">    name     <span class="p">=</span> <span class="s">"Afnan Fahad Aljohani"</span></span><span class="l">    degree   <span class="p">=</span> <span class="s">"BSc Computer Science"</span></span><span class="l">    track    <span class="p">=</span> <span class="s">"Data Science"</span>  <span class="c"># honors</span></span><span class="l">    school   <span class="p">=</span> <span class="s">"University of Jeddah"</span></span><span class="l">    focus    <span class="p">=</span> <span class="p">[</span><span class="s">"Computer Vision"</span>, <span class="s">"Deep Learning"</span>,</span><span class="l">                <span class="s">"Data Analytics"</span><span class="p">]</span></span><span class="l">    stack    <span class="p">=</span> <span class="p">[</span><span class="s">"Python"</span>, <span class="s">"PyTorch"</span>, <span class="s">"TensorFlow"</span>,</span><span class="l">                <span class="s">"SQL"</span>, <span class="s">"Power BI"</span><span class="p">]</span></span><span class="l">    program  <span class="p">=</span> <span class="s">"EWA AI Cohort 1"</span></span><span class="l">    studying <span class="p">=</span> <span class="s">"KAUST Academy AI"</span>  <span class="c"># in progress</span></span><span class="l">    founder  <span class="p">=</span> <span class="s">"Bnan AI"</span></span><span class="l">    location <span class="p">=</span> <span class="s">"Saudi Arabia"</span></span><span class="l"> </span><span class="l">    <span class="k">def</span> <span class="n">mission</span><span class="p">(</span>self<span class="p">):</span></span><span class="l">        <span class="k">return</span> <span class="s">"Engineering Intelligence."</span></span></pre>
+<pre><span class="l"><span class="k">class</span> <span class="n">Afnan</span><span class="p">(</span><span class="f">AISpecialist</span>, <span class="f">Builder</span><span class="p">):</span></span><span class="l">    name     <span class="p">=</span> <span class="s">"Afnan Fahad Aljohani"</span></span><span class="l">    degree   <span class="p">=</span> <span class="s">"BSc Computer Science"</span></span><span class="l">    track    <span class="p">=</span> <span class="s">"Data Science"</span></span><span class="l">    school   <span class="p">=</span> <span class="s">"University of Jeddah"</span></span><span class="l">    focus    <span class="p">=</span> <span class="p">[</span><span class="s">"Computer Vision"</span>, <span class="s">"Deep Learning"</span>,</span><span class="l">                <span class="s">"Data Analytics"</span><span class="p">]</span></span><span class="l">    stack    <span class="p">=</span> <span class="p">[</span><span class="s">"Python"</span>, <span class="s">"PyTorch"</span>, <span class="s">"TensorFlow"</span>,</span><span class="l">                <span class="s">"SQL"</span>, <span class="s">"Power BI"</span><span class="p">]</span></span><span class="l">    program  <span class="p">=</span> <span class="s">"EWA AI Cohort 1"</span></span><span class="l">    studying <span class="p">=</span> <span class="s">"KAUST Academy AI"</span>  <span class="c"># in progress</span></span><span class="l">    founder  <span class="p">=</span> <span class="s">"Bnan AI"</span></span><span class="l">    location <span class="p">=</span> <span class="s">"Saudi Arabia"</span></span><span class="l"> </span><span class="l">    <span class="k">def</span> <span class="n">mission</span><span class="p">(</span>self<span class="p">):</span></span><span class="l">        <span class="k">return</span> <span class="s">"Engineering Intelligence."</span></span></pre>
         <div class="code-foot"><span class="ok">● status: open_to_collab</span><span>UTF-8 · LF</span></div>
       </div>
     </div>
@@ -448,7 +451,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
   <div class="wrap">
     <div class="sec-head">
       <div><span class="path">~/afnan/<em>01_about</em></span><h2 data-en="About">عني</h2></div>
-      <p data-en="Computer Science graduate with honors from the University of Jeddah (Data Science track), with advanced technical training from Holberton School and Tuwaiq Academy.">خريجة علوم حاسب بمرتبة الشرف من جامعة جدة، مسار علوم البيانات، مع إعداد تقني متقدم من مدرسة هولبرتون وأكاديمية طويق.</p>
+      <p data-en="Computer Science graduate from the University of Jeddah (Data Science track), with advanced technical training from Holberton School and Tuwaiq Academy.">خريجة علوم حاسب من جامعة جدة، مسار علوم البيانات، مع إعداد تقني متقدم من مدرسة هولبرتون وأكاديمية طويق.</p>
     </div>
     <div class="about reveal">
       <div class="about-item"><span class="label">build()</span><h3 data-en="What I build">ماذا أبني</h3><p data-en="I develop computer-vision pipelines, optimize machine-learning architectures, and build practical data workflows and interactive executive dashboards.">أطوّر خطوط معالجة للرؤية الحاسوبية، وأحسّن بنى تعلم الآلة، وأبني تدفقات بيانات عملية ولوحات مؤشرات تنفيذية تفاعلية.</p></div>
@@ -476,7 +479,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
       <button data-en="Artificial Intelligence &lt;span class=&quot;count&quot;&gt;[5]&lt;/span&gt;" class="tab" role="tab" id="t-ai" aria-controls="p-ai" aria-selected="true">الذكاء الاصطناعي <span class="count">[5]</span></button>
       <button data-en="Data Analytics &lt;span class=&quot;count&quot;&gt;[3]&lt;/span&gt;" class="tab" role="tab" id="t-data" aria-controls="p-data" aria-selected="false" tabindex="-1">تحليل البيانات <span class="count">[3]</span></button>
       <button data-en="Products &lt;span class=&quot;count&quot;&gt;[1]&lt;/span&gt;" class="tab" role="tab" id="t-software" aria-controls="p-software" aria-selected="false" tabindex="-1">المنتجات <span class="count">[1]</span></button>
-      <button data-en="Design &lt;span class=&quot;count&quot;&gt;[6]&lt;/span&gt;" class="tab" role="tab" id="t-design" aria-controls="p-design" aria-selected="false" tabindex="-1">التصميم <span class="count">[6]</span></button>
+      <button data-en="AI &amp; NLP Challenges &lt;span class=&quot;count&quot;&gt;[4]&lt;/span&gt;" class="tab" role="tab" id="t-lab" aria-controls="p-lab" aria-selected="false" tabindex="-1">تحديات الذكاء الاصطناعي واللغة <span class="count">[4]</span></button>
     </div>
 
     <!-- AI -->
@@ -647,9 +650,81 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
       </article>
     </div>
 
-    <!-- DESIGN -->
-    <div class="panel" id="p-design" role="tabpanel" aria-labelledby="t-design" hidden>
-      <p data-en="The creative side — interfaces, graphics, visual identity and AI-assisted design." class="panel-intro">الجانب الإبداعي — واجهات، جرافيك، هوية بصرية، وتصاميم مدعومة بالذكاء الاصطناعي.</p>
+    <!-- AI & NLP CHALLENGES -->
+    <div class="panel" id="p-lab" role="tabpanel" aria-labelledby="t-lab" hidden>
+      <p data-en="Applied deep-learning and NLP challenges I completed during my AI training — each with full Python notebooks and measured results." class="panel-intro">تحديات تطبيقية في التعلم العميق ومعالجة اللغات أنجزتها خلال تدريبي في الذكاء الاصطناعي — كل تحدٍّ بدفاتر Python كاملة ونتائج مقاسة.</p>
+      <div class="grid-2">
+        <article class="card">
+          <div class="card-head"><span class="id"><b>#10</b> nlp / arabic-text</span><span data-en="AI program challenge · 2026" class="meta">تحدٍّ ضمن برنامج الذكاء الاصطناعي · 2026</span></div>
+          <div class="card-body">
+            <span class="tag" data-en="NLP">معالجة اللغات</span>
+            <h3 data-en="Arabic Text Analysis (NLP)">تحليل نص عربي بمعالجة اللغات</h3>
+            <p data-en="A full NLP pipeline on a large classical Arabic corpus, keeping the original text untouched and verified.">خط معالجة لغات كامل على نص عربي فصيح كبير، مع الحفاظ على النص الأصلي دون أي تعديل والتحقق منه.</p>
+            <ul class="outcomes" style="margin-top:var(--space-4)"><li data-en="Normalization, tokenization, Zipf &amp; Heaps laws, n-grams and ISRI stemming">التطبيع والتقطيع وقانونا Zipf و Heaps والـ n-grams والتجذيع بـ ISRI</li><li data-en="TF-IDF similarity, a small search engine, and an Arabic vs English comparison">تشابه TF-IDF ومحرك بحث صغير ومقارنة بين النص العربي وترجمته الإنجليزية</li><li data-en="Added a new idea: rhyme analysis of sentence endings">فكرة إضافية: تحليل القافية في نهايات الجمل</li></ul>
+            <div class="chips"><span class="chip">Python</span><span class="chip">NLTK</span><span class="chip">scikit-learn</span><span class="chip">TF-IDF</span><span class="chip">Arabic NLP</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><span class="id"><b>#11</b> nlp / text-visualization</span><span data-en="AI program challenge · 2026" class="meta">تحدٍّ ضمن برنامج الذكاء الاصطناعي · 2026</span></div>
+          <div class="card-body">
+            <span class="tag" data-en="NLP">معالجة اللغات</span>
+            <h3 data-en="Themed Word Cloud (NLP)">سحابة كلمات حسب الموضوع</h3>
+            <p data-en="From a raw English literary text to a shaped, transparent word cloud where every word is coloured by its theme.">من نص أدبي إنجليزي خام إلى سحابة كلمات بشكل مخصص وخلفية شفافة، وكل كلمة ملوّنة حسب موضوعها.</p>
+            <ul class="outcomes" style="margin-top:var(--space-4)"><li data-en="Cleaning, custom stopwords and lemmatization">التنظيف وكلمات توقف مخصصة والـ lemmatization</li><li data-en="Theme tracking across the whole text">تتبّع المواضيع على امتداد النص</li></ul>
+            <div class="chips"><span class="chip">Python</span><span class="chip">NLTK</span><span class="chip">WordCloud</span><span class="chip">Matplotlib</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><span class="id"><b>#12</b> dl / self-supervised</span><span data-en="AI program challenge · 2026" class="meta">تحدٍّ ضمن برنامج الذكاء الاصطناعي · 2026</span></div>
+          <div class="card-body">
+            <span class="tag" data-en="Deep Learning">التعلم العميق</span>
+            <h3 data-en="Comparing 8 Unsupervised Models">مقارنة 8 نماذج تعلم غير موجّه</h3>
+            <p data-en="Trained GAN, SOM, RBM, Autoencoder, VAE, DBN, DEC and SimCLR on 8,000 unlabelled images, then scored them all with one fair yardstick.">درّبت GAN و SOM و RBM و Autoencoder و VAE و DBN و DEC و SimCLR على 8,000 صورة بدون تصنيفات، وقيّمتها كلها بمعيار واحد عادل.</p>
+            <ul class="outcomes" style="margin-top:var(--space-4)"><li data-en="SimCLR came first at 71% (linear probe), confirmed with a significance test">SimCLR الأول بنسبة 71% مع اختبار دلالة إحصائية</li><li data-en="With only 100 labels it beat a CNN trained from scratch by 5 points">بـ 100 تصنيف فقط تفوّق على CNN مدرّب من الصفر بـ 5 نقاط</li></ul>
+            <div class="chips"><span class="chip">PyTorch</span><span class="chip">TensorFlow / Keras</span><span class="chip">SimCLR</span><span class="chip">GAN</span><span class="chip">VAE</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><span class="id"><b>#13</b> speech / arabic-asr</span><span data-en="AI program challenge · 2026" class="meta">تحدٍّ ضمن برنامج الذكاء الاصطناعي · 2026</span></div>
+          <div class="card-body">
+            <span class="tag" data-en="Speech AI">الذكاء الاصطناعي الصوتي</span>
+            <h3 data-en="Improving Arabic Speech-to-Text">تحسين تحويل الكلام العربي إلى نص</h3>
+            <p data-en="An 8-step pipeline on my own Modern Standard Arabic recording, each step measured by word error rate.">خط من 8 خطوات على تسجيل صوتي لي بالعربية الفصحى، وكل خطوة مقاسة بمعدل خطأ الكلمات (WER).</p>
+            <ul class="outcomes" style="margin-top:var(--space-4)"><li data-en="Bigger and Arabic fine-tuned models, audio cleaning and domain prompts">نماذج أكبر ومدرّبة على العربية، وتنظيف الصوت، وتلميحات بمصطلحات المجال</li><li data-en="Model consensus plus LLM correction of the final transcript">توافق بين النماذج وتصحيح النص النهائي بنموذج لغوي كبير</li></ul>
+            <div class="chips"><span class="chip">Whisper</span><span class="chip">Hugging Face</span><span class="chip">ALLaM</span><span class="chip">PyArabic</span><span class="chip">WER / CER</span></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ DESIGNS ============ -->
+<section id="designs">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="path">~/afnan/<em>03_designs</em></span><h2 data-en="Designs">التصاميم</h2></div>
+      <p data-en="The creative side — interfaces, graphics, visual identities, presentations and AI-assisted design. I design, build and voice my own products.">الجانب الإبداعي — واجهات، جرافيك، هويات بصرية، عروض تقديمية، وتصاميم مدعومة بالذكاء الاصطناعي. أصمّم منتجاتي وأبنيها وأعلّق عليها بصوتي.</p>
+    </div>
+    <div class="design-feature reveal">
+      <div class="card-head"><span class="id"><b>featured</b> visual-identity / presentation</span><span data-en="LEAP 2026 · 2nd prize" class="meta">LEAP 2026 · المركز الثاني</span></div>
+      <div class="card-body">
+        <h3 data-en="LEAP AR Lens — identity &amp; pitch deck">عدسة LEAP AR — الهوية والعرض التقديمي</h3>
+        <p data-en="Colour identity, slides and visuals I designed for the award-winning AR lens.">الهوية اللونية والشرائح والمرئيات اللي صمّمتها لعدسة الواقع المعزز الفائزة.</p>
+        <div data-en-aria="Design samples" class="shots" role="list" aria-label="نماذج من التصاميم">
+          <a role="listitem" class="shot wide" href="assets/leap-ar/lens-bridge.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/lens-bridge.webp" width="1280" height="638" loading="lazy" alt="Slide: robot and human linked by the AR lens"></a>
+          <a role="listitem" class="shot" href="assets/leap-ar/colors.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/colors.webp" width="1273" height="669" loading="lazy" alt="Colour identity: Saudi Green and Lavender"></a>
+          <a role="listitem" class="shot" href="assets/leap-ar/innovation.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/innovation.webp" width="1194" height="615" loading="lazy" alt="Slide: the innovation engine"></a>
+          <a role="listitem" class="shot" href="assets/leap-ar/vision-2017.webp" target="_blank" rel="noopener"><img src="assets/leap-ar/vision-2017.webp" width="1280" height="675" loading="lazy" alt="Slide: Saudi Arabia leading the future"></a>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
       <div class="studio">
         <div><span class="label">ui_ux/</span><b data-en="UI / UX Design">تصميم واجهات المستخدم</b><p data-en="Interfaces for apps and digital platforms">واجهات تطبيقات ومنصات رقمية</p></div>
         <div><span class="label">graphic/</span><b data-en="Graphic Design">تصميم الجرافيك</b><p data-en="Posters and visual identities">بوسترات وهويات بصرية</p></div>
@@ -666,7 +741,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
 <section id="journey">
   <div class="wrap">
     <div class="sec-head">
-      <div><span class="path">~/afnan/<em>03_experience</em></span><h2 data-en="Experience &amp; Education">الخبرات والتعليم</h2></div>
+      <div><span class="path">~/afnan/<em>04_experience</em></span><h2 data-en="Experience &amp; Education">الخبرات والتعليم</h2></div>
       <p data-en="A timeline of my experience, training and education.">سجل زمني للخبرات والتدريب والتعليم.</p>
     </div>
     <ol class="log">
@@ -708,7 +783,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
       <li class="entry reveal">
         <div class="when"><span class="d">2026</span><br><span data-en="Education" class="type">تعليم</span></div>
         <div class="body"><h3 data-en="BSc Computer Science — Data Science Track">بكالوريوس علوم الحاسب — مسار علوم البيانات</h3><div data-en="University of Jeddah" class="org">University of Jeddah — جامعة جدة</div>
-          <p data-en="Graduated with honors, plus a Finance track completion certificate from the University of Jeddah College of Business.">خريجة بمرتبة الشرف، مع شهادة إتمام المسار المالي من كلية الأعمال بجامعة جدة.</p>
+          <p data-en="Plus a Finance track completion certificate from the University of Jeddah College of Business.">مع شهادة إتمام المسار المالي من كلية الأعمال بجامعة جدة.</p>
           <div data-en="&lt;b&gt;Graduation project:&lt;/b&gt; A deep-learning pipeline for medical image classification (DermaVision)." class="key"><b>مشروع التخرج:</b> خط تعلم عميق لتصنيف الصور الطبية (DermaVision).</div></div>
       </li>
       <li class="entry reveal">
@@ -725,7 +800,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
 <section id="stack">
   <div class="wrap">
     <div class="sec-head">
-      <div><span class="path">~/afnan/<em>04_stack</em></span><h2 data-en="Skills &amp; Tools">المهارات والأدوات</h2></div>
+      <div><span class="path">~/afnan/<em>05_stack</em></span><h2 data-en="Skills &amp; Tools">المهارات والأدوات</h2></div>
       <p data-en="The tools I use across AI, data, development and design.">الأدوات التي أعمل بها في الذكاء الاصطناعي والبيانات والتطوير والتصميم.</p>
     </div>
     <div class="skills reveal">
@@ -743,7 +818,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
 <section id="credentials">
   <div class="wrap">
     <div class="sec-head">
-      <div><span class="path">~/afnan/<em>05_certs</em></span><h2 data-en="Awards &amp; Certifications">الجوائز والشهادات</h2></div>
+      <div><span class="path">~/afnan/<em>06_certs</em></span><h2 data-en="Awards &amp; Certifications">الجوائز والشهادات</h2></div>
       <p data-en="Awards, a Guinness World Record, and 30+ certifications — highlights below from AWS, Huawei, IBM, SDAIA and Red Hat.">جوائز ورقم قياسي في غينيس، وأكثر من 30 شهادة — أبرزها أدناه من AWS و Huawei و IBM و SDAIA و Red Hat.</p>
     </div>
     <div class="awards reveal">
@@ -786,7 +861,7 @@ footer{border-top:1px solid var(--line);padding:var(--space-5) 0;font:500 12.5px
 <section id="contact">
   <div class="wrap contact">
     <div>
-      <span class="path">~/afnan/<em>06_contact</em></span>
+      <span class="path">~/afnan/<em>07_contact</em></span>
       <h2 data-en="Let&#x27;s build something &lt;em&gt;intelligent&lt;/em&gt; together">لنبنِ شيئًا <em>ذكيًا</em> معًا</h2>
       <p data-en="Have a project or a collaboration in mind? I&#x27;d love to hear from you — email or LinkedIn is the best way to reach me." class="lead">عندك مشروع أو فكرة تعاون؟ يسعدني التواصل — البريد الإلكتروني أو لينكدإن أفضل طريقة للوصول لي.</p>
       <div class="ctas">
